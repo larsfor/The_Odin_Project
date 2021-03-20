@@ -1,0 +1,123 @@
+html, body {
+    margin:0;
+    padding:0;
+}
+
+#footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+#footer2 {
+    position: fixed;
+    bottom: 39px;
+    width: 100%;
+}
+
+.top {
+    text-align: right;
+    padding-top: 10px;
+    object-fit: fill;
+}
+
+
+.top-text {
+    text-align: right;
+    text-decoration: none;
+    font-size: 13px;
+    color:black;
+    padding-right: 10px;
+    font-family: arial,sans-serif;
+}
+
+.top-text:hover {
+    text-decoration: underline;
+}
+
+
+.logo {
+    text-align: center;
+    padding-top: 161px;
+}
+
+.searchbar-div {
+    padding-top: 23px;
+    margin: auto;
+    width: 50%;
+    text-align: center;
+}
+
+
+.searchbar-field {
+    height: 42px;
+    width: 480px;
+    border-radius: 25px;
+    border-width: 0.5px;
+    border-style: solid;
+    color: lightgray;
+}
+
+.searchbar-field:hover {
+    border-color: lightgray;
+    box-shadow:  1px 1px 8px 1px lightgray;
+}
+
+
+.searchbar-input {
+    height: 40px;
+    width: 400px;
+    border-color: white;
+    border-style: none;
+}
+
+.search {
+    text-align: center;
+    padding-top: 30px;
+}
+
+
+.search-button {
+    width: 125px;
+    border-style: solid;
+    border-color: white;
+    background-color: white;
+    border-width: thin;
+    border-radius: 5px;
+    font-family: arial,sans-serif;
+    font-size: 14px;
+    height: 35px;
+}
+
+.search-button:hover {
+    border-style: ridge;
+    border-color: lightgray;
+}
+
+
+.bottom {
+    border-width: thin;
+    border-style: solid;
+    border-color: lightgray;
+    background: #f2f2f2;;
+    bottom: 100px;
+}
+
+.bottom-text {
+    color: grey;
+    padding-left: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-family: arial,sans-serif;
+    font-size: 15px;
+}
+
+
+.bottom-text-link {
+    color: grey;
+    text-decoration: none;
+}
+
+.bottom-text-link:hover {
+    text-decoration: underline;
+}
