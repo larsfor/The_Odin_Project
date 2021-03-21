@@ -99,7 +99,3 @@ function playRound(playerSelection, computerSelection) {
         drawPoints.textContent = "Draws: 0";
     }
 }
-
-function checkChoice(choice) {
-    return ["rock", "paper", "scissors"].includes(choice);
-}
