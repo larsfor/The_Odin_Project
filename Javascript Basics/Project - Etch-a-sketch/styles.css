@@ -1,3 +1,18 @@
-html {
-    font-size: 10px;
+.grid {
+    display: grid;
+    max-width: 960px;
+    min-height: 700px;
+    margin: 2px;
+    border: 1px solid black;
+}
+
+.gridElement {
+    background-color: white;
+    border: 1px solid black;
+}
+
+
+.wrapper {
+    text-align: center;
+    width: 960px;
 }
