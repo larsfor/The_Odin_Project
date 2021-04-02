@@ -1,7 +1,7 @@
 let findTheOldest = function(array) {
     let age = 0;
     let yearOfDeath = 0;
-    const oldest = array.reduce(function(obj, item) {
+    return oldest = array.reduce((obj, item) => {
         
         // If person isn't dead yet, use current year
         if (!item.yearOfDeath) {
@@ -17,6 +17,7 @@ let findTheOldest = function(array) {
         }
         return obj;
     }, {})
-    return oldest;
 }
+
+
 module.exports = findTheOldest
