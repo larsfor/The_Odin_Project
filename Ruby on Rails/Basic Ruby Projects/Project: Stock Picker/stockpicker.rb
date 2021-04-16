@@ -4,14 +4,17 @@ def stock_picker(array)
 
   # Loop through each of the days checking the profit for each proceeding day minus current day
   # If the future day minus the current day is larger than current result, we replace the result
-  # and the indices of the array best_days
+  # and the indices of the array "best_days"
   array.each_with_index {|day, day_index|
     array.each_with_index {|profit, profit_index|
+      
+      # You have to have bought before you can sell
       if profit_index > day_index
+
+        # No need to do anything if we already have a better result
         if array[profit_index] - array[day_index] > result
           result = array[profit_index] - array[day_index]
-          best_days[0] = day_index
-          best_days[1] = profit_index
+          best_days = [day_index, profit_index]
          end
       end
     }
