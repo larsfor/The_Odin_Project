@@ -88,7 +88,8 @@ class Play
   end
 
   # All the scenarios in which a player can win
-  # If none of them are fulfilled, return a winner is declared
+  # If none of them are fulfilled, the game continues until we either have a winner
+  # or the game is a draw.
   def game_won?(board, current_player)
     # All the different combinations for a victory. There surely must be a better
     # way to check this. But this is the best I can do currently.
