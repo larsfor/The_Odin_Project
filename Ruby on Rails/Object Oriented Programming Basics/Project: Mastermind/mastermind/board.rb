@@ -15,17 +15,17 @@ module Mastermind
       @hidden = input.fetch(:grid, hidden_pattern)
     end
 
-    def get_cell(round, color)
-      grid[round][color]
+    def get_cell(round, column, place)
+      place == 'board' ? grid[round][column] : hidden[round][column]
     end
 
-    def set_cell(round, color, value)
-      get_cell(round, color).value = value
+    def set_cell(round, column, color, grid)
+      grid == 'board' ? get_cell(round, column, 'board').value = color : get_cell(round, column, 'hidden').value = color
     end
 
     def print_all
       print_board
-      print_pattern
+      print_hidden
     end
 
     def print_board
@@ -36,7 +36,7 @@ module Mastermind
       nil # To hide the return statement from the Object
     end
 
-    def print_pattern
+    def print_hidden
       puts 'Hidden pattern:'
       hidden.each do |row|
         puts row.map { |cell| cell.value.empty? ? '[]' : cell.value }.join(' ')

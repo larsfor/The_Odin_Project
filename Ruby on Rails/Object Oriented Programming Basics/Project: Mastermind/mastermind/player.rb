@@ -8,10 +8,11 @@ module Mastermind
   # The class to keep track of the players (codebraker and codemaker).
   # In addition you can decide if you want the computer to play
   class Player
-    attr_reader :role
+    attr_reader :role, :name
 
     def initialize(input)
       @role = input.fetch(:role)
+      @name = input.fetch(:name)
     end
   end
 end

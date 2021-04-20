@@ -10,7 +10,7 @@ require_relative './mastermind/core_extensions'
 lib_path = __dir__
 Dir["#{lib_path}/mastermind/**/*.rb"].sort.each { |file| require file }
 
-computer = Mastermind::Player.new({ role: 'GM', name: 'CPU' })
+computer = Mastermind::Player.new({ role: 'GM', name: 'test' })
 lars = Mastermind::Player.new({ role: 'GB', name: 'Lars' })
 
 Mastermind::Game.new(computer, lars).play

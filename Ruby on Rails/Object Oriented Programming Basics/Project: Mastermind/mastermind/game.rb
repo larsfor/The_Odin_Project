@@ -7,7 +7,7 @@
 module Mastermind
   # The class where the game logic is handles
   class Game
-    attr_reader :player1, :player2, :rounds
+    attr_reader :player1, :player2, :rounds, :color, :color_hash, :hidden_not_filled, :hidden_colors
     attr_accessor :board
 
     def initialize(player1, player2)
@@ -15,11 +15,67 @@ module Mastermind
       @player2 = player2
       @round = 1
       @board = Board.new
+      @color = %i[r g b y br t]
+      @color_hash = { r: 'red', b: 'blue', g: 'green', y: 'yellow', br: 'brown', t: 'teal' }
+      @hidden_not_filled = true
+      @hidden_colors = 0
     end
 
     def play
       puts "Let's get ready to rumble!"
-      puts board.print_all
+
+      # If the computer plays, it places four random colors on the hidden board
+      # If not, let the Gamemaker decide the colors on the hidden board
+      # After all the hidden spots have been filled, the game can be started
+      if computer_play?
+        computer_place_hidden
+      else
+        manual_place_hidden while hidden_not_filled
+      end
+      puts 'Alright, lets start'
+      board.print_hidden
+    end
+
+    private
+
+    def computer_play?
+      player1.name == 'CPU' || player2.name == 'CPU'
+    end
+
+    # If the computer plays, this method places a random color in a cell
+    def place_hidden(iteration)
+      random_color = color_hash[color[rand(5)]]
+      board.set_cell(0, iteration, random_color, 'hidden')
+    end
+
+    def gamemaker_decides(col, color)
+      chosen_color = color_hash[color.to_sym]
+      board.set_cell(0, col - 1, chosen_color, 'hidden')
+      board.print_hidden
+      manual_place_hidden
+    end
+
+    def computer_place_hidden
+      (0..3).each { |i| place_hidden(i) }
+      @hidden_not_filled = false
+    end
+
+    # While the hidden board is not filled out, ask for a color
+    def manual_place_hidden
+      puts "Hidden color #{@hidden_colors + 1} / 4. Choose from: (r)ed, (b)lue, (g)reen, (y)ellow, (br)own and (t)eal."
+      color = gets.chomp
+      if valid?(color)
+        @hidden_colors += 1
+        gamemaker_decides(hidden_colors, color)
+      else
+        puts 'Invalid color, try again!'
+        manual_place_hidden
+      end
+      @hidden_not_filled = false if @hidden_colors == 4
+    end
+
+    def valid?(color)
+      @color.include?(color.to_sym)
     end
   end
 end
