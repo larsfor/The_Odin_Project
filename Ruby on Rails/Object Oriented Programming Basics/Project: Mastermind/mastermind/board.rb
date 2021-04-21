@@ -28,10 +28,10 @@ module Mastermind
       print_hidden
     end
 
-    def print_board
+    def print_board(rows = 12)
       puts 'Decoding board:'
-      grid.each do |row|
-        puts row.map { |cell| cell.value.empty? ? '[]' : cell.value }.join(' ')
+      (0..rows).each do |i|
+        puts grid[i].map { |cell| cell.value.empty? ? '[]' : cell.value }.join(' ')
       end
       nil # To hide the return statement from the Object
     end
