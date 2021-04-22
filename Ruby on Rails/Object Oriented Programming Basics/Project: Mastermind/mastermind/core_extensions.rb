@@ -6,19 +6,7 @@
 
 # To check winning conditions and to give feedback to the Gamebreaker
 class Array
-  def all_empty?
-    all? { |element| element.to_s.empty? }
-  end
-
-  def all_same?
-    all? { |element| element == self[0] }
-  end
-
-  def any_empty?
-    any? { |element| element.to_s.empty? }
-  end
-
-  def none_empty?
-    !any_empty?
+  def all_correct?
+    all? { |element| element == 'X' }
   end
 end

@@ -19,11 +19,11 @@ module Mastermind
     def get_cell(round, column, place)
       case place
       when 'board'
-        grid[round][column]
+        grid[round].first[column]
       when 'hidden'
         hidden[round][column]
       when 'feedback'
-        grid[round][column + 4]
+        grid[round].last[column]
       end
     end
 
@@ -44,9 +44,19 @@ module Mastermind
     end
 
     def print_board(row = 0)
-      puts 'Decoding board'
+      puts 'Decoding board            Feedback'
       (0..row).each do |i|
-        puts grid[i].map { |cell| cell.value.empty? ? '[]' : cell.value }.join(' ')
+        guesses = grid[i].first.map { |cell| cell.value.empty? ? '[]' : cell.value }.join(' ')
+        feedback = grid[i].last.map { |cell| cell.value.empty? ? '[]' : cell.value }.join(' ')
+
+        puts "#{guesses.ljust(25)} #{feedback}"
+
+        # puts "#{grid[i].first.map do |cell|
+        #           cell.value.empty? ? '[]' : cell.value
+        #         end.join(' ')} #{grid[i].last.map do |cell|
+        #                            cell.value.empty? ? '[]' : cell.value
+        #                          end.join(' ')}"
+        # puts grid[i].last.map { |cell| cell.value.empty? ? '[]' : cell.value }.join(' ')
       end
       nil # To hide the return statement of the Object
     end
@@ -59,26 +69,26 @@ module Mastermind
       nil # To hide the return statement of the Object
     end
 
-    def print_guesses_feedback(row = 0)
-      puts 'Feedback pattern:'
-      (0..row).each do |i|
-        puts feedback[i].map { |cell|
-               if cell.value == 'X'
-                 'X'
-               else
-                 cell.value == 'O' ? 'O' : '[]'
-               end
-             }.join(' ')
-      end
-      nil # To hide the return statement of the Object
-    end
+    # def print_guesses_feedback(row = 0)
+    #   puts 'Feedback pattern:'
+    #   (0..row).each do |i|
+    #     puts feedback[i].map { |cell|
+    #            if cell.value == 'X'
+    #              'X'
+    #            else
+    #              cell.value == 'O' ? 'O' : '[]'
+    #            end
+    #          }.join(' ')
+    #   end
+    #   nil # To hide the return statement of the Object
+    # end
 
     private
 
     # The default grid is a 4x12 board, where the gamebreaker tries to
     # guess the pattern of the gamemaker.
     def decoding_board
-      Array.new(12) { Array.new(8) { Cell.new } }
+      Array.new(12) { Array.new(2) { Array.new(4) { Cell.new } } }
     end
 
     # The pattern the codemaker decides, and the codebreaker is supposed

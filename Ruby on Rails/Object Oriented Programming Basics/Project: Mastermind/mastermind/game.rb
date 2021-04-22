@@ -28,12 +28,18 @@ module Mastermind
       computer_play? ? computer_place_hidden : manual_place('hidden')
 
       # puts 'Alright, lets start'
-      board.print_hidden
+      # board.print_hidden
+
+      gamebraker = gamebraker_role(player1, player2)
 
       # For 12 rounds, the Gamebreaker choses fours colors
       @round = 0
       (0..11).each do |row|
         check_guesses(row, board) if row.positive?
+        if winner?(row, board)
+          puts "#{gamebraker.name} is the winner!"
+          break
+        end
         (0..3).each do |colu|
           @round += 1
           manual_place('board', @round, row, colu)
@@ -49,9 +55,21 @@ module Mastermind
       # board.print_guesses_feedback(row - 1)
     end
 
+    def gamebraker_role(player1, player2)
+      if player2.role == 'GB'
+        player2
+      else
+        player1
+      end
+    end
+
     # The computer places four color randomly
     def computer_place_hidden
       (0..3).each { |i| place_hidden(i) }
+    end
+
+    def winner?(row, board)
+      board.grid[row - 1].last.all? { |i| i.value == 'X' }
     end
 
     def manual_place(grid, round = 0, row = 0, colu = 0)
@@ -75,11 +93,11 @@ module Mastermind
     end
 
     def correct_color(row, colu)
-      board.hidden[0].any? { |cell| cell.value == board.grid[row][colu].value }
+      board.hidden[0].any? { |cell| cell.value == board.grid[row].first[colu].value }
     end
 
     def correct_spot(row, colu)
-      board.grid[row][colu].value == board.hidden[0][colu].value
+      board.grid[row].first[colu].value == board.hidden[0][colu].value
     end
 
     def set_color(grid, round, row, colu)
