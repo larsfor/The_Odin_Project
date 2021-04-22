@@ -19,9 +19,11 @@ module Mastermind
       @color_hash = { r: 'red', b: 'blue', g: 'green', y: 'yellow', br: 'brown', t: 'teal' }
     end
 
-    # If the computer plays, it places four random colors on the hidden board
-    # If not, let the Gamemaker decide the colors on the hidden board
-    # After all the hidden spots have been filled, the game can be started
+    # If the computer plays, it places four random colors on the hidden board.
+    # If not, let the Gamemaker decide the colors on the hidden board.
+    # After all the hidden spots have been filled, the game can be started.
+    # If the color is right, it gets an "O", if it's both the correct color
+    # and the right place, it gets an "X".
     def play
       computer_play? ? computer_place_hidden : manual_place('hidden')
 
@@ -30,48 +32,65 @@ module Mastermind
 
       # For 12 rounds, the Gamebreaker choses fours colors
       @round = 0
-      (0..11).each do |rows|
+      (0..11).each do |row|
+        check_guesses(row, board) if row.positive?
         (0..3).each do |colu|
           @round += 1
-          manual_place('board', @round, rows, colu)
+          manual_place('board', @round, row, colu)
         end
       end
     end
 
     private
 
-    def computer_play?
-      player1.name == 'CPU' || player2.name == 'CPU'
+    def check_guesses(row, board)
+      board.print_board(row - 1)
+      board.print_hidden
+      board.print_guesses_feedback(row - 1)
+      # board.give_feedback(row - 1)
     end
 
-    def manual_place(grid, round = 0, rows = 0, colu = 0)
-      if grid == 'hidden'
+    # The computer places four color randomly
+    def computer_place_hidden
+      (0..3).each { |i| place_hidden(i) }
+    end
+
+    def manual_place(grid, round = 0, row = 0, colu = 0)
+      case grid
+      when 'hidden'
         hidden = board.hidden[0].count { |x| x.value != '' }
         return unless hidden < 4
 
         puts "Pick the hidden color # #{hidden + 1} / 4. Choose from: (r)ed, (b)lue, (g)reen, (y)ellow, (br)own and (t)eal."
-        set_color(grid, rows, hidden)
+        set_color(grid, round, row, hidden)
+      when 'board'
+        puts "Round #{row + 1}. Pick a color #{round % 5} / 4. Choose from: (r)ed, (b)lue, (g)reen, (y)ellow, (br)own and (t)eal."
+        set_color(grid, round, row, colu)
       end
-      puts "Round #{rows + 1}. Pick a color #{round % 5} / 4. Choose from: (r)ed, (b)lue, (g)reen, (y)ellow, (br)own and (t)eal."
-      set_color(grid, rows, colu)
     end
 
-    def set_color(grid, rows, colu)
+    # "O" is correct color but wrong spot, "X" is both correct color and spot.
+    def give_feedback(row, colu, grid)
+      board.set_cell(row, colu, 'X', grid) if board.grid[row][colu].value == board.hidden[0][colu].value
+    end
+
+    def set_color(grid, round, row, colu)
       color = gets.chomp
       if valid?(color)
-        pick_color(grid, color, rows, colu)
+        pick_color(grid, color, row, colu)
       else
         puts 'Invalid color, try again!'
-        manual_place('hidden')
+        manual_place(grid, round, row, colu)
       end
     end
 
     # The method for picking a color for a cell
-    def pick_color(grid, color, rows, colu)
+    def pick_color(grid, color, row, colu)
       chosen_color = color_hash[color.to_sym]
-      board.set_cell(rows, colu, chosen_color, grid)
-      board.print_board(rows) if grid == 'board'
-      board.print_hidden
+      board.set_cell(row, colu, chosen_color, grid)
+      give_feedback(row, colu, 'feedback')
+      # board.print_board(row) if grid == 'board'
+      # board.print_hidden
       manual_place('hidden') if grid == 'hidden'
     end
 
@@ -86,9 +105,8 @@ module Mastermind
       board.set_cell(0, iteration, random_color, 'hidden')
     end
 
-    # The computer places four color randomly
-    def computer_place_hidden
-      (0..3).each { |i| place_hidden(i) }
+    def computer_play?
+      player1.name == 'CPU' || player2.name == 'CPU'
     end
   end
 end

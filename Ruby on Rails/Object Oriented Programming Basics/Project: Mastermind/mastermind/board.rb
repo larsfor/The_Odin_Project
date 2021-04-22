@@ -8,19 +8,34 @@ module Mastermind
   # The board should manage the grid by setting and getting
   # grid values and checking of the game has ended in a win or a loss.
   class Board
-    attr_reader :grid, :hidden
+    attr_reader :grid, :hidden, :feedback
 
     def initialize(input = {})
       @grid = input.fetch(:grid, decoding_board)
       @hidden = input.fetch(:grid, hidden_pattern)
+      @feedback = input.fetch(:grid, guesses_feedback)
     end
 
     def get_cell(round, column, place)
-      place == 'board' ? grid[round][column] : hidden[round][column]
+      case place
+      when 'board'
+        grid[round][column]
+      when 'hidden'
+        hidden[round][column]
+      when 'feedback'
+        feedback[round][column]
+      end
     end
 
     def set_cell(round, column, color, grid)
-      grid == 'board' ? get_cell(round, column, 'board').value = color : get_cell(round, column, 'hidden').value = color
+      case grid
+      when 'board'
+        get_cell(round, column, 'board').value = color
+      when 'hidden'
+        get_cell(round, column, 'hidden').value = color
+      when 'feedback'
+        get_cell(round, column, 'feedback').value = color
+      end
     end
 
     def print_all
@@ -28,12 +43,12 @@ module Mastermind
       print_hidden
     end
 
-    def print_board(rows = 12)
-      puts 'Decoding board:'
-      (0..rows).each do |i|
-        puts grid[i].map { |cell| cell.value.empty? ? '[]' : cell.value }.join(' ')
+    def print_board(row = 0)
+      puts 'Decoding board                Feedback from guesses'
+      (0..row).each do |i|
+        puts grid[i].map { |cell| cell.value.empty? ? '[]' : cell.value }.join(' ').to_s
       end
-      nil # To hide the return statement from the Object
+      nil # To hide the return statement of the Object
     end
 
     def print_hidden
@@ -41,7 +56,20 @@ module Mastermind
       hidden.each do |row|
         puts row.map { |cell| cell.value.empty? ? '[]' : cell.value }.join(' ')
       end
-      nil # To hide the return statement from the Object
+      nil # To hide the return statement of the Object
+    end
+
+    def print_guesses_feedback(row = 0)
+      puts 'Feedback pattern:'
+      (0..row).each do |i|
+        puts feedback[i].map { |cell|
+               if cell.value == 'X'
+                 'X'
+               else
+                 cell.value == 'O' ? 'O' : '[]'
+               end
+             }.join(' ')
+      end
     end
 
     private
@@ -56,6 +84,12 @@ module Mastermind
     # to figure out
     def hidden_pattern
       Array.new(1) { Array.new(4) { Cell.new } }
+    end
+
+    # A 4x12 board to store the feedback given based on if the guess is
+    # the correct color or/and the color is in the correct spot.
+    def guesses_feedback
+      Array.new(12) { Array.new(4) { Cell.new } }
     end
   end
 end
