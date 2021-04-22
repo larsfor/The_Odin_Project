@@ -28,7 +28,7 @@ module Mastermind
       computer_play? ? computer_place_hidden : manual_place('hidden')
 
       # puts 'Alright, lets start'
-      # board.print_hidden
+      board.print_hidden
 
       # For 12 rounds, the Gamebreaker choses fours colors
       @round = 0
@@ -44,9 +44,7 @@ module Mastermind
     private
 
     def check_guesses(row, board)
-      boar = board.print_board(row - 1)
-      fed = board.print_guesses_feedback(row - 1)
-      print boar, fed
+      board.print_board(row - 1)
       # board.print_hidden
       # board.print_guesses_feedback(row - 1)
     end

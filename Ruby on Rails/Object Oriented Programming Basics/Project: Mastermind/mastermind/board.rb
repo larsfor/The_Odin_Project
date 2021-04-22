@@ -23,7 +23,7 @@ module Mastermind
       when 'hidden'
         hidden[round][column]
       when 'feedback'
-        feedback[round][column]
+        grid[round][column + 4]
       end
     end
 
@@ -78,7 +78,7 @@ module Mastermind
     # The default grid is a 4x12 board, where the gamebreaker tries to
     # guess the pattern of the gamemaker.
     def decoding_board
-      Array.new(12) { Array.new(4) { Cell.new } }
+      Array.new(12) { Array.new(8) { Cell.new } }
     end
 
     # The pattern the codemaker decides, and the codebreaker is supposed
