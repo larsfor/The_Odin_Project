@@ -27,8 +27,8 @@ module Mastermind
     def play
       computer_play? ? computer_place_hidden : manual_place('hidden')
 
-      puts 'Alright, lets start'
-      board.print_hidden
+      # puts 'Alright, lets start'
+      # board.print_hidden
 
       # For 12 rounds, the Gamebreaker choses fours colors
       @round = 0
@@ -44,10 +44,11 @@ module Mastermind
     private
 
     def check_guesses(row, board)
-      board.print_board(row - 1)
-      board.print_hidden
-      board.print_guesses_feedback(row - 1)
-      # board.give_feedback(row - 1)
+      boar = board.print_board(row - 1)
+      fed = board.print_guesses_feedback(row - 1)
+      print boar, fed
+      # board.print_hidden
+      # board.print_guesses_feedback(row - 1)
     end
 
     # The computer places four color randomly
@@ -71,7 +72,16 @@ module Mastermind
 
     # "O" is correct color but wrong spot, "X" is both correct color and spot.
     def give_feedback(row, colu, grid)
-      board.set_cell(row, colu, 'X', grid) if board.grid[row][colu].value == board.hidden[0][colu].value
+      board.set_cell(row, colu, 'O', grid) if correct_color(row, colu)
+      board.set_cell(row, colu, 'X', grid) if correct_spot(row, colu)
+    end
+
+    def correct_color(row, colu)
+      board.hidden[0].any? { |cell| cell.value == board.grid[row][colu].value }
+    end
+
+    def correct_spot(row, colu)
+      board.grid[row][colu].value == board.hidden[0][colu].value
     end
 
     def set_color(grid, round, row, colu)

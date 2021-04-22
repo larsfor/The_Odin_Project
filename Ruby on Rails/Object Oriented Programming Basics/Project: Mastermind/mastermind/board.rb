@@ -44,9 +44,9 @@ module Mastermind
     end
 
     def print_board(row = 0)
-      puts 'Decoding board                Feedback from guesses'
+      puts 'Decoding board'
       (0..row).each do |i|
-        puts grid[i].map { |cell| cell.value.empty? ? '[]' : cell.value }.join(' ').to_s
+        puts grid[i].map { |cell| cell.value.empty? ? '[]' : cell.value }.join(' ')
       end
       nil # To hide the return statement of the Object
     end
@@ -70,6 +70,7 @@ module Mastermind
                end
              }.join(' ')
       end
+      nil # To hide the return statement of the Object
     end
 
     private
