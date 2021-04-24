@@ -8,6 +8,19 @@ def clean_zipcode(zipcode)
   zipcode.to_s.rjust(5, '0')[0..4]
 end
 
+def clean_phone_number(homephone)
+  # Remove everything that's not a digit
+  homephone = homephone.gsub(/[^0-9]/, '')
+  puts
+  # The number must be between 10 and 11 characters long using Regex.
+  # If it's longer than 10, it must have a '1' first, or else it's bad.
+  if homephone.match(/1*\d{10,11}/)
+    homephone.to_s.rjust(11, '1')[1..-1]
+  else
+    'Bad number.'
+  end
+end
+
 def legislators_by_zipcode(zip)
   civic_info = Google::Apis::CivicinfoV2::CivicInfoService.new
   civic_info.key = 'AIzaSyClRzDqDh5MsXwnCWi0kOiiBivP6JsSyBw'
@@ -52,9 +65,15 @@ contents.each do |row|
 
   zipcode = clean_zipcode(row[:zipcode])
 
+  phone_number = clean_phone_number(row[:homephone])
+
+  # phone_number = row[:homephone]
+
   legislators = legislators_by_zipcode(zipcode)
 
   form_letter = erb_template.result(binding)
 
-  save_thank_you_letter(id, form_letter)
+  # save_thank_you_letter(id, form_letter)
+
+  puts "#{name} #{phone_number}"
 end
