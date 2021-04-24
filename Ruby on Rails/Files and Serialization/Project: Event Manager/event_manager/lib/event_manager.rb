@@ -3,6 +3,8 @@
 require 'csv'
 require 'google/apis/civicinfo_v2'
 require 'erb'
+require 'time'
+require 'date'
 
 def clean_zipcode(zipcode)
   zipcode.to_s.rjust(5, '0')[0..4]
@@ -19,6 +21,26 @@ def clean_phone_number(homephone)
   else
     'Bad number.'
   end
+end
+
+def hashed_time_and_days(contents)
+  time_and_date = []
+  days = Hash.new(0)
+  hours = Hash.new(0)
+
+  contents.each do |row|
+    time_and_date.push(row[:regdate])
+  end
+
+  time_and_date.each do |time|
+    day = Date.strptime(time, '%m/%d/%y')
+    days[day.wday] += 1
+    hour = Time.strptime(time, '%m/%d/%y %H:%M')
+    hours[hour.hour] += 1
+  end
+
+  puts "Days #{days}"
+  puts "Hours #{hours}"
 end
 
 def legislators_by_zipcode(zip)
@@ -58,22 +80,24 @@ contents = CSV.open(
 template_letter = File.read('form_letter.erb')
 erb_template = ERB.new(template_letter)
 
+hashed_time_and_days(contents)
+
 contents.each do |row|
-  id = row[0]
+  # id = row[0]
 
   name = row[:first_name]
 
-  zipcode = clean_zipcode(row[:zipcode])
+  # zipcode = clean_zipcode(row[:zipcode])
 
-  phone_number = clean_phone_number(row[:homephone])
+  # phone_number = clean_phone_number(row[:homephone])
 
-  # phone_number = row[:homephone]
+  # registration_date = row[:regdate]
 
-  legislators = legislators_by_zipcode(zipcode)
+  # legislators = legislators_by_zipcode(zipcode)
 
-  form_letter = erb_template.result(binding)
+  # form_letter = erb_template.result(binding)
 
   # save_thank_you_letter(id, form_letter)
 
-  puts "#{name} #{phone_number}"
+  puts "#{name} #{registration_date}"
 end
