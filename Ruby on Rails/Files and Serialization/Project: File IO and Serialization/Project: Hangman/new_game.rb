@@ -6,20 +6,27 @@
 require './game_logic'
 require './display'
 require './text_content'
+require './save_load'
 
 # Class for the new_game option
 class NewGame
   attr_reader :word, :guess, :max_turns, :letter
-  attr_accessor :guessed_letters
+  attr_accessor :guessed_letters, :save_game_info
 
   include Display
   include TextContent
   include GameLogic
+  include SaveLoad
 
   def initialize
     @max_turns = 20
     @word = choose_random_word
     @guessed_letters = []
+    @save_game_info = {
+      word: '',
+      guessed_letters: [],
+      turn: 0
+    }
   end
 
   def choose_random_word
@@ -33,28 +40,50 @@ class NewGame
     File.readlines('5desk.txt').sample
   end
 
-  def start
-    puts turn_message('start')
-    puts word
-    show_word_covered(word, guessed_letters)
-    choose_letter
-    game_over(word, guessed_letters)
+  def start(word = '', turn = 1, guessed_letters = [])
+    if turn > 1
+      puts turn_message('loaded')
+      play_previous_game(word, turn, guessed_letters)
+    else
+      puts turn_message('start')
+      play_new_game(@word)
+    end
+    save(save_game_info) if letter == 'save'
+    game_over(word, guessed_letters) if letter == 'quit'
   end
 
-  def choose_letter
-    turn = 1
+  def play_previous_game(word, turn, guessed_letters)
+    @guessed_letters = guessed_letters
+    show_word_covered(word, @guessed_letters)
+    choose_letter(word, turn)
+  end
+
+  def play_new_game(word)
+    puts word
+    show_word_covered(word, guessed_letters)
+    choose_letter(word)
+  end
+
+  def choose_letter(word = '', turn = 1)
     while turn <= max_turns
       puts turn_messages(turn)
-
-      @letter = player_input
-      guessed_letters.push(letter)
+      letter = player_input
+      @guessed_letters.push(letter)
+      update_save_game_info(word, letter, turn)
       turn += 1
 
-      break if letter == 'quit'
+      if %w[quit save].include?(letter)
+        save(save_game_info) if letter == 'save'
+        game_over(word, guessed_letters) if letter == 'quit'
+        break
+      end
 
-      show_word_covered(word, guessed_letters)
+      show_word_covered(word, @guessed_letters)
 
-      break if solved?(word, guessed_letters)
+      if solved?(word, @guessed_letters)
+        game_over(word, guessed_letters)
+        break
+      end
     end
   end
 
@@ -65,14 +94,12 @@ class NewGame
 
   def player_input
     letter = gets.chomp
-
     if guessed_letters.include?(letter)
       puts warning_message('already_guessed')
       player_input
     end
 
-    return letter if letter.match(/^[a-z]$/)
-    return letter if letter.match(/quit/)
+    return letter if letter.match(/^[a-z]$/) || letter.match(/quit/) || letter.match(/save/)
 
     puts warning_message('turn_error')
     player_input
@@ -83,8 +110,19 @@ class NewGame
       puts game_message('won')
     else
       puts warning_message('game_over')
-      puts game_message('display_word', word)
+      puts game_message('display_word', @word)
     end
     repeat_game
+  end
+
+  def save(save_game_info)
+    puts save_game_info
+    save_file(save_game_info)
+  end
+
+  def update_save_game_info(word, letter, turn)
+    save_game_info[:word] = word.chomp
+    save_game_info[:guessed_letters].push(letter) if letter != 'save'
+    save_game_info[:turn] = turn
   end
 end
