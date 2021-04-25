@@ -65,6 +65,12 @@ class NewGame
 
   def player_input
     letter = gets.chomp
+
+    if guessed_letters.include?(letter)
+      puts warning_message('already_guessed')
+      player_input
+    end
+
     return letter if letter.match(/^[a-z]$/)
     return letter if letter.match(/quit/)
 
@@ -77,8 +83,7 @@ class NewGame
       puts game_message('won')
     else
       puts warning_message('game_over')
-      puts game_message('display_code')
-      puts word
+      puts game_message('display_word', word)
     end
     repeat_game
   end

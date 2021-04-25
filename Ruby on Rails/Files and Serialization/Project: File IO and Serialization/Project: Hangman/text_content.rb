@@ -12,12 +12,13 @@ module TextContent
     }[description]
   end
 
-  def game_message(message)
+  def game_message(message, word = '')
     {
       'won' => "You guessed the word! Congratulations, you win! \n\n",
-      'display_word' => "Here is the 'random word' that you were trying to guess:",
+      'display_word' => "Here is the word that you were trying to guess: #{word} \n\n",
       'repeat_prompt' => "\n\nDo you want to play again? Press 'y' for yes (or any other key for no).",
-      'thanks' => 'Thank you for playing Hangman!'
+      'thanks' => 'Thank you for playing Hangman!',
+      'word' => "The word you tried to guess, was #{word}"
     }[message]
   end
 
@@ -34,8 +35,8 @@ module TextContent
       'turn_error' => formatting('red',
                                  "Your guess should only be a single letter between a - z. Type 'quit' to exit.").to_s,
       'last_turn' => formatting('red', 'Choose carefully. This is your last chance to win!').to_s,
-      'code_error' => formatting('red', "Your 'master code' must be 4 digits long, using numbers between 1-6.").to_s,
-      'game_over' => "#{formatting('red', 'Game over. That was a hard word to guess!')} \n\n"
+      'game_over' => "#{formatting('red', 'Game over. That was a hard word to guess!')} \n\n",
+      'already_guessed' => "#{formatting('red', "You've already guessed that letter, try again!")} \n\n"
     }[message]
   end
 end
