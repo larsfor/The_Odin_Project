@@ -77,27 +77,81 @@ def merge_sort(array)
   copy_left = left_half.dup
   copy_right = right_half.dup
 
-  (0..left_half.length).each do |i|
-    puts "copy left #{copy_left} copy right #{copy_right}"
-    break if left_half[i].nil?
-    (0..right_half.length).each do |j|
-      # puts "#{copy_left[i]} #{copy_right[j]}"
-      puts "#{left_half[i]} #{right_half[j]}"
+  # frozen_string_literal: true
 
-      if right_half[j].nil?
-        sorted_array << copy_left.shift 
-        next
-      end
+# rubocop:disable Metrics/AbcSize
 
-      if right_half[j] < left_half[i]
-        sorted_array << copy_right.shift 
-        next
-      end
-    end
+unsorted_array = [5, 2, 1, 3, 6, 4]
+
+def merge_sort(array)
+  # Sort and return the array, based on which cell has the smallest amount
+  # This is the base case
+  if array.length < 3
+    return array if array.length == 1
+    return array[0], array[1] if array[0] < array[1]
+    return array[1], array[0] if array[1] < array[0]
   end
-  p sorted_array
+
+  # 1 Divide: Split the array into two halves
+  left_half = array[0..array.length / 2 - 1]
+  right_half = array[array.length / 2..-1]
+
+  # 2 Conquer: recursively sort the two smaller arrays and append them to a
+  # a temporary sorted array
+  left_half = merge_sort(left_half)
+  right_half = merge_sort(right_half)
+  # temp_sorted_array = left_half.flatten, right_half.flatten
+
+  # 3 Combine: Merge the two sorted, smaller arrays into a single sorted array.
+  # Here we have to sort again, which is separated from the sorting done previously
+  array_length = left_half.length + right_half.length
+  sorted_array = []
+  i = 0
+  j = 0
+
+  loop do
+    if right_half.first.nil?
+      sorted_array << left_half
+      break
+    end
+
+    if left_half.first.nil?
+      sorted_array << right_half
+      break
+    end
+
+    if left_half.first > right_half.first
+      sorted_array << right_half.shift
+      j += 1
+    else
+      sorted_array << left_half.shift
+      i += 1
+    end
+
+    # if right_half[j].nil?
+    #   sorted_array << copy_left.flatten
+    #   break
+    # end
+
+    # if left_half[i].nil?
+    #   sorted_array << copy_right.flatten
+    #   break
+    # end
+
+    # if left_half[i] > right_half[j]
+    #   sorted_array << right_half[j]
+    #   copy_right.shift
+    #   j += 1
+    # else
+    #   sorted_array << left_half[i]
+    #   copy_left.shift
+    #   i += 1
+    # end
+    break if i + j > array_length
+  end
+  sorted_array.flatten
 end
 
-merge_sort(unsorted_array)
+p merge_sort(unsorted_array)
 
 # rubocop:enable Metrics/AbcSize
