@@ -12,7 +12,8 @@ class Tree
   end
 
   def build_tree(array)
-    return Node.new(array.first) if array.length < 2
+    return Node.new(array.first) if array.first.nil? && array.length < 2
+    return Node.new(array.first, Node.new(nil), Node.new(nil)) if array.length < 2
 
     uniq_sort_arr = array.sort.uniq
     mid = uniq_sort_arr.length / 2
@@ -25,82 +26,87 @@ class Tree
   end
 
   def insert(value, root = @root)
-    return if root.data == value
+    return p 'That value already exist in the tree.' if @list.include?(value)
 
-    goal_node = directions(value, root)
-    # goal_node = find_node(value, root)
-    # p goal_node
-    return insert_leaf(value, root) if goal_node.data.nil?
-    return insert_leaf(value, goal_node) if childs(value, goal_node).zero?
+    next_node = directions(root, value)
+    direction = directions(next_node, value)
 
-    leaf = value > root.data ? root.right : root.left
-    insert(value, leaf)
-  end
-
-  def delete(value, root = @root)
-    return p 'That value is not in the tree.' unless @list.include?(value)
-
-    # Base cases
-    goal_node = find_node(value, root)
-    curr_node = directions(value, root)
-    if goal_node.data == value
-      # No children
-      return no_children(value, curr_node, goal_node) if childs(value, curr_node).zero?
-
-      # One child
-      return one_child(value, curr_node, goal_node) if childs(value, curr_node) == 1
-
-      # Two children
-      return two_children(root, goal_node) if childs(value, curr_node) == 2
+    if direction.data.nil?
+      @list << value
+      return next_node.left = Node.new(value, Node.new(nil), Node.new(nil)) if next_node.data > value
+      return next_node.right = Node.new(value, Node.new(nil), Node.new(nil)) if next_node.data < value
     end
 
-    node = value > root.data ? root.right : root.left
-    delete(value, node)
+    insert(value, next_node)
   end
 
-  def no_children(value, curr_node, _goal_node)
-    curr_node.left = Node.new(nil) if curr_node.data > value
-    curr_node.right = Node.new(nil) if curr_node.data < value
+  def delete(value, root = @root, prev_node = nil)
+    return p "That value doesn't exist in the tree." unless @list.include?(value)
+
+    # Base cases
+    next_node = directions(root, value)
+    if next_node.data == value
+      @list.delete(value)
+      return zero_children(root, value) if childs(next_node).zero?
+      return one_child(root, next_node, value) if childs(next_node) == 1
+      return two_children(root, next_node, nil, value) if childs(next_node) == 2
+    end
+
+    delete(value, next_node, prev_node)
   end
 
-  def one_child(value, curr_node, goal_node)
-    next_node = directions(value, goal_node)
-    curr_node.right = next_node if next_node.data > curr_node.data
-    curr_node.left = next_node if next_node.data < curr_node.data
+  def zero_children(root, value)
+    root.left = Node.new(nil) if root.left.data == value
+    root.right = Node.new(nil) if root.right.data == value
   end
 
-  def two_children(_curr_node, _goal_node)
-    #  if value != root.data
-    p 'test2'
+  def one_child(root, next_node, value)
+    switch_node = next_node.left.nil? ? next_node.right : next_node.left
+    root.left = switch_node if root.left.data == value
+    root.right = switch_node if root.right.data == value
   end
 
-  def childs(value, root)
-    goal_node = directions(value, root)
-    return 0 if goal_node.left.nil? && goal_node.right.nil? || root.left.nil? && root.right.nil?
-    return 1 if goal_node.left.nil? || goal_node.right.nil? 
+  def two_children(root, next_node, prev_node, value)
+    next_node = prev_node.nil? ? next_node.right : next_node.left
+    return rearrange_node(root, next_node, value) if next_node.left.data.nil?
 
-    2
+    prev_node = next_node
+    two_children(root, next_node, prev_node, value)
   end
 
-  def directions(value, root)
-    return root.left if root.right.nil?
-    return root.right if root.left.nil?
+  def directions(root, value)
     return root.left if root.data > value
     return root.right if root.data < value
   end
 
-  def insert_leaf(value, root)
-    list << value
-    next_node = directions(value, root)
-    return next_node.left = Node.new(value) if root.data < value
-    return next_node.right = Node.new(value) if root.data > value
+  def childs(next_node)
+    return 0 if next_node.left.data.nil? && next_node.right.data.nil?
+    return 1 if next_node.left.data.nil? || next_node.right.data.nil?
+
+    2
   end
 
-  def find_node(value, root)
-    curr_node = directions(value, root)
-    return curr_node if curr_node.data == value
+  def rearrange_node(root, next_node, value)
+    delete_node = find_delete(root, value)
+    temp_delete = delete_node.data > value ? delete_node.left : delete_node.right
 
-    directions(value, curr_node)
+    if root.data > value
+      next_node.left = temp_delete.left
+      next_node.right = Node.new(temp_delete.right.data, Node.new(nil), temp_delete.right.right)
+      root.left = next_node
+    elsif root.data < value
+      next_node.right = Node.new(temp_delete.right.data, Node.new(nil), temp_delete.right.right)
+      next_node.left = temp_delete.left
+      root.right = next_node.right
+    end
+  end
+
+  def find_delete(root, value)
+    return root if root.data == value
+    return root if root.left.data == value || root.right.data == value
+
+    next_node = directions(root, value)
+    find_delete(next_node, value)
   end
 
   def pretty_print(node = @root, prefix = '', is_left = true)
@@ -113,11 +119,19 @@ end
 array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
 bst = Tree.new(array)
 
+# bst.insert(6)
+bst.insert(11)
+bst.insert(10)
+bst.insert(12)
+bst.insert(13)
+# bst.delete(324)
+# bst.insert(9999)
+# bst.insert(324)
+# bst.delete(1)
+# bst.delete(5)
 bst.pretty_print
-# bst.insert(11)
-# bst.insert(10)
 # bst.delete(11)
-bst.delete(5)
-bst.delete(7)
-bst.pretty_print
+# bst.pretty_print
 # bst.delete(67)
+bst.delete(4)
+bst.pretty_print
