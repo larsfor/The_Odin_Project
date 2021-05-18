@@ -45,8 +45,9 @@ class Tree
 
     # Base cases
     next_node = directions(root, value)
-    if next_node.data == value
+    if root.data == value || next_node.data == value
       @list.delete(value)
+
       return zero_children(root, value) if childs(next_node).zero?
       return one_child(root, next_node, value) if childs(next_node) == 1
       return two_children(root, next_node, nil, value) if childs(next_node) == 2
@@ -67,8 +68,12 @@ class Tree
   end
 
   def two_children(root, next_node, prev_node, value)
-    next_node = prev_node.nil? ? next_node.right : next_node.left
-    return rearrange_node(root, next_node, value) if next_node.left.data.nil?
+    next_node = if root.data == value && prev_node.nil?
+                  root.right
+                else
+                  prev_node.nil? ? next_node.right : next_node.left
+                end
+    return rearrange_node(root, next_node, prev_node, value) if next_node.left.data.nil?
 
     prev_node = next_node
     two_children(root, next_node, prev_node, value)
@@ -76,7 +81,7 @@ class Tree
 
   def directions(root, value)
     return root.left if root.data > value
-    return root.right if root.data < value
+    return root.right if root.data <= value
   end
 
   def childs(next_node)
@@ -86,18 +91,26 @@ class Tree
     2
   end
 
-  def rearrange_node(root, next_node, value)
+  def rearrange_node(root, next_node, prev_node, value)
     delete_node = find_delete(root, value)
     temp_delete = delete_node.data > value ? delete_node.left : delete_node.right
+    temp_root = root
+    right = temp_delete.right
+    left = temp_delete.left
+    prev_node.left = Node.new(nil)
 
     if root.data > value
-      next_node.left = temp_delete.left
-      next_node.right = Node.new(temp_delete.right.data, Node.new(nil), temp_delete.right.right)
       root.left = next_node
+      next_node.right = Node.new(right.data, Node.new(nil), right.right)
+      next_node.left = left
     elsif root.data < value
-      next_node.right = Node.new(temp_delete.right.data, Node.new(nil), temp_delete.right.right)
-      next_node.left = temp_delete.left
-      root.right = next_node.right
+      root.right = next_node
+      next_node.right = Node.new(right.data, Node.new(nil), right.right)
+      next_node.left = left
+    else
+      root.data = next_node.data
+      root.right = Node.new(right.data, Node.new(nil), right.right) unless childs(next_node).zero?
+      root.left = temp_root.left
     end
   end
 
@@ -120,10 +133,10 @@ array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
 bst = Tree.new(array)
 
 # bst.insert(6)
-bst.insert(11)
-bst.insert(10)
-bst.insert(12)
-bst.insert(13)
+# bst.insert(11)
+# bst.insert(10)
+# bst.insert(12)
+# bst.insert(13)
 # bst.delete(324)
 # bst.insert(9999)
 # bst.insert(324)
@@ -134,4 +147,5 @@ bst.pretty_print
 # bst.pretty_print
 # bst.delete(67)
 bst.delete(4)
+# bst.delete(8)
 bst.pretty_print
