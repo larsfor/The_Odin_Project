@@ -95,21 +95,21 @@ class Tree
     delete_node = find_delete(root, value)
     temp_delete = delete_node.data > value ? delete_node.left : delete_node.right
     temp_root = root
-    right = temp_delete.right
-    left = temp_delete.left
+
+    # Removing the node that's being moved
     prev_node.left = Node.new(nil)
 
     if root.data > value
       root.left = next_node
-      next_node.right = Node.new(right.data, Node.new(nil), right.right)
-      next_node.left = left
+      next_node.right = temp_delete.right
+      next_node.left = temp_delete.left
     elsif root.data < value
       root.right = next_node
-      next_node.right = Node.new(right.data, Node.new(nil), right.right)
-      next_node.left = left
+      next_node.right = temp_delete.right
+      next_node.left = temp_delete.left
     else
       root.data = next_node.data
-      root.right = Node.new(right.data, Node.new(nil), right.right) unless childs(next_node).zero?
+      root.right = temp_root.right
       root.left = temp_root.left
     end
   end
@@ -122,6 +122,14 @@ class Tree
     find_delete(next_node, value)
   end
 
+  def find(value, root = @root)
+    next_node = directions(root, value)
+    return root if root.data == value
+    return next_node if next_node.data == value
+
+    find(value, next_node)
+  end
+
   def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
     puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
@@ -132,4 +140,4 @@ end
 array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
 bst = Tree.new(array)
 
-bst.pretty_print
+p bst.find(67)
