@@ -130,6 +130,17 @@ class Tree
     find(value, next_node)
   end
 
+  def level_order(root = @root, visited = [], discovered = [])
+    visited << root
+    discovered << root.left unless root.left.nil?
+    discovered << root.right unless root.right.nil?
+    next_node = discovered.shift
+
+    return visited if discovered.length.zero?
+
+    level_order(next_node, visited, discovered)
+  end
+
   def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
     puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
@@ -140,4 +151,5 @@ end
 array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
 bst = Tree.new(array)
 
-p bst.find(67)
+bst.pretty_print
+# bst.level_order
