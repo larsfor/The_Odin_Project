@@ -131,7 +131,7 @@ class Tree
   end
 
   def level_order(root = @root, visited = [], discovered = [])
-    visited << root
+    visited << root.data unless root.data.nil?
     discovered << root.left unless root.left.nil?
     discovered << root.right unless root.right.nil?
     next_node = discovered.shift
@@ -139,6 +139,37 @@ class Tree
     return visited if discovered.length.zero?
 
     level_order(next_node, visited, discovered)
+    visited
+  end
+
+  # <root><left><right>
+  def preorder(root = @root, array = [])
+    return array if root.nil?
+
+    array << root.data unless root.data.nil?
+    preorder(root.left, array)
+    preorder(root.right, array)
+    array
+  end
+
+  # <left><root><right>
+  def inorder(root = @root, array = [])
+    return array if root.nil?
+
+    inorder(root.left, array)
+    array << root.data unless root.data.nil?
+    inorder(root.right, array)
+    array
+  end
+
+  # <left><right><root>
+  def postorder(root = @root, array = [])
+    return array if root.nil?
+
+    postorder(root.left, array)
+    postorder(root.right, array)
+    array << root.data unless root.data.nil?
+    array
   end
 
   def pretty_print(node = @root, prefix = '', is_left = true)
@@ -151,5 +182,8 @@ end
 array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
 bst = Tree.new(array)
 
-bst.pretty_print
-# bst.level_order
+# bst.pretty_print
+# p bst.level_order
+# p bst.preorder
+# p bst.inorder
+# p bst.postorder
