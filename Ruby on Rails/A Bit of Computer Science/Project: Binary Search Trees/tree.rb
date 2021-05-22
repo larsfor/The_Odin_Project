@@ -172,6 +172,28 @@ class Tree
     array
   end
 
+  def height(node = @root, height = 0)
+    return height if childs(node).zero?
+
+    left = height(node.left, height + 1) unless node.left.data.nil?
+    height = 0 if left.positive?
+    right = height(node.right, height + 1) unless node.right.data.nil?
+
+    right = right.nil? ? 0 : right
+    left = left.nil? ? 0 : left
+
+    left >= right ? left : right
+  end
+
+  def depth(node = @root, goal_node = @root, depth = 0)
+    return depth if goal_node.data == node.data
+
+    goal_node = directions(goal_node, node.data)
+    depth(node, goal_node, depth + 1)
+
+    depth
+  end
+
   def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
     puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
@@ -182,8 +204,5 @@ end
 array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
 bst = Tree.new(array)
 
-# bst.pretty_print
-# p bst.level_order
-# p bst.preorder
-# p bst.inorder
-# p bst.postorder
+bst.pretty_print
+p bst.depth
