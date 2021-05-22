@@ -175,6 +175,7 @@ class Tree
   def height(node = @root, height = 0)
     return height if childs(node).zero?
 
+    left = 0 if left.nil?
     left = height(node.left, height + 1) unless node.left.data.nil?
     height = 0 if left.positive?
     right = height(node.right, height + 1) unless node.right.data.nil?
@@ -203,7 +204,7 @@ class Tree
   end
 
   def rebalance
-    build_tree(level_order)
+    @root = build_tree(level_order)
   end
 
   def pretty_print(node = @root, prefix = '', is_left = true)
@@ -213,5 +214,32 @@ class Tree
   end
 end
 
-array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
+# array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
+# array = [50, 38, 62, 22, 49, 57, 100, 8, 25, 46, 51, 75, 882, 361, 997, 587, 945]
+array = Array.new(15) { rand(1..100) }
 bst = Tree.new(array)
+# bst.insert(63)
+# bst.insert(64)
+p bst.balanced?
+p bst.level_order
+p bst.preorder
+p bst.inorder
+p bst.postorder
+bst.insert(rand(101..1000))
+bst.insert(rand(101..1000))
+bst.insert(rand(101..1000))
+bst.insert(rand(101..1000))
+bst.insert(rand(101..1000))
+bst.insert(rand(101..1000))
+bst.insert(rand(101..1000))
+bst.insert(rand(101..1000))
+bst.insert(rand(101..1000))
+p bst.level_order
+# bst.pretty_print
+p bst.balanced?
+bst.rebalance
+p bst.balanced?
+p bst.level_order
+p bst.preorder
+p bst.inorder
+p bst.postorder
