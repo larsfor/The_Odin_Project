@@ -194,6 +194,18 @@ class Tree
     depth
   end
 
+  def balanced?
+    left = height(@root.left)
+    right = height(@root.right)
+
+    diff = (left - right).abs
+    !(diff > 1)
+  end
+
+  def rebalance
+    build_tree(level_order)
+  end
+
   def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
     puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
@@ -203,6 +215,3 @@ end
 
 array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
 bst = Tree.new(array)
-
-bst.pretty_print
-p bst.depth
