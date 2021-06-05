@@ -19,14 +19,19 @@ class Board
   def knight_moves(start, stop)
     board[stop[0]][stop[1]] = 'X'
     goal_moves = moves([start])
-    goal_path = shortest_path(goal_moves, stop)
+    p goal_moves
+    # goal_path = shortest_path(goal_moves.first, stop)
 
-    p goal_path
+    # p goal_path
     # puts "You made it in #{goal_path[1]} moves! Here's your path:"
     # goal_path[0].each { |path| p path }
   end
 
   private
+
+  def shortest_path(_goal_moves, _stop)
+    pass
+  end
 
   def moves(coords, visited = [])
     moves = []

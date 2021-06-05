@@ -1,63 +1,46 @@
-# frozen_string_literal: true
+# Frozen_string_literal: true
 
-require_relative './knight'
+require_relative 'knight'
 
-# A class for the chess board
+# Class defining the chessboard
 class Board
-  attr_accessor :board, :all_moves
-
-  def initialize
-    #                    upl       upr      rup    rdown   downr    downl    ldown     lup
-    @all_moves = [[-2, -1], [-2, 1], [-1, 2], [1, 2], [2, 1], [2, -1], [-1, -2], [1, -2]]
-    @board = Array.new(8) { Array.new(8) }
-  end
-
-  def print_board
-    board.each { |col| p col }
-  end
+  def initialize; end
 
   def knight_moves(start, stop)
-    board[stop[0]][stop[1]] = 'X'
-    goal_moves = moves([start])
-    goal_path = shortest_path(goal_moves, stop)
-
-    p goal_path
-    # puts "You made it in #{goal_path[1]} moves! Here's your path:"
-    # goal_path[0].each { |path| p path }
+    current = make_tree(start, stop)
+    history = []
+    make_history(current, history, start)
+    print_knight_moves(history)
   end
 
   private
 
-  def moves(coords, visited = [])
-    moves = []
-    coords.each { |c| return coords if board[c[0]][c[1]] == 'X' }
-
-    coords.each do |coord|
-      knight = Knight.new(coord)
-      possible_moves = possible_moves(all_moves, coord.first, coord.last, knight) - visited
-      visited << coord
-      knight.pos_moves += moves(possible_moves, visited)
-      moves << knight
+  def make_tree(start, stop)
+    queue = [Knight.new(start)]
+    current = queue.shift
+    until current.position == stop
+      current.next_moves.each do |move|
+        current.children << knight = Knight.new(move, current)
+        queue << knight
+      end
+      current = queue.shift
     end
-    moves
+    current
   end
 
-  def possible_moves(all_moves, move_a, move_b, _knight)
-    possible_moves = []
-    all_moves.each do |kni_i, kni_j|
-      next unless within_bounds?(kni_i, move_a, kni_j, move_b)
-
-      possible_moves << [kni_i + move_a, kni_j + move_b]
+  def make_history(current, history, start)
+    until current.position == start
+      history << current.position
+      current = current.parent
     end
-    possible_moves
+    history << current.position
   end
 
-  def within_bounds?(kni_i, start_a, kni_j, start_b)
-    (kni_i + start_a) > -1 && (kni_i + start_a) < 8 && (kni_j + start_b) > -1 && (kni_j + start_b) < 8
+  def print_knight_moves(history)
+    puts "You made it in #{history.size - 1} moves! Here's your path:"
+    history.reverse.each { |move| puts move.to_s }
   end
 end
 
-travails = Board.new
-
-travails.knight_moves([3, 3], [4, 3])
-# travails.print_board
+knight_travails = Board.new
+knight_travails.knight_moves([3, 3], [4, 3])
