@@ -200,7 +200,7 @@ class Tree
     right = height(@root.right)
 
     diff = (left - right).abs
-    !(diff > 1)
+    diff <= 1
   end
 
   def rebalance

@@ -33,7 +33,7 @@ module SaveLoad
 
   def from_yaml(filename)
     yaml_file = File.open("savefiles/#{filename}", 'r', &:read)
-    data = YAML.load(yaml_file) # Can't load symbols with 'safe_load' method
+    data = YAML.safe_load(yaml_file) # Can't load symbols with 'safe_load' method
     [data[:word], data[:turn], data[:guessed_letters]]
   end
 end

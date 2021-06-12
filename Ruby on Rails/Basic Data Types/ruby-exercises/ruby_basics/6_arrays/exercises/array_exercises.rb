@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 def nil_array(number)
   # return an array containing `nil` the given number of times
   Array.new(number, nil)
@@ -55,7 +57,7 @@ end
 
 def empty_array?(array)
   # return true if the array is empty
-  array.length == 0
+  array.length.zero?
 end
 
 def reverse(array)

@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 def create_favorite_hash(color, number)
   # return a hash with the following key/value pairs:
   # key of color (as a symbol) with value of the color argument
   # key of number (as a symbol) with the value of the number argument
-  h = {color: color, number: number}
+  h = { color: color, number: number }
 end
 
 def favorite_color(favorite_list)
@@ -46,6 +48,6 @@ def favorite_items(favorite_list)
 end
 
 def merge_favorites(original_list, additional_list)
-  # merge the two hashes: original_list and additional_list 
+  # merge the two hashes: original_list and additional_list
   original_list.merge(original_list, additional_list)
 end

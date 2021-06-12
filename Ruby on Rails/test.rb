@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'pry'
 
 def yell_greeting(string)
@@ -10,4 +12,4 @@ def yell_greeting(string)
   puts greeting
 end
 
-yell_greeting("bob")
+yell_greeting('bob')

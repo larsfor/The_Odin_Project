@@ -1,23 +1,23 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require_relative '../exercises/predicate_enumerable_exercises'
 
 RSpec.describe 'Predicate Enumerable Exercises' do
-
   describe 'coffee drink exercise' do
-
     it 'returns true when coffee is included' do
-      list = ["coffee", "water", "tea"]
+      list = %w[coffee water tea]
       expect(coffee_drink?(list)).to be true
     end
-    
+
     # remove the 'x' from the line below to unskip the test
     it 'returns true when espresso is included' do
-      list = ["milk", "juice", "espresso"]
+      list = %w[milk juice espresso]
       expect(coffee_drink?(list)).to be true
     end
 
     it 'returns false when coffee or espresso is not included' do
-      list = ["tea", "water", "milk"]
+      list = %w[tea water milk]
       expect(coffee_drink?(list)).to be false
     end
 
@@ -28,7 +28,6 @@ RSpec.describe 'Predicate Enumerable Exercises' do
   end
 
   describe 'correct guess exercise' do
-
     it 'returns true when the list contains the answer' do
       list = [2, 3, 4, 5]
       answer = 5
@@ -49,7 +48,6 @@ RSpec.describe 'Predicate Enumerable Exercises' do
   end
 
   describe 'recent years exercise' do
-
     it 'returns true when all of the years are between 2011 and 2021' do
       list = [2011, 2021, 2016]
       expect(recent_years?(list)).to be true
@@ -67,14 +65,13 @@ RSpec.describe 'Predicate Enumerable Exercises' do
   end
 
   describe 'correct format exercise' do
-
     it 'returns true when none of the words in the list are in upcase' do
-      list = ["Pepsi", "Coke", "Dr. Pepper"]
+      list = ['Pepsi', 'Coke', 'Dr. Pepper']
       expect(correct_format?(list)).to be true
     end
 
     it 'returns false when at least one word in the list is in upcase' do
-      list = ["PEPSI", "Coke", "Dr. Pepper"]
+      list = ['PEPSI', 'Coke', 'Dr. Pepper']
       expect(correct_format?(list)).to be false
     end
 
@@ -85,7 +82,6 @@ RSpec.describe 'Predicate Enumerable Exercises' do
   end
 
   describe 'valid scores exercise' do
-
     it 'returns true when only one score is a 10' do
       list = { easy_to_read: 10, uses_best_practices: 8, clever: 7 }
       perfect_score = 10
