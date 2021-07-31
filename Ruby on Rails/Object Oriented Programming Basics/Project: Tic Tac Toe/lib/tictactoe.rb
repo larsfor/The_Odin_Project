@@ -58,7 +58,7 @@ class Play
   def play(current_player = player1)
     while @game_won == false && @draw == false
       puts "Current player is #{current_player.name}"
-      board.print_board
+      # board.print_board
       puts 'Which cell do you choose?'
       move = gets.to_i
       make_move(current_player, move, board) if valid_move(move, current_player)
@@ -139,6 +139,6 @@ class Play
   end
 end
 
-board = Board.new
-game = Play.new(Player.new('X', 1), Player.new('O', 2), board)
-game.play
+# board = Board.new
+# game = Play.new(Player.new('X', 1), Player.new('O', 2), board)
+# game.play
