@@ -90,7 +90,7 @@ class Play
   # All the scenarios in which a player can win
   # If none of them are fulfilled, the game continues until we either have a winner
   # or the game is a draw.
-  def game_won?(board, current_player)
+  def game_won?(board, _current_player)
     # All the different combinations for a victory. There surely must be a better
     # way to check this. But this is the best I can do currently.
 
@@ -126,12 +126,12 @@ class Play
        board.cells[2] == 'X' && board.cells[4] == 'X' && board.cells[6] == 'X' ||
        board.cells[2] == 'O' && board.cells[4] == 'O' && board.cells[6] == 'O'
 
-      puts "The winner is #{current_player.name}!"
-      board.print_board
+      # puts "The winner is #{current_player.name}!"
+      # board.print_board
       @game_won = true
     elsif @moves > 8
       puts 'The game ended in a draw!'
-      board.print_board
+      # board.print_board
       @draw = true
     else
       @game_won = false
