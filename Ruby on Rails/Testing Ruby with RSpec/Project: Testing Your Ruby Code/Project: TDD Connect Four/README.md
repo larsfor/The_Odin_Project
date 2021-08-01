@@ -1,4 +1,4 @@
-# Porject: Connect Four TDD
+# Project: Connect Four TDD
 
 This project a part of the goal to become better in creating test driven development.
 The objective is not mainly to create a connect-the-four game, but to impllement a testing mindset. 
