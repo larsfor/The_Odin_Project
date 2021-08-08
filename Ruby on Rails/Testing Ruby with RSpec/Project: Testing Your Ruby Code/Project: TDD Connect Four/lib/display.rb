@@ -15,7 +15,7 @@ module Display
   end
 
   def display_player_turn(name, symbol)
-    "#{name}, please enter a number (1-42) that is available to place an '#{symbol}'"
+    "#{name}, please enter a number (1-7) that is available to place an '#{symbol}'"
   end
 
   def display_winner(player)

@@ -2,6 +2,7 @@
 
 # Connect Four board
 class Board
+  
   attr_reader :cells
 
   def initialize
@@ -32,11 +33,37 @@ class Board
   # rubocop:enable Metrics/AbcSize
 
   def update_board(number, symbol)
-    cells[number - 1] = symbol
+    # TODO: Fix so that we can't place above first first row
+    # For example when the entire first column is filled, you can't place more on
+    # that column.
+
+    taken_spots = [@cells[number - 1],
+                   @cells[number + 6],
+                   @cells[number + 13],
+                   @cells[number + 20],
+                   @cells[number + 27],
+                   @cells[number + 34]]
+
+    count = taken_spots.count { |x| ['⚪', '⚫'].include?(x) }
+    placement = 42 - (6 * count) - 7 + number - count
+
+    @cells[placement - 1] = symbol
   end
 
   def valid_move?(number)
-    cells[number - 1] == number
+    taken_spots = [@cells[number - 1],
+                   @cells[number + 6],
+                   @cells[number + 13],
+                   @cells[number + 20],
+                   @cells[number + 27],
+                   @cells[number + 34]]
+
+    count = taken_spots.count { |x| ['⚪', '⚫'].include?(x) }
+    placement = 42 - (6 * count) - 7 + number - count
+
+    return false if placement < 1
+        
+    number.between?(1, 7)
   end
 
   def full?

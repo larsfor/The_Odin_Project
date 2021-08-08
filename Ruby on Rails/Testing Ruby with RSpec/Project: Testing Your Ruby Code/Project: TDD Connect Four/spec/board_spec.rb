@@ -1,15 +1,16 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/BlockLength
+
 require_relative '../lib/board'
 
-# rubocop:disable Metrics/BlockLength
 describe Board do
   subject(:board) { described_class.new }
 
   describe '#update_board' do
     context 'when the board is new' do
       it 'updates cells[index]' do
-        player_input = 36
+        player_input = 1
         player_symbol = '⚪'
         board.update_board(player_input, player_symbol)
         updated_board = board.cells
@@ -32,7 +33,7 @@ describe Board do
                                               '⚪', 37, 38, 39, 40, 41, 42])
       end
       it 'updates cells[index]' do
-        player_input = 37
+        player_input = 2
         player_symbol = '⚫'
         board.update_board(player_input, player_symbol)
         updated_board = board.cells
@@ -50,26 +51,9 @@ describe Board do
   describe '#valid_move?' do
     context 'when the board is new' do
       it 'is a valid move' do
-        player_input = 36
+        player_input = 1
         valid_move = board.valid_move?(player_input)
         expect(valid_move).to eq(true)
-      end
-    end
-
-    context 'when the choosing a used space' do
-      before do
-        board.instance_variable_set(:@cells, [1, 2, 3, 4, 5, 6, 7,
-                                              8, 9, 10, 11, 12, 13, 14,
-                                              15, 16, 17, 18, 19, 20, 21,
-                                              22, 23, 24, 25, 26, 27, 28,
-                                              29, 30, 31, 32, 33, 34, 35,
-                                              '⚪', 37, 38, 39, 40, 41, 42])
-      end
-
-      it 'is not a valid move' do
-        player_input = 36
-        valid_move = board.valid_move?(player_input)
-        expect(valid_move).to eq(false)
       end
     end
 
@@ -83,10 +67,43 @@ describe Board do
                                               '⚪', 37, 38, 39, 40, 41, 42])
       end
 
-      it 'is not a move' do
-        player_input = 37
+      it 'is a valid move' do
+        player_input = 2
         valid_move = board.valid_move?(player_input)
         expect(valid_move).to eq(true)
+      end
+    end
+
+    context 'when the choosing a column that is filled' do
+      before do
+        board.instance_variable_set(:@cells, ['⚪', 2, 3, 4, 5, 6, 7,
+                                              '⚪', 9, 10, 11, 12, 13, 14,
+                                              '⚪', 16, 17, 18, 19, 20, 21,
+                                              '⚪', 23, 24, 25, 26, 27, 28,
+                                              '⚪', 30, 31, 32, 33, 34, 35,
+                                              '⚪', 37, 38, 39, 40, 41, 42])
+      end
+
+      it 'is not a valid move' do
+        player_input = 1
+        valid_move = board.valid_move?(player_input)
+        expect(valid_move).to eq(false)
+      end
+    end
+
+    context 'when the choosing a column number over 7' do
+      it 'is a valid move' do
+        player_input = 8
+        valid_move = board.valid_move?(player_input)
+        expect(valid_move).to eq(false)
+      end
+    end
+
+    context 'when the choosing a column number under 1' do
+      it 'is a valid move' do
+        player_input = 0
+        valid_move = board.valid_move?(player_input)
+        expect(valid_move).to eq(false)
       end
     end
   end
