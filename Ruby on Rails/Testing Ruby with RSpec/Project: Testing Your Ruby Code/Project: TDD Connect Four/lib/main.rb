@@ -20,3 +20,5 @@ def repeat_game
     puts 'Thanks for playing!'
   end
 end
+
+play_game
