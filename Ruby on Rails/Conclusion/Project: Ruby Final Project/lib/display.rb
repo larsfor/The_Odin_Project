@@ -11,7 +11,7 @@ module Display
   end
 
   def display_color_prompt
-    'Which color do you want to play with?'
+    "Which color do you want to play with? Input 'w' for white and 'b' for black."
   end
 
   def display_first_color(duplicate)
