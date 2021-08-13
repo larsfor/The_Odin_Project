@@ -18,7 +18,7 @@ class Pawn
     ]
   end
 
-  def possible_moves
+  def moves
     first_move == true ? starting_moves : all_moves
   end
 
