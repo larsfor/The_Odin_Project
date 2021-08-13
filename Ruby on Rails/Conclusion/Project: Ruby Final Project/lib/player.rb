@@ -2,10 +2,10 @@
 
 # The game need two players
 class Player
-  attr_reader :name, :symbol
+  attr_reader :name, :color
 
-  def initialize(name, symbol)
+  def initialize(name, _symbol)
     @name = name
-    @symbol = symbol
+    @color = color
   end
 end
