@@ -21,7 +21,7 @@ class Game
     conclusion
   end
 
-  def create_player(number, duplicate_color = 'w')
+  def create_player(number, duplicate_color = nil)
     puts display_name_promt(number)
     name = gets.chomp
     color = color_input(duplicate_color)
@@ -44,7 +44,7 @@ class Game
 
   def color_input(duplicate)
     player_color_prompts(duplicate)
-    input = gets.chomp.downcase
+    input = gets.chomp.downcase.to_s
     return input if input.match?(/^[wb]$/) && input != duplicate
 
     puts display_input_warning
@@ -58,14 +58,14 @@ class Game
 
   def player_turns
     @current_player = first_player
-    until game_over?
+    until board.game_over?
       turn(current_player)
       @current_player = switch_current_player
     end
   end
 
   def turn_input(player)
-    puts display_player_turn(player.name, player.color)
+    puts display_player_turn(player.name)
     move = gets.chomp.to_s
     return move if board.valid_move?(move)
 

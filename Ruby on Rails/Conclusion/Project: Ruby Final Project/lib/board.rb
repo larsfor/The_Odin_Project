@@ -46,6 +46,10 @@ class Board
     @cells[col_curr][row_curr] = ' '
   end
 
+  def game_over?
+    false
+  end
+
   # rubocop:disable Metrics/AbcSize
   def show
     puts <<-HEREDOC

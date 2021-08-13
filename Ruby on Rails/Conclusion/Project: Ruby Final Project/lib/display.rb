@@ -23,7 +23,7 @@ module Display
   end
 
   def display_player_turn(name)
-    "#{name}, please pick a position on the board that is available for the pirce to place on."
+    "#{name}, please pick a cell with a piece and then a valid cell to move the piece."
   end
 
   def display_winner(player)
