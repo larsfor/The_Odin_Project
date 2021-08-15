@@ -59,18 +59,33 @@ class Game
   def player_turns
     @current_player = first_player
     until board.game_over?
-      turn(current_player)
+      game(current_player)
       @current_player = switch_current_player
     end
   end
 
-  def turn_input(player)
-    puts display_player_turn(player.name)
-    move = gets.chomp.to_s
+  def game(player)
+    piece = pick_piece(player)
+    move_piece(player, piece)
+  end
+
+  def pick_piece(player)
+    puts display_player_pick_piece(player.name)
+    piece = gets.chomp.to_s
+    return piece if board.valid_move?(piece)
+
+    puts display_input_warning
+    game(player)
+  end
+
+  def move_piece(player, piece)
+    puts display_player_pick_move(player.name, piece)
+    move = gets.chomp.downcase.to_s
+    game(player) if move == 'x'
     return move if board.valid_move?(move)
 
     puts display_input_warning
-    turn_input(player)
+    move_piece(player, piece)
   end
 
   def switch_current_player

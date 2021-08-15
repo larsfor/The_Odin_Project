@@ -50,6 +50,15 @@ class Board
     false
   end
 
+  def valid_move?(move)
+    true
+  end
+
+  def valid_piece?(player_input)
+    col_move, row_move = get_board_position(player_input)
+    @cells[col_move][row_move] != ' '
+  end
+
   # rubocop:disable Metrics/AbcSize
   def show
     puts <<-HEREDOC
