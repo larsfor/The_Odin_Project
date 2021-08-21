@@ -2,11 +2,11 @@
 
 # The logic behind the pawn chess piece
 class Pawn
-  attr_reader :all_moves, :color, :symbol, :starting_moves
+  attr_reader :all_moves, :color, :symbol, :starting_moves, :name
   attr_accessor :position, :first_move
 
   def initialize(color, position)
-    @piece = 'pawn'
+    @name = 'pawn'
     @position = position
     @color = color
     @symbol = choose_piece_color

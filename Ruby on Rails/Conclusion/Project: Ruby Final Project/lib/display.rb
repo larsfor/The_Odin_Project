@@ -27,7 +27,7 @@ module Display
   end
 
   def display_player_pick_move(name, piece)
-    "#{name}, please pick a cell (eg. 'a3' without apostrophe) that you want to move the #{piece} to. Or press 'x' to choose a new piece to move."
+    "#{name}, please pick a cell (eg. 'a3' without apostrophe) where you want to move your #{piece} to. Or press 'x' to choose a new piece to move."
   end
 
   def display_winner(player)

@@ -82,7 +82,7 @@ class Game
   end
 
   def move_piece(player, piece)
-    puts display_player_pick_move(player.name, piece)
+    puts display_player_pick_move(player.name, piece.name)
     move = gets.chomp.downcase.to_s
     game(player) if move == 'x'
     return move if board.valid_move?(piece, move)
