@@ -24,14 +24,11 @@ class Board
     # white_king = King.new('w', 'e8')
     # black_king = King.new('b', 'e1')
   end
-
   # rubocop:enable Metrics/MethodLength
-  # TODO: find a way to select the object in the cell, so that we can figure out the possible
-  # moves. When we know the possible moves, we can decide if it's the move that the player
-  # chose is valid or not (game.valid_move?).
+
   def get_piece(position)
     row, col = get_board_position(position)
-    p @cells[row][col]
+    @cells[row][col]
   end
 
   def get_board_position(notation)
@@ -42,14 +39,14 @@ class Board
   end
 
   def update_board(player_input, chess_piece)
-    symbol = chess_piece
+    # symbol = chess_piece
 
     # Getting both the current and the next position
     row_curr, col_curr = get_board_position(chess_piece.position)
     row_move, col_move = get_board_position(player_input)
 
     # Moving the piece to the designated spot
-    @cells[row_move][col_move] = symbol
+    @cells[row_move][col_move] = chess_piece
 
     # Changing the spot the piece was in previosuly to a blank spot
     @cells[row_curr][col_curr] = ' '
@@ -98,17 +95,16 @@ class Board
     board = Array.new(8) { Array.new(8) }
     cells.each_with_index do |row, i|
       row.each_with_index do |piece, j|
-        board[i][j] = get_symbol_to_board(piece)
+        board[i][j] = get_symbol_to_dummy_board(piece)
       end
     end
     board
   end
 
-  def get_symbol_to_board(piece)
+  def get_symbol_to_dummy_board(piece)
     return piece.chomp if piece.instance_of?(String)
     return piece.symbol unless piece.instance_of?(String)
   end
 end
 
-board = Board.new
-board.show
+# board = Board.new

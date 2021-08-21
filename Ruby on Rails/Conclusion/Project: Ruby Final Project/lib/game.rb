@@ -67,7 +67,9 @@ class Game
   def game(player)
     position = pick_piece(player)
     piece = board.get_piece(position)
-    move_piece(player, piece)
+    move = move_piece(player, piece)
+    board.update_board(move, piece)
+    board.show
   end
 
   def pick_piece(player)
