@@ -65,14 +65,15 @@ class Game
   end
 
   def game(player)
-    piece = pick_piece(player)
+    position = pick_piece(player)
+    piece = board.get_piece(position)
     move_piece(player, piece)
   end
 
   def pick_piece(player)
     puts display_player_pick_piece(player.name)
     piece = gets.chomp.to_s
-    return piece if board.valid_move?(piece)
+    return piece if board.valid_piece?(piece)
 
     puts display_input_warning
     game(player)
@@ -82,7 +83,7 @@ class Game
     puts display_player_pick_move(player.name, piece)
     move = gets.chomp.downcase.to_s
     game(player) if move == 'x'
-    return move if board.valid_move?(move)
+    return move if board.valid_move?(piece, move)
 
     puts display_input_warning
     move_piece(player, piece)

@@ -6,6 +6,7 @@ class Pawn
   attr_accessor :position, :first_move
 
   def initialize(color, position)
+    @piece = 'pawn'
     @position = position
     @color = color
     @symbol = choose_piece_color

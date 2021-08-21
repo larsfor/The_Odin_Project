@@ -7,23 +7,32 @@ class Board
   attr_reader :cells
 
   # rubocop:disable Metrics/MethodLength
-  # rubocop:disable Metrics/AbcSize
   def initialize
     @cells = [
       ['♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜'],
-      [Pawn.new('b', 'a7').symbol, Pawn.new('b', 'b7').symbol, Pawn.new('b', 'c7').symbol, Pawn.new('b', 'd7').symbol,
-       Pawn.new('b', 'e7').symbol, Pawn.new('b', 'f7').symbol, Pawn.new('b', 'g7').symbol, Pawn.new('b', 'g7').symbol],
+      [Pawn.new('b', 'a7'), Pawn.new('b', 'b7'), Pawn.new('b', 'c7'), Pawn.new('b', 'd7'),
+       Pawn.new('b', 'e7'), Pawn.new('b', 'f7'), Pawn.new('b', 'g7'), Pawn.new('b', 'g7')],
       [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
       [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
       [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
       [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-      [Pawn.new('w', 'a2').symbol, Pawn.new('w', 'b2').symbol, Pawn.new('w', 'c2').symbol, Pawn.new('w', 'd2').symbol,
-       Pawn.new('w', 'e2').symbol, Pawn.new('w', 'f2').symbol, Pawn.new('w', 'g2').symbol, Pawn.new('w', 'g2').symbol],
+      [Pawn.new('w', 'a2'), Pawn.new('w', 'b2'), Pawn.new('w', 'c2'), Pawn.new('w', 'd2'),
+       Pawn.new('w', 'e2'), Pawn.new('w', 'f2'), Pawn.new('w', 'g2'), Pawn.new('w', 'g2')],
       ['♖', '♘', '♗', '♕', '♔', '♗', '♘', '♖']
     ]
+
+    # white_king = King.new('w', 'e8')
+    # black_king = King.new('b', 'e1')
   end
+
   # rubocop:enable Metrics/MethodLength
-  # rubocop:enable Metrics/AbcSize
+  # TODO: find a way to select the object in the cell, so that we can figure out the possible
+  # moves. When we know the possible moves, we can decide if it's the move that the player
+  # chose is valid or not (game.valid_move?).
+  def get_piece(position)
+    row, col = get_board_position(position)
+    p @cells[row][col]
+  end
 
   def get_board_position(notation)
     column_char = { 'a': 0, 'b': 1, 'c': 2, 'd': 3, 'e': 4, 'f': 5, 'g': 6, 'h': 7 }
@@ -33,24 +42,24 @@ class Board
   end
 
   def update_board(player_input, chess_piece)
-    symbol = chess_piece.symbol
+    symbol = chess_piece
 
     # Getting both the current and the next position
-    col_curr, row_curr = get_board_position(chess_piece.position)
-    col_move, row_move = get_board_position(player_input)
+    row_curr, col_curr = get_board_position(chess_piece.position)
+    row_move, col_move = get_board_position(player_input)
 
     # Moving the piece to the designated spot
-    @cells[col_move][row_move] = symbol
+    @cells[row_move][col_move] = symbol
 
     # Changing the spot the piece was in previosuly to a blank spot
-    @cells[col_curr][row_curr] = ' '
+    @cells[row_curr][col_curr] = ' '
   end
 
   def game_over?
     false
   end
 
-  def valid_move?(move)
+  def valid_move?(_piece, _move)
     true
   end
 
@@ -61,32 +70,45 @@ class Board
 
   # rubocop:disable Metrics/AbcSize
   def show
+    board = dummy_board
+
     puts <<-HEREDOC
-    8 | #{cells[0][0]} | #{cells[0][1]} | #{cells[0][2]} | #{cells[0][3]} | #{cells[0][4]} | #{cells[0][5]} | #{cells[0][6]} | #{cells[0][7]} |
+    8 | #{board[0][0]} | #{board[0][1]} | #{board[0][2]} | #{board[0][3]} | #{board[0][4]} | #{board[0][5]} | #{board[0][6]} | #{board[0][7]} |
       _________________________________
-    7 | #{cells[1][0]} | #{cells[1][1]} | #{cells[1][2]} | #{cells[1][3]} | #{cells[1][4]} | #{cells[1][5]} | #{cells[1][6]} | #{cells[1][7]} |
+    7 | #{board[1][0]} | #{board[1][1]} | #{board[1][2]} | #{board[1][3]} | #{board[1][4]} | #{board[1][5]} | #{board[1][6]} | #{board[1][7]} |
       _________________________________
-    6 | #{cells[2][0]} | #{cells[2][1]} | #{cells[2][2]} | #{cells[2][3]} | #{cells[2][4]} | #{cells[2][5]} | #{cells[2][6]} | #{cells[2][7]} |
+    6 | #{board[2][0]} | #{board[2][1]} | #{board[2][2]} | #{board[2][3]} | #{board[2][4]} | #{board[2][5]} | #{board[2][6]} | #{board[2][7]} |
       _________________________________
-    5 | #{cells[3][0]} | #{cells[3][1]} | #{cells[3][2]} | #{cells[3][3]} | #{cells[3][4]} | #{cells[3][5]} | #{cells[3][6]} | #{cells[3][7]} |
+    5 | #{board[3][0]} | #{board[3][1]} | #{board[3][2]} | #{board[3][3]} | #{board[3][4]} | #{board[3][5]} | #{board[3][6]} | #{board[3][7]} |
       _________________________________
-    4 | #{cells[4][0]} | #{cells[4][1]} | #{cells[4][2]} | #{cells[4][3]} | #{cells[4][4]} | #{cells[4][5]} | #{cells[4][6]} | #{cells[4][7]} |
+    4 | #{board[4][0]} | #{board[4][1]} | #{board[4][2]} | #{board[4][3]} | #{board[4][4]} | #{board[4][5]} | #{board[4][6]} | #{board[4][7]} |
       _________________________________
-    3 | #{cells[5][0]} | #{cells[5][1]} | #{cells[5][2]} | #{cells[5][3]} | #{cells[5][4]} | #{cells[5][5]} | #{cells[5][6]} | #{cells[5][7]} |
+    3 | #{board[5][0]} | #{board[5][1]} | #{board[5][2]} | #{board[5][3]} | #{board[5][4]} | #{board[5][5]} | #{board[5][6]} | #{board[5][7]} |
       _________________________________
-    2 | #{cells[6][0]} | #{cells[6][1]} | #{cells[6][2]} | #{cells[6][3]} | #{cells[6][4]} | #{cells[6][5]} | #{cells[6][6]} | #{cells[6][7]} |
+    2 | #{board[6][0]} | #{board[6][1]} | #{board[6][2]} | #{board[6][3]} | #{board[6][4]} | #{board[6][5]} | #{board[6][6]} | #{board[6][7]} |
       _________________________________
-    1 | #{cells[7][0]} | #{cells[7][1]} | #{cells[7][2]} | #{cells[7][3]} | #{cells[7][4]} | #{cells[7][5]} | #{cells[7][6]} | #{cells[7][7]} |
+    1 | #{board[7][0]} | #{board[7][1]} | #{board[7][2]} | #{board[7][3]} | #{board[7][4]} | #{board[7][5]} | #{board[7][6]} | #{board[7][7]} |
       _________________________________
         a   b   c   d   e   f   g   h
     HEREDOC
   end
   # rubocop:enable Metrics/AbcSize
+
+  def dummy_board
+    board = Array.new(8) { Array.new(8) }
+    cells.each_with_index do |row, i|
+      row.each_with_index do |piece, j|
+        board[i][j] = get_symbol_to_board(piece)
+      end
+    end
+    board
+  end
+
+  def get_symbol_to_board(piece)
+    return piece.chomp if piece.instance_of?(String)
+    return piece.symbol unless piece.instance_of?(String)
+  end
 end
 
-# player_input = 'a3'
-# chess_piece = Pawn.new('w', 'a2')
-
-# board = Board.new
-# board.update_board(player_input, chess_piece)
-# board.show
+board = Board.new
+board.show
