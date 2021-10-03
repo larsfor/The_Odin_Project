@@ -39,8 +39,6 @@ class Board
   end
 
   def update_board(player_input, chess_piece)
-    # symbol = chess_piece
-
     # Getting both the current and the next position
     row_curr, col_curr = get_board_position(chess_piece.position)
     row_move, col_move = get_board_position(player_input)
@@ -50,6 +48,9 @@ class Board
 
     # Changing the spot the piece was in previosuly to a blank spot
     @cells[row_curr][col_curr] = ' '
+
+    # Update the piece's position
+    chess_piece.position = player_input
   end
 
   def game_over?
@@ -57,7 +58,22 @@ class Board
   end
 
   def valid_move?(_piece, _move)
+    # move_possible?(piece, move)
+    # same_color?(piece, move)
     true
+  end
+
+  def move_possible?(piece, _move)
+    # move = get_board_position(move)
+    position = get_board_position(piece.position)
+    piece.moves.each do |moveset|
+      p "#{8 - position[0] + moveset[0]}, #{position[1] + moveset[1]}"
+    end
+  end
+
+  def same_color?(_piece, move)
+    move = get_board_position(move)
+    p @cells[move[0]][move[1]]
   end
 
   def valid_piece?(player_input)

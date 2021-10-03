@@ -36,6 +36,9 @@ class Game
 
   private
 
+  # TODO: expance 'board.valid_move?' method to check which moves can be done by the selected piece.
+  # In addition, pawns can only go diagonally when attacking.
+
   def game_set_up
     puts display_intro
     @first_player = create_player(1)
