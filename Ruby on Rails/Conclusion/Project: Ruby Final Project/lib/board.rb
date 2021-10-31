@@ -57,14 +57,43 @@ class Board
   end
 
   # TODO: Finish valid_move?
-  # Need to check for pawns not moving backwards, not being able to move into same colored pieces and
-  # moves not available to the pieces (currently only pawn)
+  # Can't have pawn move diagonally unless there's an enemy there
   # Not completely done with #opposite_color? yet
   def valid_move?(piece, move)
     return false unless move_possible?(piece, move)
     return false unless opposite_color?(piece, move)
-    # pawn_backwards?(piece, move)
+    return false if pawn_illegal_diagonally?(piece, move) && piece.name == 'pawn'
+    return false if pawn_backwards?(piece, move) && piece.name == 'pawn'
     # false
+  end
+
+  def pawn_backwards?(piece, move)
+    current_position = get_board_position(piece.position)
+    future_position = get_board_position(move)
+
+    return current_position.first < future_position.first if piece.color == 'w'
+    return current_position.first > future_position.first if piece.color == 'b'
+
+    false
+  end
+
+  def pawn_illegal_diagonally?(piece, move)
+    current_position = get_board_position(piece.position)
+    future_position = get_board_position(move)
+
+    # Change the move modifier based on the color of the pawn
+    moves = piece.color == 'w' ? [[-1, 1], [-1, -1]] : [[1, 1], [1, -1]]
+
+    # Getting the possible diagonal moves for the pawn
+    diagonally_moves = moves.map { |x, y| [current_position.first + x, current_position.last + y] }
+
+    # If the future move isn't a diagonally one, just return false
+    return false unless diagonally_moves.include?(future_position)
+
+    # If the spot is empty, the piece can't move to that location
+    return true if get_piece(move) == ' '
+
+    false
   end
 
   def game_over?
