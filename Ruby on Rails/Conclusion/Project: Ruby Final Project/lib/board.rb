@@ -57,7 +57,6 @@ class Board
   end
 
   # TODO: Finish valid_move?
-  # Can't have pawn move diagonally unless there's an enemy there
   # Not completely done with #opposite_color? yet
   def valid_move?(piece, move)
     return false unless move_possible?(piece, move)
@@ -114,7 +113,9 @@ class Board
     position = get_board_position(move)
     board_cell = @cells[position[0]][position[1]]
     cell_color = board_cell == ' ' ? board_cell : get_piece(move).color
-    return true unless piece.color == cell_color
+    return false if piece.color == cell_color
+
+    true
   end
 
   def valid_piece?(player_input)

@@ -96,12 +96,35 @@ describe Board do
       end
     end
 
+    context 'the player tries to attack a piece with same color' do
+      before do
+        white_pawn_one = Pawn.new('w', 'a4')
+        white_pawn_two = Pawn.new('w', 'b5')
+        board.instance_variable_set(:@cells, [
+                                      ['♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜'],
+                                      ['♟︎', '♟︎', '♟︎', '♟︎', '♟︎', '♟︎', '♟︎', '♟︎'],
+                                      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+                                      [' ', white_pawn_two, ' ', ' ', ' ', ' ', ' ', ' '],
+                                      [white_pawn_one, ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+                                      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+                                      [' ', '♙', '♙', '♙', '♙', '♙', '♙', '♙'],
+                                      ['♖', '♘', '♗', '♕', '♔', '♗', '♘', '♖']
+                                    ])
+      end
+
+      it 'should return false' do
+        piece = board.get_piece('a4')
+        move = 'b5'
+        opposite_color = board.opposite_color?(piece, move)
+
+        expect(opposite_color).to eq(false)
+      end
+    end
+
     context 'when having a white pawn with open spaces around it' do
       before do
         white_piece = Pawn.new('w', 'a2')
-        # black_piece = Pawn.new('b', 'a7')
         board.update_board('a3', white_piece)
-        # board.update_board('a6', black_piece)
       end
 
       it "shouldn't be able to move backwards according to pawn's color" do
@@ -114,9 +137,7 @@ describe Board do
 
     context 'when having a black pawn with open spaces around it' do
       before do
-        # white_piece = Pawn.new('w', 'a2')
         black_piece = Pawn.new('b', 'a7')
-        # board.update_board('a3', white_piece)
         board.update_board('a6', black_piece)
       end
 
@@ -184,7 +205,6 @@ describe Board do
         black_piece = board.get_piece('a5')
         black_input = 'b4'
         black_move = board.pawn_illegal_diagonally?(black_piece, black_input)
-        board.show
         expect(black_move).to eq(false)
       end
     end
