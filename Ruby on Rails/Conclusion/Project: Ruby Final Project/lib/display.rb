@@ -19,7 +19,7 @@ module Display
   end
 
   def display_input_warning
-    "\e[31mSorry, that is an invalid answer. Please, try again.\e[0m"
+    "\e[31mSorry, that is an invalid input. Please, try again.\e[0m"
   end
 
   def display_player_pick_piece(name)

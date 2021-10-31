@@ -1,9 +1,12 @@
 # frozen_string_literal: true
 
 require_relative 'pawn'
+require_relative 'display'
 
 # The board that we play on
 class Board
+  include Display
+
   attr_reader :cells
 
   # rubocop:disable Metrics/MethodLength
@@ -53,27 +56,36 @@ class Board
     chess_piece.position = player_input
   end
 
+  # TODO: Finish valid_move?
+  # Need to check for pawns not moving backwards, not being able to move into same colored pieces and
+  # moves not available to the pieces (currently only pawn)
+  # Not completely done with #opposite_color? yet
+  def valid_move?(piece, move)
+    return false unless move_possible?(piece, move)
+    return false unless opposite_color?(piece, move)
+    # pawn_backwards?(piece, move)
+    # false
+  end
+
   def game_over?
     false
   end
 
-  def valid_move?(_piece, _move)
-    # move_possible?(piece, move)
-    # same_color?(piece, move)
-    true
-  end
-
-  def move_possible?(piece, _move)
-    # move = get_board_position(move)
-    position = get_board_position(piece.position)
-    piece.moves.each do |moveset|
-      p "#{8 - position[0] + moveset[0]}, #{position[1] + moveset[1]}"
+  def move_possible?(piece, move)
+    move_pos = get_board_position(move)
+    piece_pos = get_board_position(piece.position)
+    piece.moves.each.any? do |place|
+      row = piece_pos[0] + place[0]
+      column = piece_pos[1] + place[1]
+      move_pos == [row, column]
     end
   end
 
-  def same_color?(_piece, move)
-    move = get_board_position(move)
-    p @cells[move[0]][move[1]]
+  def opposite_color?(piece, move)
+    position = get_board_position(move)
+    board_cell = @cells[position[0]][position[1]]
+    cell_color = board_cell == ' ' ? board_cell : get_piece(move).color
+    return true unless piece.color == cell_color
   end
 
   def valid_piece?(player_input)
@@ -86,23 +98,23 @@ class Board
     board = dummy_board
 
     puts <<-HEREDOC
-    8 | #{board[0][0]} | #{board[0][1]} | #{board[0][2]} | #{board[0][3]} | #{board[0][4]} | #{board[0][5]} | #{board[0][6]} | #{board[0][7]} |
-      _________________________________
-    7 | #{board[1][0]} | #{board[1][1]} | #{board[1][2]} | #{board[1][3]} | #{board[1][4]} | #{board[1][5]} | #{board[1][6]} | #{board[1][7]} |
-      _________________________________
-    6 | #{board[2][0]} | #{board[2][1]} | #{board[2][2]} | #{board[2][3]} | #{board[2][4]} | #{board[2][5]} | #{board[2][6]} | #{board[2][7]} |
-      _________________________________
-    5 | #{board[3][0]} | #{board[3][1]} | #{board[3][2]} | #{board[3][3]} | #{board[3][4]} | #{board[3][5]} | #{board[3][6]} | #{board[3][7]} |
-      _________________________________
-    4 | #{board[4][0]} | #{board[4][1]} | #{board[4][2]} | #{board[4][3]} | #{board[4][4]} | #{board[4][5]} | #{board[4][6]} | #{board[4][7]} |
-      _________________________________
-    3 | #{board[5][0]} | #{board[5][1]} | #{board[5][2]} | #{board[5][3]} | #{board[5][4]} | #{board[5][5]} | #{board[5][6]} | #{board[5][7]} |
-      _________________________________
-    2 | #{board[6][0]} | #{board[6][1]} | #{board[6][2]} | #{board[6][3]} | #{board[6][4]} | #{board[6][5]} | #{board[6][6]} | #{board[6][7]} |
-      _________________________________
-    1 | #{board[7][0]} | #{board[7][1]} | #{board[7][2]} | #{board[7][3]} | #{board[7][4]} | #{board[7][5]} | #{board[7][6]} | #{board[7][7]} |
-      _________________________________
-        a   b   c   d   e   f   g   h
+  8 | #{board[0][0]} | #{board[0][1]} | #{board[0][2]} | #{board[0][3]} | #{board[0][4]} | #{board[0][5]} | #{board[0][6]} | #{board[0][7]} |
+    _________________________________
+  7 | #{board[1][0]} | #{board[1][1]} | #{board[1][2]} | #{board[1][3]} | #{board[1][4]} | #{board[1][5]} | #{board[1][6]} | #{board[1][7]} |
+    _________________________________
+  6 | #{board[2][0]} | #{board[2][1]} | #{board[2][2]} | #{board[2][3]} | #{board[2][4]} | #{board[2][5]} | #{board[2][6]} | #{board[2][7]} |
+    _________________________________
+  5 | #{board[3][0]} | #{board[3][1]} | #{board[3][2]} | #{board[3][3]} | #{board[3][4]} | #{board[3][5]} | #{board[3][6]} | #{board[3][7]} |
+    _________________________________
+  4 | #{board[4][0]} | #{board[4][1]} | #{board[4][2]} | #{board[4][3]} | #{board[4][4]} | #{board[4][5]} | #{board[4][6]} | #{board[4][7]} |
+    _________________________________
+  3 | #{board[5][0]} | #{board[5][1]} | #{board[5][2]} | #{board[5][3]} | #{board[5][4]} | #{board[5][5]} | #{board[5][6]} | #{board[5][7]} |
+    _________________________________
+  2 | #{board[6][0]} | #{board[6][1]} | #{board[6][2]} | #{board[6][3]} | #{board[6][4]} | #{board[6][5]} | #{board[6][6]} | #{board[6][7]} |
+    _________________________________
+  1 | #{board[7][0]} | #{board[7][1]} | #{board[7][2]} | #{board[7][3]} | #{board[7][4]} | #{board[7][5]} | #{board[7][6]} | #{board[7][7]} |
+    _________________________________
+      a   b   c   d   e   f   g   h
     HEREDOC
   end
   # rubocop:enable Metrics/AbcSize
