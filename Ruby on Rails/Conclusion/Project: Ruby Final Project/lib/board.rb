@@ -57,6 +57,7 @@ class Board
   end
 
   def valid_move?(piece, move)
+    return false unless move.match?(/[a-zA-Z][0-8]/) && (move.length == 2)
     return false unless move_possible?(piece, move)
     return false unless opposite_color?(piece, move)
     return false if pawn_illegal_diagonally?(piece, move) && piece.name == 'pawn'
@@ -116,6 +117,8 @@ class Board
   end
 
   def valid_piece?(player_input)
+    return false unless player_input.match?(/[a-zA-Z][0-8]/) && (player_input.length == 2)
+
     col_move, row_move = get_board_position(player_input)
     @cells[col_move][row_move] != ' '
   end

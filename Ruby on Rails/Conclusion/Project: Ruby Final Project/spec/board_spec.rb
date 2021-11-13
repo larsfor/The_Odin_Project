@@ -32,15 +32,6 @@ describe Board do
       end
     end
 
-    # context 'after not chosing a piece to move' do
-    #   it 'should give a warning and restart the picking process' do
-    #     chess_piece = Pawn.new('w', 'a2')
-    #     player_pick = 'a3'
-
-    #     expect(updated_board).to eq(updated_index_a_three)
-    #   end
-    # end
-
     context 'when white moves for the second time' do
       before do
         white_piece = Pawn.new('w', 'a2')

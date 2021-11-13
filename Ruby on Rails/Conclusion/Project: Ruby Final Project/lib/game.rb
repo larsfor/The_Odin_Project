@@ -63,13 +63,11 @@ class Game
     until board.game_over?
       game(current_player)
       @current_player = switch_current_player
-      puts @current_player
     end
   end
 
   def game(player)
     position = pick_piece(player)
-    p "the current position is #{position}"
     piece = board.get_piece(position)
     move = move_piece(player, piece)
     board.update_board(move, piece)
@@ -88,7 +86,8 @@ class Game
   def move_piece(player, piece)
     puts display_player_pick_move(player.name, piece.name)
     move = gets.chomp.downcase.to_s
-    game(player) if move == 'x'
+    # game(player) if move == 'x'
+    pick_piece(player) if move == 'x'
     return move if board.valid_move?(piece, move)
 
     puts display_input_warning
