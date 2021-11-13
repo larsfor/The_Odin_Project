@@ -36,8 +36,7 @@ class Game
 
   private
 
-  # TODO: expance 'board.valid_move?' method to check which moves can be done by the selected piece.
-  # In addition, pawns can only go diagonally when attacking.
+  # TODO: expand 'board.valid_move?' method to check which moves can be done by the selected piece.
 
   def game_set_up
     puts display_intro
@@ -64,11 +63,13 @@ class Game
     until board.game_over?
       game(current_player)
       @current_player = switch_current_player
+      puts @current_player
     end
   end
 
   def game(player)
     position = pick_piece(player)
+    p "the current position is #{position}"
     piece = board.get_piece(position)
     move = move_piece(player, piece)
     board.update_board(move, piece)
@@ -81,7 +82,7 @@ class Game
     return piece if board.valid_piece?(piece)
 
     puts display_input_warning
-    game(player)
+    pick_piece(player)
   end
 
   def move_piece(player, piece)

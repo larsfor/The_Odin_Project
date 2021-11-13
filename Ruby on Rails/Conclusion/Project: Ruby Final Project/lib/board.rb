@@ -49,21 +49,20 @@ class Board
     # Moving the piece to the designated spot
     @cells[row_move][col_move] = chess_piece
 
-    # Changing the spot the piece was in previosuly to a blank spot
+    # Changing the spot the piece was in previosuly to a blank spot (removeig the piece)
     @cells[row_curr][col_curr] = ' '
 
     # Update the piece's position
     chess_piece.position = player_input
   end
 
-  # TODO: Finish valid_move?
-  # Not completely done with #opposite_color? yet
   def valid_move?(piece, move)
     return false unless move_possible?(piece, move)
     return false unless opposite_color?(piece, move)
     return false if pawn_illegal_diagonally?(piece, move) && piece.name == 'pawn'
     return false if pawn_backwards?(piece, move) && piece.name == 'pawn'
-    # false
+
+    true
   end
 
   def pawn_backwards?(piece, move)
@@ -113,9 +112,7 @@ class Board
     position = get_board_position(move)
     board_cell = @cells[position[0]][position[1]]
     cell_color = board_cell == ' ' ? board_cell : get_piece(move).color
-    return false if piece.color == cell_color
-
-    true
+    piece.color != cell_color
   end
 
   def valid_piece?(player_input)
