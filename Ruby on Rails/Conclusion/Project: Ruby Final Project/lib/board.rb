@@ -16,8 +16,10 @@ class Board
 
   # rubocop:disable Metrics/MethodLength
   def initialize
+    @white_king = King.new('b', 'e8')
+    @black_king = King.new('w', 'e1')
     @cells = [
-      [Rook.new('b', 'a8'), Knight.new('b', 'b8'), Bishop.new('b', 'c8'), Queen.new('b', 'd8'), King.new('w', 'e8'), Bishop.new('b', 'f8'),
+      [Rook.new('b', 'a8'), Knight.new('b', 'b8'), Bishop.new('b', 'c8'), Queen.new('b', 'd8'), @white_king, Bishop.new('b', 'f8'),
        Knight.new('b', 'g8'), Rook.new('b', 'h8')],
       [Pawn.new('b', 'a7'), Pawn.new('b', 'b7'), Pawn.new('b', 'c7'), Pawn.new('b', 'd7'),
        Pawn.new('b', 'e7'), Pawn.new('b', 'f7'), Pawn.new('b', 'g7'), Pawn.new('b', 'g7')],
@@ -27,7 +29,7 @@ class Board
       [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
       [Pawn.new('w', 'a2'), Pawn.new('w', 'b2'), Pawn.new('w', 'c2'), Pawn.new('w', 'd2'),
        Pawn.new('w', 'e2'), Pawn.new('w', 'f2'), Pawn.new('w', 'g2'), Pawn.new('w', 'g2')],
-      [Rook.new('w', 'a1'), Knight.new('w', 'b1'), Bishop.new('w', 'c1'), Queen.new('w', 'd1'), King.new('w', 'e1'), Bishop.new('w', 'f1'),
+      [Rook.new('w', 'a1'), Knight.new('w', 'b1'), Bishop.new('w', 'c1'), Queen.new('w', 'd1'), @black_king, Bishop.new('w', 'f1'),
        Knight.new('w', 'g1'), Rook.new('w', 'h1')]
     ]
 

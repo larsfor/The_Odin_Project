@@ -21,7 +21,7 @@ class Pawn
       @first_move = false
       return starting_moves
     end
-    all_moves
+    @all_moves
   end
 
   def choose_piece_color

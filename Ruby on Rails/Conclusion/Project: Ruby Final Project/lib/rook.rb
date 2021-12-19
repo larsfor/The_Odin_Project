@@ -17,7 +17,7 @@ class Rook
   end
 
   def moves
-    all_moves
+    @all_moves
   end
 
   def choose_piece_color
