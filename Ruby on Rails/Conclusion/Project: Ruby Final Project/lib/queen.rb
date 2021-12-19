@@ -3,7 +3,7 @@
 # The logic behind the bishop chess piece
 class Queen
   attr_reader :color, :symbol, :starting_moves, :name
-  attr_accessor :position, :first_move
+  attr_accessor :position
 
   def initialize(color, position)
     @name = 'queen'

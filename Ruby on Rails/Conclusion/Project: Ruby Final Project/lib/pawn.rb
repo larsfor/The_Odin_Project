@@ -26,6 +26,6 @@ class Pawn
 
   def choose_piece_color
     return '♙' if color == 'w'
-    return '♟︎' if color == 'b'
+    return '♟' if color == 'b'
   end
 end

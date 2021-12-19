@@ -2,8 +2,8 @@
 
 # The logic behind the pawn chess piece
 class King
-  attr_reader :symbol, :starting_moves, :name
-  attr_accessor :position, :first_move
+  attr_reader :color, :symbol, :starting_moves, :name
+  attr_accessor :position
 
   def initialize(color, position)
     @name = 'king'
@@ -14,7 +14,7 @@ class King
   end
 
   def moves
-    all_moves
+    @all_moves
   end
 
   def choose_piece_color
