@@ -36,8 +36,6 @@ class Game
 
   private
 
-  # TODO: expand 'board.valid_move?' method to check which moves can be done by the selected piece.
-
   def game_set_up
     puts display_intro
     @first_player = create_player(1)

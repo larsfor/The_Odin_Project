@@ -65,14 +65,65 @@ class Board
     chess_piece.position = player_input
   end
 
+  # TODO: fix #valid_move? to check if there's a piece in the way, making it impossible to move.
+  # I.e. if the queen want to move from d1 to d3 at the start of the game, when the pawn is in the way.
+
+  # TODO: fix the "press x to pick a new piece to move", currently, it keeps the piece first picked.
+
+  # TODO: can't have the opposite player play the opposite color, i.e. black can't move the white pieces.
+
   def valid_move?(piece, move)
     return false unless move.match?(/[a-zA-Z][0-8]/) && (move.length == 2)
     return false unless move_possible?(piece, move)
     return false unless opposite_color?(piece, move)
+    return false if piece_blocking?(piece, move)
     return false if pawn_illegal_diagonally?(piece, move) && piece.name == 'pawn'
     return false if pawn_backwards?(piece, move) && piece.name == 'pawn'
 
     true
+  end
+
+  def piece_blocking?(piece, move)
+    # no need to check the knight, king or pawn as their moveset is covered in "move_possible and "opposite_color?"
+    return false if piece.name == 'knight' || piece.name == 'king' || piece.name == 'pawn'
+
+    # Translate the #all_moves into the cells on the board
+    move_pos = get_board_position(move)
+    piece_pos = get_board_position(piece.position)
+
+    # Filter the moved that's not a part of the path chosen
+    # So if the queen wants to move in a straight line, don't inlcude diagonal movement
+    possible_moves = get_straight_moves(piece, piece_pos, move_pos) if move_pos.last == piece_pos.last
+    possible_moves = get_diagonal_moves(piece, piece_pos) if move_pos.last != piece_pos.last
+
+    p possible_moves
+
+    # Checking if a piece is block the way
+    return true if possible_moves.any? { |cell| @cells[cell[0]][cell[1]] != ' ' }
+
+    false
+  end
+
+  def get_straight_moves(piece, piece_pos, move_pos)
+    moves = []
+    distance_to_position = piece_pos.first - move_pos.first
+    piece.moves.each do |place|
+      row = piece_pos[0] + place[0]
+
+      column = piece_pos[1] + place[1]
+      next if move_pos.last != column
+      next if row.negative? || row > 7 || column.negative? || column > 7
+
+      # p [row, column]
+      # p(piece_pos.first - row)
+      if piece_pos.first > row
+        next if (piece_pos.first - row) > distance_to_position
+      elsif (piece_pos.first - row) < distance_to_position
+        next
+      end
+      moves << [row, column]
+    end
+    moves
   end
 
   def pawn_backwards?(piece, move)
