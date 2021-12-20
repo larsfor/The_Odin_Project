@@ -102,22 +102,26 @@ describe Board do
 
     context 'the queen can move diagonally up to the left ' do
       before do
-        white_queen = Queen.new('w', 'd3')
+        white_king = King.new('w', 'e1')
+        black_king = King.new('b', 'e8')
+        white_queen = Queen.new('w', 'h5')
         board.instance_variable_set(:@cells, [
-                                      ['♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜'],
-                                      ['♟', '♟', '♟', '♟', '♟', '♟', '♟', '♟'],
+                                      ['♜', '♞', '♝', '♛', black_king, '♝', '♞', '♜'],
+                                      ['♟', '♟', '♟', '♟', '♟', ' ', '♟', '♟'],
+                                      [' ', ' ', ' ', ' ', ' ', '♟', ' ', ' '],
+                                      [' ', ' ', ' ', ' ', ' ', ' ', ' ', white_queen],
                                       [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-                                      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-                                      [' ', ' ', ' ', '♙', ' ', ' ', ' ', ' '],
-                                      [' ', ' ', ' ', white_queen, ' ', ' ', ' ', ' '],
-                                      ['♙', '♙', '♙', ' ', '♙', '♙', '♙', '♙'],
-                                      ['♖', '♘', '♗', ' ', '♔', '♗', '♘', '♖']
+                                      [' ', ' ', ' ', ' ', '♙', ' ', ' ', ' '],
+                                      ['♙', '♙', '♙', '♙', ' ', '♙', '♙', '♙'],
+                                      ['♖', '♘', '♗', ' ', white_king, '♗', '♘', '♖']
                                     ])
       end
 
       it 'should return false' do
-        piece = board.get_piece('d3')
-        move = 'a6'
+        piece = board.get_piece('h5')
+        move = 'e8'
+
+        board.update_board(move, piece)
 
         error_message = 'Sorry, that is an invalid input. Please, try again.'
         expect(board.piece_blocking?(piece, move)).to eq(false)
