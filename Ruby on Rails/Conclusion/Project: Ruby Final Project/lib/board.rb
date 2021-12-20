@@ -101,39 +101,48 @@ class Board
                   move_pos.first == piece_pos.first ? 'horizontal' : 'diagonal'
                 end
 
-    p direction
+    # possible_moves = case direction
+    #                  when 'vertical'
+    #                    get_vertical_moves(piece, piece_pos, move_pos)
+    #                  when 'horizontal'
+    #                    get_horizontal_moves(piece, piece_pos, move_pos)
+    #                  when 'diagonal'
+    #                    get_diagonal_moves(piece, piece_pos, move_pos)
+    #                  else
+    #                    p 'Something went wrong.'
+    #                  end
 
-    possible_moves = case direction
-                     when 'vertical'
-                       get_vertical_moves(piece, piece_pos, move_pos)
-                     when 'horizontal'
-                       get_horizontal_moves(piece, piece_pos, move_pos)
-                     when 'diagonal'
-                       get_diagonal_moves(piece, piece_pos, move_pos)
-                     else
-                       p 'Something went wrong.'
-                     end
+    legal_moves = get_moveset(piece, piece_pos, move_pos, direction)
 
     # Checking if a piece is blocking the way
-    return true if possible_moves.any? { |cell| @cells[cell[0]][cell[1]] != ' ' }
+    return true if legal_moves.any? { |cell| @cells[cell[0]][cell[1]] != ' ' }
 
     false
   end
 
-  def get_horizontal_moves(piece, piece_pos, move_pos)
-    moves = []
-    distance_to_position = piece_pos.last - move_pos.last
-    piece.moves.each do |place|
-      column = piece_pos[1] + place[1]
-      # Deciding which "direction" the piece moves, so that it's not excluding moveset going up the board when
-      # there's pieces behind that can "block" the path.
-      if piece_pos.last > column
-        next if (piece_pos.last - column) > distance_to_position
-      elsif (piece_pos.last - column) < distance_to_position
-        next
-      end
+  def get_moveset(piece, piece_pos, move_pos, direction)
+    distance = (piece_pos.first - move_pos.first) if %w[vertical diagonal].include?(direction)
+    distance = (piece_pos.last - move_pos.last) if direction == 'horizontal'
 
-      row = piece_pos[0] + place[0]
+    return horizontal_moveset(piece, distance, piece_pos, move_pos, []) if direction == 'horizontal'
+    return vertical_moveset(piece, distance, piece_pos, move_pos, []) if direction == 'vertical'
+    return diagonal_moveset(piece, distance, piece_pos, []) if direction == 'diagonal'
+  end
+
+  def horizontal_moveset(piece, distance, piece_pos, move_pos, moves)
+    piece.moves.each do |coord|
+      row = piece_pos[0] + coord[0]
+      column = piece_pos[1] + coord[1]
+
+      next if piece_pos.last > (column) && ((piece_pos.last - column) > distance)
+      next if piece_pos.last < (column) && ((piece_pos.last - column) < distance)
+
+      # if piece_pos.last > column
+      #   next if (piece_pos.last - column) > distance
+      # elsif (piece_pos.last - column) < distance
+      #   next
+      # end
+
       next if move_pos.first != row
       next if row.negative? || row > 7 || column.negative? || column > 7
 
@@ -142,19 +151,19 @@ class Board
     moves
   end
 
-  def get_vertical_moves(piece, piece_pos, move_pos)
-    moves = []
-    distance_to_position = piece_pos.first - move_pos.first
-    piece.moves.each do |place|
-      row = piece_pos[0] + place[0]
-      # Deciding which "direction" the piece moves, so that it's not excluding moveset going up the board when
-      # there's pieces behind that can "block" the path.
-      if piece_pos.first > row
-        next if (piece_pos.first - row) > distance_to_position
-      elsif (piece_pos.first - row) < distance_to_position
-        next
-      end
-      column = piece_pos[1] + place[1]
+  def vertical_moveset(piece, distance, piece_pos, move_pos, moves)
+    piece.moves.each do |coord|
+      row = piece_pos[0] + coord[0]
+      column = piece_pos[1] + coord[1]
+
+      next if piece_pos.first > (row) && ((piece_pos.first - row) > distance)
+      next if piece_pos.first < (row) && ((piece_pos.first - row) < distance)
+
+      # if piece_pos.first > row
+      #   next if (piece_pos.first - row) > distance_to_position
+      # elsif (piece_pos.first - row) < distance_to_position
+      #   next
+      # end
 
       next if move_pos.last != column
       next if row.negative? || row > 7 || column.negative? || column > 7
@@ -164,39 +173,116 @@ class Board
     moves
   end
 
-  def get_diagonal_moves(piece, piece_pos, move_pos)
-    moves = []
-    distance_to_position = piece_pos.first - move_pos.first
-    piece.moves.each do |place|
-      row = piece_pos[0] + place[0]
-      column = piece_pos[1] + place[1]
+  def diagonal_moveset(piece, distance, piece_pos, moves)
+    # p 'diagonal'
+    piece.moves.each do |coord|
+      row = piece_pos[0] + coord[0]
+      column = piece_pos[1] + coord[1]
 
-      # Deciding which "direction" the piece moves, so that it's not excluding moveset going up the board when
-      # there's pieces behind that can "block" the path.
+      next if piece_pos.last > (column) && ((piece_pos.last - column) > distance)
+      # next if piece_pos.last < (column) && ((piece_pos.last - column) < distance)
+      next if piece_pos.last - column < distance
+      next if piece_pos.first > (row) && ((piece_pos.first - row) > distance)
+      # next if piece_pos.first < (row) && ((piece_pos.first - row) < distance)
+      next if piece_pos.first - row < distance
+      next if row.negative? || row > 7 || column.negative? || column > 7
+
       # if piece_pos.last > column
-      # next if (piece_pos.last - column) > distance_to_position
-      # elsif (piece_pos.last - column) < distance_to_position
-      # next
+      #   next if (piece_pos.last - column) > distance
+      # elsif (piece_pos.last - column) < distance
+      #   next
       # end
 
-      if piece_pos.first > row
-        next if (piece_pos.first - row) > distance_to_position
-      elsif (piece_pos.first - row) < distance_to_position
-        next
-      end
+      # if piece_pos.first > row
+      #   next if (piece_pos.first - row) > distance
+      # elsif (piece_pos.first - row) < distance
+      #   next
+      # end
 
-      if piece_pos.last > column
-        next if (piece_pos.last - column) > distance_to_position
-      elsif (piece_pos.last - column) < distance_to_position
-        next
-      end
-
-      next if row.negative? || row > 7 || column.negative? || column > 7
+      # next if row.negative? || row > 7 || column.negative? || column > 7
 
       moves << [row, column]
     end
     moves
   end
+
+  # def get_horizontal_moves(piece, piece_pos, move_pos)
+  #   moves = []
+  #   distance_to_position = piece_pos.last - move_pos.last
+  #   piece.moves.each do |place|
+  #     column = piece_pos[1] + place[1]
+  #     # Deciding which "direction" the piece moves, so that it's not excluding moveset going up the board when
+  #     # there's pieces behind that can "block" the path.
+  #     if piece_pos.last > column
+  #       next if (piece_pos.last - column) > distance_to_position
+  #     elsif (piece_pos.last - column) < distance_to_position
+  #       next
+  #     end
+
+  #     row = piece_pos[0] + place[0]
+  #     next if move_pos.first != row
+  #     next if row.negative? || row > 7 || column.negative? || column > 7
+
+  #     moves << [row, column]
+  #   end
+  #   moves
+  # end
+
+  # def get_vertical_moves(piece, piece_pos, move_pos)
+  #   moves = []
+  #   distance_to_position = piece_pos.first - move_pos.first
+  #   piece.moves.each do |place|
+  #     row = piece_pos[0] + place[0]
+  #     # Deciding which "direction" the piece moves, so that it's not excluding moveset going up the board when
+  #     # there's pieces behind that can "block" the path.
+  #     if piece_pos.first > row
+  #       next if (piece_pos.first - row) > distance_to_position
+  #     elsif (piece_pos.first - row) < distance_to_position
+  #       next
+  #     end
+  #     column = piece_pos[1] + place[1]
+
+  #     next if move_pos.last != column
+  #     next if row.negative? || row > 7 || column.negative? || column > 7
+
+  #     moves << [row, column]
+  #   end
+  #   moves
+  # end
+
+  # def get_diagonal_moves(piece, piece_pos, move_pos)
+  #   moves = []
+  #   distance_to_position = piece_pos.first - move_pos.first
+  #   piece.moves.each do |place|
+  #     row = piece_pos[0] + place[0]
+  #     column = piece_pos[1] + place[1]
+
+  #     # Deciding which "direction" the piece moves, so that it's not excluding moveset going up the board when
+  #     # there's pieces behind that can "block" the path.
+  #     # if piece_pos.last > column
+  #     # next if (piece_pos.last - column) > distance_to_position
+  #     # elsif (piece_pos.last - column) < distance_to_position
+  #     # next
+  #     # end
+
+  #     if piece_pos.first > row
+  #       next if (piece_pos.first - row) > distance_to_position
+  #     elsif (piece_pos.first - row) < distance_to_position
+  #       next
+  #     end
+
+  #     if piece_pos.last > column
+  #       next if (piece_pos.last - column) > distance_to_position
+  #     elsif (piece_pos.last - column) < distance_to_position
+  #       next
+  #     end
+
+  #     next if row.negative? || row > 7 || column.negative? || column > 7
+
+  #     moves << [row, column]
+  #   end
+  #   moves
+  # end
 
   def pawn_backwards?(piece, move)
     current_position = get_board_position(piece.position)
