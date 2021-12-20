@@ -1,3 +1,5 @@
+Backing up board.rb
+
 # frozen_string_literal: true
 
 require_relative 'pawn'
@@ -75,6 +77,8 @@ class Board
   def valid_move?(piece, move)
     return false unless move.match?(/[a-zA-Z][0-8]/) && (move.length == 2)
     return false unless move_possible?(piece, move)
+
+    p 'passed move_possible'
     return false unless opposite_color?(piece, move)
     return false if piece_blocking?(piece, move)
     return false if pawn_illegal_diagonally?(piece, move) && piece.name == 'pawn'
@@ -101,6 +105,17 @@ class Board
                   move_pos.first == piece_pos.first ? 'horizontal' : 'diagonal'
                 end
 
+    # possible_moves = case direction
+    #                  when 'vertical'
+    #                    get_vertical_moves(piece, piece_pos, move_pos)
+    #                  when 'horizontal'
+    #                    get_horizontal_moves(piece, piece_pos, move_pos)
+    #                  when 'diagonal'
+    #                    get_diagonal_moves(piece, piece_pos, move_pos)
+    #                  else
+    #                    p 'Something went wrong.'
+    #                  end
+
     legal_moves = get_moveset(piece, piece_pos, move_pos, direction)
 
     # Checking if a piece is blocking the way
@@ -126,6 +141,12 @@ class Board
       next if piece_pos.last > (column) && ((piece_pos.last - column) > distance)
       next if piece_pos.last < (column) && ((piece_pos.last - column) < distance)
 
+      # if piece_pos.last > column
+      #   next if (piece_pos.last - column) > distance
+      # elsif (piece_pos.last - column) < distance
+      #   next
+      # end
+
       next if move_pos.first != row
       next if row.negative? || row > 7 || column.negative? || column > 7
 
@@ -141,6 +162,12 @@ class Board
 
       next if piece_pos.first > (row) && ((piece_pos.first - row) > distance)
       next if piece_pos.first < (row) && ((piece_pos.first - row) < distance)
+
+      # if piece_pos.first > row
+      #   next if (piece_pos.first - row) > distance_to_position
+      # elsif (piece_pos.first - row) < distance_to_position
+      #   next
+      # end
 
       next if move_pos.last != column
       next if row.negative? || row > 7 || column.negative? || column > 7

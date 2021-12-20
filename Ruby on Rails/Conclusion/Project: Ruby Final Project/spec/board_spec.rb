@@ -9,6 +9,7 @@ require_relative '../lib/display'
 
 describe Board do
   subject(:board) { described_class.new }
+  let(:game) { instance_double(Game) }
 
   describe '#update_board' do
     context 'when the board is new' do
@@ -92,7 +93,9 @@ describe Board do
         piece = board.get_piece('d3')
         move = 'a6'
 
+        error_message = 'Sorry, that is an invalid input. Please, try again.'
         expect(board.piece_blocking?(piece, move)).to eq(false)
+        expect(board).not_to receive(:puts).with(error_message)
       end
     end
 
@@ -113,8 +116,8 @@ describe Board do
 
       it 'should return false' do
         piece = board.get_piece('d3')
-        move = 'h6'
-
+        move = 'g6'
+        board.update_board(move, piece)
         expect(board.piece_blocking?(piece, move)).to eq(false)
       end
     end
@@ -127,8 +130,8 @@ describe Board do
                                       ['♟', '♟', '♟', '♟', '♟', '♟', '♟', '♟'],
                                       [black_queen, ' ', ' ', ' ', ' ', ' ', ' ', ' '],
                                       [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-                                      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
                                       [' ', ' ', ' ', '♙', ' ', ' ', ' ', ' '],
+                                      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
                                       ['♙', '♙', '♙', ' ', '♙', '♙', '♙', '♙'],
                                       ['♖', '♘', '♗', ' ', '♔', '♗', '♘', '♖']
                                     ])
@@ -138,7 +141,9 @@ describe Board do
         piece = board.get_piece('a6')
         move = 'd3'
 
+        error_message = 'Sorry, that is an invalid input. Please, try again.'
         expect(board.piece_blocking?(piece, move)).to eq(false)
+        expect(board).not_to receive(:puts).with(error_message)
       end
     end
 
@@ -150,8 +155,8 @@ describe Board do
                                       ['♟', '♟', '♟', '♟', '♟', '♟', '♟', '♟'],
                                       [' ', ' ', ' ', ' ', ' ', ' ', ' ', black_queen],
                                       [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-                                      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
                                       [' ', ' ', ' ', '♙', ' ', ' ', ' ', ' '],
+                                      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
                                       ['♙', '♙', '♙', ' ', '♙', '♙', '♙', '♙'],
                                       ['♖', '♘', '♗', ' ', '♔', '♗', '♘', '♖']
                                     ])
@@ -161,7 +166,9 @@ describe Board do
         piece = board.get_piece('h6')
         move = 'd3'
 
+        error_message = 'Sorry, that is an invalid input. Please, try again.'
         expect(board.piece_blocking?(piece, move)).to eq(false)
+        expect(board).not_to receive(:puts).with(error_message)
       end
     end
 
@@ -186,6 +193,8 @@ describe Board do
         piece = board.get_piece('d1')
         move = 'd3'
 
+        error_message = 'Sorry, that is an invalid input. Please, try again.'
+        expect(board).not_to receive(:puts).with(error_message)
         expect(board.piece_blocking?(piece, move)).to eq(false)
       end
     end
@@ -209,6 +218,8 @@ describe Board do
         piece = board.get_piece('d3')
         move = 'd1'
 
+        error_message = 'Sorry, that is an invalid input. Please, try again.'
+        expect(board).not_to receive(:puts).with(error_message)
         expect(board.piece_blocking?(piece, move)).to eq(false)
       end
     end
@@ -233,6 +244,8 @@ describe Board do
         piece = board.get_piece('d3')
         move = 'd5'
 
+        error_message = 'Sorry, that is an invalid input. Please, try again.'
+        expect(board).not_to receive(:puts).with(error_message)
         expect(board.piece_blocking?(piece, move)).to eq(true)
       end
     end
@@ -257,6 +270,8 @@ describe Board do
         piece = board.get_piece('d5')
         move = 'd3'
 
+        error_message = 'Sorry, that is an invalid input. Please, try again.'
+        expect(board).not_to receive(:puts).with(error_message)
         expect(board.piece_blocking?(piece, move)).to eq(true)
       end
     end
@@ -280,6 +295,8 @@ describe Board do
         piece = board.get_piece('d3')
         move = 'b3'
 
+        error_message = 'Sorry, that is an invalid input. Please, try again.'
+        expect(board).not_to receive(:puts).with(error_message)
         expect(board.piece_blocking?(piece, move)).to eq(false)
       end
     end
@@ -303,6 +320,8 @@ describe Board do
         piece = board.get_piece('d3')
         move = 'f3'
 
+        error_message = 'Sorry, that is an invalid input. Please, try again.'
+        expect(board).not_to receive(:puts).with(error_message)
         expect(board.piece_blocking?(piece, move)).to eq(false)
       end
     end
@@ -327,6 +346,8 @@ describe Board do
         piece = board.get_piece('d3')
         move = 'a3'
 
+        error_message = 'Sorry, that is an invalid input. Please, try again.'
+        expect(board).not_to receive(:puts).with(error_message)
         expect(board.piece_blocking?(piece, move)).to eq(true)
       end
     end
@@ -351,6 +372,8 @@ describe Board do
         piece = board.get_piece('d3')
         move = 'h3'
 
+        error_message = 'Sorry, that is an invalid input. Please, try again.'
+        expect(board).not_to receive(:puts).with(error_message)
         expect(board.piece_blocking?(piece, move)).to eq(true)
       end
     end
