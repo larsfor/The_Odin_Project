@@ -65,11 +65,6 @@ class Board
     chess_piece.position = player_input
   end
 
-  # TODO: fix #valid_move? to check if there's a piece in the way, making it impossible to move.
-  # I.e. if the queen want to move from d1 to d3 at the start of the game, when the pawn is in the way.
-
-  # TODO: fix the "press x to pick a new piece to move", currently, it keeps the piece first picked.
-
   # TODO: can't have the opposite player play the opposite color, i.e. black can't move the white pieces.
 
   def valid_move?(piece, move)
@@ -101,7 +96,6 @@ class Board
                 end
 
     legal_moves = get_moveset(piece, piece_pos, move_pos, direction)
-    p legal_moves
 
     # Checking if a piece is blocking the way
     return true if legal_moves.any? { |cell| @cells[cell[0]][cell[1]] != ' ' }
