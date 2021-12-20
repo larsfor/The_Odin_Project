@@ -101,6 +101,7 @@ class Game
 
   def conclusion
     if board.game_over?
+      @current_player = switch_current_player
       puts display_winner(current_player.name)
     else
       puts display.tie

@@ -95,9 +95,7 @@ class Board
     # Retrieving a list over open cells between the current piece's position
     # and the cell where the player want to move the piece.
     possible_moves = get_moveset(piece, piece_pos, move_pos, direction)
-
     possible_moves.delete(move_pos)
-    p possible_moves
 
     # Checking if a piece is blocking the way
     return true if possible_moves.any? { |cell| @cells[cell[0]][cell[1]] != ' ' }
