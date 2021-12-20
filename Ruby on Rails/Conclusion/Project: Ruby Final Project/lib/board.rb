@@ -65,8 +65,6 @@ class Board
     chess_piece.position = player_input
   end
 
-  # TODO: can't have the opposite player play the opposite color, i.e. black can't move the white pieces.
-
   def valid_move?(piece, move)
     return false unless move.match?(/[a-zA-Z][0-8]/) && (move.length == 2)
     return false unless move_possible?(piece, move)
@@ -215,10 +213,13 @@ class Board
     piece.color != cell_color
   end
 
-  def valid_piece?(player_input)
-    return false unless player_input.match?(/[a-zA-Z][0-8]/) && (player_input.length == 2)
+  def valid_piece?(input, player)
+    piece = get_piece(input)
 
-    col_move, row_move = get_board_position(player_input)
+    return false if piece.color != player.color
+    return false unless input.match?(/[a-zA-Z][0-8]/) && (input.length == 2)
+
+    col_move, row_move = get_board_position(input)
     @cells[col_move][row_move] != ' '
   end
 

@@ -75,7 +75,7 @@ class Game
   def pick_piece(player)
     puts display_player_pick_piece(player.name)
     piece = gets.chomp.to_s
-    return piece if board.valid_piece?(piece)
+    return piece if board.valid_piece?(piece, player)
 
     puts display_input_warning
     pick_piece(player)
