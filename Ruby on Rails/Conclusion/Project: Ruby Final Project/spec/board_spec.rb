@@ -76,14 +76,14 @@ describe Board do
 
     context 'the queen can move diagonally up to the left ' do
       before do
-        black_queen = Queen.new('b', 'd3')
+        white_queen = Queen.new('w', 'd3')
         board.instance_variable_set(:@cells, [
                                       ['♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜'],
                                       ['♟', '♟', '♟', '♟', '♟', '♟', '♟', '♟'],
                                       [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
                                       [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
                                       [' ', ' ', ' ', '♙', ' ', ' ', ' ', ' '],
-                                      [' ', ' ', ' ', black_queen, ' ', ' ', ' ', ' '],
+                                      [' ', ' ', ' ', white_queen, ' ', ' ', ' ', ' '],
                                       ['♙', '♙', '♙', ' ', '♙', '♙', '♙', '♙'],
                                       ['♖', '♘', '♗', ' ', '♔', '♗', '♘', '♖']
                                     ])
@@ -99,16 +99,42 @@ describe Board do
       end
     end
 
+    context "the queen can't move diagonally up to the left when a pawn is blocking" do
+      before do
+        white_queen = Queen.new('w', 'd3')
+        black_pawn = Pawn.new('b', 'b5')
+        board.instance_variable_set(:@cells, [
+                                      ['♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜'],
+                                      ['♟', ' ', '♟', '♟', '♟', '♟', '♟', '♟'],
+                                      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+                                      [' ', black_pawn, ' ', ' ', ' ', ' ', ' ', ' '],
+                                      [' ', ' ', ' ', '♙', ' ', ' ', ' ', ' '],
+                                      [' ', ' ', ' ', white_queen, ' ', ' ', ' ', ' '],
+                                      ['♙', '♙', '♙', ' ', '♙', '♙', '♙', '♙'],
+                                      ['♖', '♘', '♗', ' ', '♔', '♗', '♘', '♖']
+                                    ])
+      end
+
+      it 'should return true' do
+        piece = board.get_piece('d3')
+        move = 'a6'
+
+        error_message = 'Sorry, that is an invalid input. Please, try again.'
+        expect(board.piece_blocking?(piece, move)).to eq(true)
+        expect(board).not_to receive(:puts).with(error_message)
+      end
+    end
+
     context 'the queen can move diagonally up to the right' do
       before do
-        black_queen = Queen.new('b', 'd3')
+        white_queen = Queen.new('w', 'd3')
         board.instance_variable_set(:@cells, [
                                       ['♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜'],
                                       ['♟', '♟', '♟', '♟', '♟', '♟', '♟', '♟'],
                                       [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
                                       [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
                                       [' ', ' ', ' ', '♙', ' ', ' ', ' ', ' '],
-                                      [' ', ' ', ' ', black_queen, ' ', ' ', ' ', ' '],
+                                      [' ', ' ', ' ', white_queen, ' ', ' ', ' ', ' '],
                                       ['♙', '♙', '♙', ' ', '♙', '♙', '♙', '♙'],
                                       ['♖', '♘', '♗', ' ', '♔', '♗', '♘', '♖']
                                     ])
@@ -117,18 +143,46 @@ describe Board do
       it 'should return false' do
         piece = board.get_piece('d3')
         move = 'g6'
-        board.update_board(move, piece)
         expect(board.piece_blocking?(piece, move)).to eq(false)
+      end
+    end
+
+    context "the queen can't move diagonally up to the right when a pawn is blocking" do
+      before do
+        white_queen = Queen.new('w', 'd3')
+        black_pawn = Pawn.new('b', 'f5')
+        board.instance_variable_set(:@cells, [
+                                      ['♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜'],
+                                      ['♟', '♟', '♟', '♟', '♟', ' ', '♟', '♟'],
+                                      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+                                      [' ', ' ', ' ', ' ', ' ', black_pawn, ' ', ' '],
+                                      [' ', ' ', ' ', '♙', ' ', ' ', ' ', ' '],
+                                      [' ', ' ', ' ', white_queen, ' ', ' ', ' ', ' '],
+                                      ['♙', '♙', '♙', ' ', '♙', '♙', '♙', '♙'],
+                                      ['♖', '♘', '♗', ' ', '♔', '♗', '♘', '♖']
+                                    ])
+      end
+
+      it 'should return true' do
+        piece = board.get_piece('d3')
+        move = 'g6'
+
+        # board.update_board(move, piece)
+        # board.show
+
+        error_message = 'Sorry, that is an invalid input. Please, try again.'
+        expect(board.piece_blocking?(piece, move)).to eq(true)
+        expect(board).not_to receive(:puts).with(error_message)
       end
     end
 
     context 'the queen can move diagonally down to the right' do
       before do
-        black_queen = Queen.new('b', 'a6')
+        white_queen = Queen.new('w', 'a6')
         board.instance_variable_set(:@cells, [
                                       ['♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜'],
                                       ['♟', '♟', '♟', '♟', '♟', '♟', '♟', '♟'],
-                                      [black_queen, ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+                                      [white_queen, ' ', ' ', ' ', ' ', ' ', ' ', ' '],
                                       [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
                                       [' ', ' ', ' ', '♙', ' ', ' ', ' ', ' '],
                                       [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
@@ -147,13 +201,39 @@ describe Board do
       end
     end
 
+    context "the queen can't move diagonally down to the right when a pawn is blocking" do
+      before do
+        white_queen = Queen.new('w', 'a6')
+        black_pawn = Pawn.new('b', 'b5')
+        board.instance_variable_set(:@cells, [
+                                      ['♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜'],
+                                      ['♟', ' ', '♟', '♟', '♟', '♟', '♟', '♟'],
+                                      [white_queen, ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+                                      [' ', black_pawn, ' ', ' ', ' ', ' ', ' ', ' '],
+                                      [' ', ' ', ' ', '♙', ' ', ' ', ' ', ' '],
+                                      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+                                      ['♙', '♙', '♙', ' ', '♙', '♙', '♙', '♙'],
+                                      ['♖', '♘', '♗', ' ', '♔', '♗', '♘', '♖']
+                                    ])
+      end
+
+      it 'should return true' do
+        piece = board.get_piece('a6')
+        move = 'd3'
+
+        error_message = 'Sorry, that is an invalid input. Please, try again.'
+        expect(board.piece_blocking?(piece, move)).to eq(true)
+        expect(board).not_to receive(:puts).with(error_message)
+      end
+    end
+
     context 'the queen can move diagonally down to the left' do
       before do
-        black_queen = Queen.new('b', 'h6')
+        white_queen = Queen.new('w', 'g6')
         board.instance_variable_set(:@cells, [
                                       ['♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜'],
                                       ['♟', '♟', '♟', '♟', '♟', '♟', '♟', '♟'],
-                                      [' ', ' ', ' ', ' ', ' ', ' ', ' ', black_queen],
+                                      [' ', ' ', ' ', ' ', ' ', ' ', white_queen, ' '],
                                       [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
                                       [' ', ' ', ' ', '♙', ' ', ' ', ' ', ' '],
                                       [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
@@ -163,7 +243,7 @@ describe Board do
       end
 
       it 'should return false' do
-        piece = board.get_piece('h6')
+        piece = board.get_piece('g6')
         move = 'd3'
 
         error_message = 'Sorry, that is an invalid input. Please, try again.'
@@ -172,11 +252,37 @@ describe Board do
       end
     end
 
+    context "the queen can't move diagonally down to the left when a pawn is blocking" do
+      before do
+        white_queen = Queen.new('w', 'g6')
+        black_pawn = Pawn.new('b', 'f5')
+        board.instance_variable_set(:@cells, [
+                                      ['♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜'],
+                                      ['♟', ' ', '♟', '♟', '♟', '♟', '♟', '♟'],
+                                      [' ', ' ', ' ', ' ', ' ', ' ', white_queen, ' '],
+                                      [' ', ' ', ' ', ' ', ' ', black_pawn, ' ', ' '],
+                                      [' ', ' ', ' ', '♙', ' ', ' ', ' ', ' '],
+                                      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+                                      ['♙', '♙', '♙', ' ', '♙', '♙', '♙', '♙'],
+                                      ['♖', '♘', '♗', ' ', '♔', '♗', '♘', '♖']
+                                    ])
+      end
+
+      it 'should return true' do
+        piece = board.get_piece('g6')
+        move = 'd3'
+
+        error_message = 'Sorry, that is an invalid input. Please, try again.'
+        expect(board.piece_blocking?(piece, move)).to eq(true)
+        expect(board).not_to receive(:puts).with(error_message)
+      end
+    end
+
     ###
 
     context 'the queen can move vertically upwards' do
       before do
-        black_queen = Queen.new('b', 'd1')
+        white_queen = Queen.new('w', 'd1')
         board.instance_variable_set(:@cells, [
                                       ['♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜'],
                                       ['♟', '♟', '♟', '♟', '♟', '♟', '♟', '♟'],
@@ -185,7 +291,7 @@ describe Board do
                                       [' ', ' ', ' ', '♙', ' ', ' ', ' ', ' '],
                                       [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
                                       ['♙', '♙', '♙', ' ', '♙', '♙', '♙', '♙'],
-                                      ['♖', '♘', '♗', black_queen, '♔', '♗', '♘', '♖']
+                                      ['♖', '♘', '♗', white_queen, '♔', '♗', '♘', '♖']
                                     ])
       end
 
@@ -201,14 +307,14 @@ describe Board do
 
     context 'the queen can move vertically downwards' do
       before do
-        black_queen = Queen.new('b', 'd3')
+        white_queen = Queen.new('w', 'd3')
         board.instance_variable_set(:@cells, [
                                       ['♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜'],
                                       ['♟', '♟', '♟', '♟', '♟', '♟', '♟', '♟'],
                                       [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
                                       [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
                                       [' ', ' ', ' ', '♙', ' ', ' ', ' ', ' '],
-                                      [' ', ' ', ' ', black_queen, ' ', ' ', ' ', ' '],
+                                      [' ', ' ', ' ', white_queen, ' ', ' ', ' ', ' '],
                                       ['♙', '♙', '♙', ' ', '♙', '♙', '♙', '♙'],
                                       ['♖', '♘', '♗', ' ', '♔', '♗', '♘', '♖']
                                     ])
@@ -226,15 +332,15 @@ describe Board do
 
     context "the queen can't move vertically upwards when a pawn blocks the path" do
       before do
-        black_pawn = Pawn.new('b', 'd4')
-        black_queen = Queen.new('b', 'd3')
+        white_pawn = Pawn.new('w', 'd4')
+        white_queen = Queen.new('w', 'd3')
         board.instance_variable_set(:@cells, [
                                       ['♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜'],
                                       ['♟', '♟', '♟', '♟', '♟', '♟', '♟', '♟'],
                                       [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
                                       [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-                                      [' ', ' ', ' ', black_pawn, ' ', ' ', ' ', ' '],
-                                      [' ', ' ', ' ', black_queen, ' ', ' ', ' ', ' '],
+                                      [' ', ' ', ' ', white_pawn, ' ', ' ', ' ', ' '],
+                                      [' ', ' ', ' ', white_queen, ' ', ' ', ' ', ' '],
                                       ['♙', '♙', '♙', ' ', '♙', '♙', '♙', '♙'],
                                       ['♖', '♘', '♗', ' ', '♔', '♗', '♘', '♖']
                                     ])
@@ -252,14 +358,14 @@ describe Board do
 
     context "the queen can't move vertically downwards when a pawn blocks the path" do
       before do
-        black_pawn = Pawn.new('b', 'd4')
-        black_queen = Queen.new('b', 'd5')
+        white_pawn = Pawn.new('w', 'd4')
+        white_queen = Queen.new('w', 'd5')
         board.instance_variable_set(:@cells, [
                                       ['♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜'],
                                       ['♟', '♟', '♟', '♟', '♟', '♟', '♟', '♟'],
                                       [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-                                      [' ', ' ', ' ', black_queen, ' ', ' ', ' ', ' '],
-                                      [' ', ' ', ' ', black_pawn, ' ', ' ', ' ', ' '],
+                                      [' ', ' ', ' ', white_queen, ' ', ' ', ' ', ' '],
+                                      [' ', ' ', ' ', white_pawn, ' ', ' ', ' ', ' '],
                                       [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
                                       ['♙', '♙', '♙', ' ', '♙', '♙', '♙', '♙'],
                                       ['♖', '♘', '♗', ' ', '♔', '♗', '♘', '♖']
@@ -278,14 +384,14 @@ describe Board do
 
     context 'the queen can move horizontal to the left' do
       before do
-        black_queen = Queen.new('b', 'd3')
+        white_queen = Queen.new('w', 'd3')
         board.instance_variable_set(:@cells, [
                                       ['♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜'],
                                       ['♟', '♟', '♟', '♟', '♟', '♟', '♟', '♟'],
                                       [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
                                       [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
                                       [' ', ' ', ' ', '♙', ' ', ' ', ' ', ' '],
-                                      [' ', ' ', ' ', black_queen, ' ', ' ', ' ', ' '],
+                                      [' ', ' ', ' ', white_queen, ' ', ' ', ' ', ' '],
                                       ['♙', '♙', '♙', ' ', '♙', '♙', '♙', '♙'],
                                       ['♖', '♘', '♗', ' ', '♔', '♗', '♘', '♖']
                                     ])
@@ -303,14 +409,14 @@ describe Board do
 
     context 'the queen can move horizontal to the right' do
       before do
-        black_queen = Queen.new('b', 'd3')
+        white_queen = Queen.new('w', 'd3')
         board.instance_variable_set(:@cells, [
                                       ['♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜'],
                                       ['♟', '♟', '♟', '♟', '♟', '♟', '♟', '♟'],
                                       [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
                                       [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
                                       [' ', ' ', ' ', '♙', ' ', ' ', ' ', ' '],
-                                      [' ', ' ', ' ', black_queen, ' ', ' ', ' ', ' '],
+                                      [' ', ' ', ' ', white_queen, ' ', ' ', ' ', ' '],
                                       ['♙', '♙', '♙', ' ', '♙', '♙', '♙', '♙'],
                                       ['♖', '♘', '♗', ' ', '♔', '♗', '♘', '♖']
                                     ])
@@ -328,15 +434,15 @@ describe Board do
 
     context "the queen can't move horizontal to the left when a pawn blocks the path" do
       before do
-        black_pawn = Pawn.new('b', 'c3')
-        black_queen = Queen.new('b', 'd3')
+        white_pawn = Pawn.new('w', 'c3')
+        white_queen = Queen.new('w', 'd3')
         board.instance_variable_set(:@cells, [
                                       ['♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜'],
                                       ['♟', '♟', '♟', '♟', '♟', '♟', '♟', '♟'],
                                       [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
                                       [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
                                       [' ', ' ', ' ', '♙', ' ', ' ', ' ', ' '],
-                                      [' ', ' ', black_pawn, black_queen, ' ', ' ', ' ', ' '],
+                                      [' ', ' ', white_pawn, white_queen, ' ', ' ', ' ', ' '],
                                       ['♙', '♙', ' ', ' ', '♙', '♙', '♙', '♙'],
                                       ['♖', '♘', '♗', ' ', '♔', '♗', '♘', '♖']
                                     ])
@@ -354,15 +460,15 @@ describe Board do
 
     context "the queen can't move horizontal to the right when a pawn blocks the path" do
       before do
-        black_pawn = Pawn.new('b', 'f3')
-        black_queen = Queen.new('b', 'd3')
+        white_pawn = Pawn.new('w', 'f3')
+        white_queen = Queen.new('w', 'd3')
         board.instance_variable_set(:@cells, [
                                       ['♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜'],
                                       ['♟', '♟', '♟', '♟', '♟', '♟', '♟', '♟'],
                                       [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
                                       [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
                                       [' ', ' ', ' ', '♙', ' ', ' ', ' ', ' '],
-                                      [' ', ' ', ' ', black_queen, ' ', black_pawn, ' ', ' '],
+                                      [' ', ' ', ' ', white_queen, ' ', white_pawn, ' ', ' '],
                                       ['♙', '♙', '♙', ' ', '♙', '♙', '♙', '♙'],
                                       ['♖', '♘', '♗', ' ', '♔', '♗', '♘', '♖']
                                     ])

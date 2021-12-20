@@ -1,5 +1,3 @@
-Backing up board.rb
-
 # frozen_string_literal: true
 
 require_relative 'pawn'
@@ -77,8 +75,6 @@ class Board
   def valid_move?(piece, move)
     return false unless move.match?(/[a-zA-Z][0-8]/) && (move.length == 2)
     return false unless move_possible?(piece, move)
-
-    p 'passed move_possible'
     return false unless opposite_color?(piece, move)
     return false if piece_blocking?(piece, move)
     return false if pawn_illegal_diagonally?(piece, move) && piece.name == 'pawn'
@@ -98,25 +94,14 @@ class Board
     # Filter the moved that's not a part of the path chosen
     # So if the queen wants to move in a straight line, it won't inlcude diagonal movement
     # It also removes moves reaching beyond the designated spot.
-
     direction = if move_pos.last == piece_pos.last
                   'vertical'
                 else
                   move_pos.first == piece_pos.first ? 'horizontal' : 'diagonal'
                 end
 
-    # possible_moves = case direction
-    #                  when 'vertical'
-    #                    get_vertical_moves(piece, piece_pos, move_pos)
-    #                  when 'horizontal'
-    #                    get_horizontal_moves(piece, piece_pos, move_pos)
-    #                  when 'diagonal'
-    #                    get_diagonal_moves(piece, piece_pos, move_pos)
-    #                  else
-    #                    p 'Something went wrong.'
-    #                  end
-
     legal_moves = get_moveset(piece, piece_pos, move_pos, direction)
+    p legal_moves
 
     # Checking if a piece is blocking the way
     return true if legal_moves.any? { |cell| @cells[cell[0]][cell[1]] != ' ' }
@@ -125,27 +110,32 @@ class Board
   end
 
   def get_moveset(piece, piece_pos, move_pos, direction)
-    distance = (piece_pos.first - move_pos.first) if %w[vertical diagonal].include?(direction)
-    distance = (piece_pos.last - move_pos.last) if direction == 'horizontal'
+    # distance = (piece_pos.first - move_pos.first) if %w[vertical diagonal].include?(direction)
+    # distance = (piece_pos.last - move_pos.last) if direction == 'horizontal'
 
-    return horizontal_moveset(piece, distance, piece_pos, move_pos, []) if direction == 'horizontal'
-    return vertical_moveset(piece, distance, piece_pos, move_pos, []) if direction == 'vertical'
-    return diagonal_moveset(piece, distance, piece_pos, []) if direction == 'diagonal'
+    return horizontal_moveset(piece, piece_pos, move_pos) if direction == 'horizontal'
+    return vertical_moveset(piece, piece_pos, move_pos) if direction == 'vertical'
+    return diagonal_moveset(piece, piece_pos, move_pos) if direction == 'diagonal'
   end
 
-  def horizontal_moveset(piece, distance, piece_pos, move_pos, moves)
+  def filter_coordinates(row, column, move_pos, piece_pos)
+    return false if row.negative? || row > 7 || column.negative? || column > 7
+    return false if move_pos.first > (piece_pos.first) && (row <= piece_pos.first || row > move_pos.first)
+    return false if move_pos.first < (piece_pos.first) && (row >= piece_pos.first || row < move_pos.first)
+    return false if move_pos.last > (piece_pos.last) && (column <= piece_pos.last || column > move_pos.last)
+    return false if move_pos.last < (piece_pos.last) && (column >= piece_pos.last || column < move_pos.last)
+
+    true
+  end
+
+  def horizontal_moveset(piece, piece_pos, move_pos)
+    moves = []
     piece.moves.each do |coord|
       row = piece_pos[0] + coord[0]
       column = piece_pos[1] + coord[1]
 
-      next if piece_pos.last > (column) && ((piece_pos.last - column) > distance)
-      next if piece_pos.last < (column) && ((piece_pos.last - column) < distance)
-
-      # if piece_pos.last > column
-      #   next if (piece_pos.last - column) > distance
-      # elsif (piece_pos.last - column) < distance
-      #   next
-      # end
+      next if piece_pos.last > (column) && ((piece_pos.last - column) > (piece_pos.last - move_pos.last))
+      next if piece_pos.last < (column) && ((piece_pos.last - column) < (piece_pos.last - move_pos.last))
 
       next if move_pos.first != row
       next if row.negative? || row > 7 || column.negative? || column > 7
@@ -155,19 +145,14 @@ class Board
     moves
   end
 
-  def vertical_moveset(piece, distance, piece_pos, move_pos, moves)
+  def vertical_moveset(piece, piece_pos, move_pos)
+    moves = []
     piece.moves.each do |coord|
       row = piece_pos[0] + coord[0]
       column = piece_pos[1] + coord[1]
 
-      next if piece_pos.first > (row) && ((piece_pos.first - row) > distance)
-      next if piece_pos.first < (row) && ((piece_pos.first - row) < distance)
-
-      # if piece_pos.first > row
-      #   next if (piece_pos.first - row) > distance_to_position
-      # elsif (piece_pos.first - row) < distance_to_position
-      #   next
-      # end
+      next if piece_pos.first > (row) && ((piece_pos.first - row) > (piece_pos.first - move_pos.first))
+      next if piece_pos.first < (row) && ((piece_pos.first - row) < (piece_pos.first - move_pos.first))
 
       next if move_pos.last != column
       next if row.negative? || row > 7 || column.negative? || column > 7
@@ -177,33 +162,26 @@ class Board
     moves
   end
 
-  def diagonal_moveset(piece, distance, piece_pos, moves)
+  def diagonal_moveset(piece, piece_pos, move_pos)
+    moves = []
     piece.moves.each do |coord|
       row = piece_pos[0] + coord[0]
       column = piece_pos[1] + coord[1]
+      moves << [row, column] if filter_coordinates(row, column, move_pos, piece_pos)
 
-      # next if piece_pos.last > (column) && ((piece_pos.last - column) > distance)
-      # next if piece_pos.last < (column) && ((piece_pos.last - column) < distance)
-      # next if piece_pos.first > (row) && ((piece_pos.first - row) > distance)
-      # next if piece_pos.first < (row) && ((piece_pos.first - row) < distance)
       # next if row.negative? || row > 7 || column.negative? || column > 7
 
-      if piece_pos.last > column
-        next if (piece_pos.last - column) > distance
-      elsif (piece_pos.last - column) < distance
-        next
-      end
+      # next if move_pos.first > (piece_pos.first) && (row <= piece_pos.first || row > move_pos.first)
 
-      if piece_pos.first > row
-        next if (piece_pos.first - row) > distance
-      elsif (piece_pos.first - row) < distance
-        next
-      end
+      # next if move_pos.first < (piece_pos.first) && (row >= piece_pos.first || row < move_pos.first)
 
-      next if row.negative? || row > 7 || column.negative? || column > 7
+      # next if move_pos.last > (piece_pos.last) && (column <= piece_pos.last || column > move_pos.last)
 
-      moves << [row, column]
+      # next if move_pos.last < (piece_pos.last) && (column >= piece_pos.last || column < move_pos.last)
+
+      # moves << [row, column]
     end
+
     moves
   end
 
