@@ -77,31 +77,35 @@ class Board
   end
 
   def piece_blocking?(piece, move)
-    # no need to check the knight, king or pawn as their moveset is covered in "move_possible and "opposite_color?"
+    # No need to check the knight, king or pawn as their moveset is covered in "move_possible and "opposite_color?"
     return false if piece.name == 'knight' || piece.name == 'king' || piece.name == 'pawn'
 
     # Translate the #all_moves into the cells on the board
     move_pos = get_board_position(move)
     piece_pos = get_board_position(piece.position)
 
-    # Filter the moved that's not a part of the path chosen
+    # Filter the moved that's not a part of the chosen path.
     # So if the queen wants to move in a straight line, it won't inlcude diagonal movement
-    # It also removes moves reaching beyond the designated spot.
     direction = if move_pos.last == piece_pos.last
                   'vertical'
                 else
                   move_pos.first == piece_pos.first ? 'horizontal' : 'diagonal'
                 end
 
-    legal_moves = get_moveset(piece, piece_pos, move_pos, direction)
+    # Retrieving a list over open cells between the current piece's position
+    # and the cell where the player want to move the piece.
+    possible_moves = get_moveset(piece, piece_pos, move_pos, direction)
 
     # Checking if a piece is blocking the way
-    return true if legal_moves.any? { |cell| @cells[cell[0]][cell[1]] != ' ' }
+    return true if possible_moves.any? { |cell| @cells[cell[0]][cell[1]] != ' ' }
 
     false
   end
 
   def get_moveset(piece, piece_pos, move_pos, direction)
+    # Only retrieving the relevant cells based on the direction the piece is moving.
+    # For example, if the player picks a rook, there's no need to check the diagonal
+    # moveset.
     return horizontal_moveset(piece, piece_pos, move_pos) if direction == 'horizontal'
     return vertical_moveset(piece, piece_pos, move_pos) if direction == 'vertical'
     return diagonal_moveset(piece, piece_pos, move_pos) if direction == 'diagonal'
@@ -214,10 +218,11 @@ class Board
   end
 
   def valid_piece?(input, player)
+    return false unless input.match?(/[a-zA-Z][0-8]/) && (input.length == 2)
+
     piece = get_piece(input)
 
     return false if piece.color != player.color
-    return false unless input.match?(/[a-zA-Z][0-8]/) && (input.length == 2)
 
     col_move, row_move = get_board_position(input)
     @cells[col_move][row_move] != ' '

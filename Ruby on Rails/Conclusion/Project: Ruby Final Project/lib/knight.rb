@@ -2,7 +2,7 @@
 
 # The logic behind the knight chess piece
 class Knight
-  attr_reader :color, :symbol, :starting_moves, :name
+  attr_reader :color, :symbol, :all_moves, :name
   attr_accessor :position
 
   def initialize(color, position)
