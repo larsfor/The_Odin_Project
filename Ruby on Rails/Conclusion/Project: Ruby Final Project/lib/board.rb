@@ -33,8 +33,8 @@ class Board
        Knight.new('w', 'g1'), Rook.new('w', 'h1')]
     ]
 
-    @white_king = @cells[0][4]
-    @black_king = @cells[7][4]
+    # @white_king = @cells[0][4]
+    # @black_king = @cells[7][4]
   end
   # rubocop:enable Metrics/MethodLength
 
@@ -196,7 +196,16 @@ class Board
   end
 
   def game_over?
-    false
+    kings = []
+    @cells.each do |i|
+      i.each do |cell|
+        next if cell.is_a?(String)
+
+        kings.append(cell) if cell.name == 'king'
+      end
+    end
+
+    kings.length != 2
   end
 
   def move_possible?(piece, move)

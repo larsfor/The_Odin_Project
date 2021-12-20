@@ -61,6 +61,34 @@ describe Board do
     end
   end
 
+  describe '#game_over?' do
+    context 'when the game is over' do
+      before do
+        white_king = King.new('w', 'e1')
+        black_king = King.new('b', 'e8')
+        white_queen = Queen.new('w', 'h5')
+        board.instance_variable_set(:@cells, [
+                                      ['♜', '♞', '♝', '♛', black_king, '♝', '♞', '♜'],
+                                      ['♟', '♟', '♟', '♟', '♟', ' ', '♟', '♟'],
+                                      [' ', ' ', ' ', ' ', ' ', '♟', ' ', ' '],
+                                      [' ', ' ', ' ', ' ', ' ', ' ', ' ', white_queen],
+                                      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+                                      [' ', ' ', ' ', ' ', '♙', ' ', ' ', ' '],
+                                      ['♙', '♙', '♙', '♙', ' ', '♙', '♙', '♙'],
+                                      ['♖', '♘', '♗', ' ', white_king, '♗', '♘', '♖']
+                                    ])
+      end
+
+      it 'returns true' do
+        player_input = 'e8'
+        chess_piece = board.get_piece('h5')
+
+        board.update_board(player_input, chess_piece)
+        expect(board.game_over?).to eq(true)
+      end
+    end
+  end
+
   describe '#valid_move?' do
     context 'the player picks an available move' do
       it 'should return true' do
@@ -71,8 +99,6 @@ describe Board do
         expect(move_possible).to eq(true)
       end
     end
-
-    ###
 
     context 'the queen can move diagonally up to the left ' do
       before do
@@ -166,9 +192,6 @@ describe Board do
       it 'should return true' do
         piece = board.get_piece('d3')
         move = 'g6'
-
-        # board.update_board(move, piece)
-        # board.show
 
         error_message = 'Sorry, that is an invalid input. Please, try again.'
         expect(board.piece_blocking?(piece, move)).to eq(true)
@@ -277,8 +300,6 @@ describe Board do
         expect(board).not_to receive(:puts).with(error_message)
       end
     end
-
-    ###
 
     context 'the queen can move vertically upwards' do
       before do
