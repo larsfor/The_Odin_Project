@@ -175,7 +175,8 @@ class Game
     puts display_player_pick_piece(player.name)
     puts turn_message('save')
     piece = gets.chomp.to_s
-    if 'save'.include?(piece)
+
+    if piece == 'save'
       save(save_game_info) if piece == 'save'
       start(nil, nil, [], nil)
     end
