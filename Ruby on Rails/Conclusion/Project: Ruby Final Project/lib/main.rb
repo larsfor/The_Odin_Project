@@ -7,7 +7,7 @@ require_relative 'game'
 
 def play_game
   game = Game.new
-  game.play
+  game.start(nil, nil, [], nil)
   repeat_game
 end
 

@@ -7,6 +7,7 @@ require_relative 'bishop'
 require_relative 'queen'
 require_relative 'king'
 require_relative 'display'
+require_relative 'saveload'
 
 # The board that we play on
 class Board
@@ -15,7 +16,7 @@ class Board
   attr_reader :cells
 
   # rubocop:disable Metrics/MethodLength
-  def initialize
+  def initialize(_cells)
     @white_king = King.new('b', 'e8')
     @black_king = King.new('w', 'e1')
     @cells = [
@@ -32,11 +33,12 @@ class Board
       [Rook.new('w', 'a1'), Knight.new('w', 'b1'), Bishop.new('w', 'c1'), Queen.new('w', 'd1'), @black_king, Bishop.new('w', 'f1'),
        Knight.new('w', 'g1'), Rook.new('w', 'h1')]
     ]
-
-    # @white_king = @cells[0][4]
-    # @black_king = @cells[7][4]
   end
   # rubocop:enable Metrics/MethodLength
+
+  def play_previous_game(board)
+    @cells = board
+  end
 
   def get_piece(position)
     row, col = get_board_position(position)
@@ -73,7 +75,16 @@ class Board
     return false if pawn_illegal_diagonally?(piece, move) && piece.name == 'pawn'
     return false if pawn_backwards?(piece, move) && piece.name == 'pawn'
 
+    # update_save_game_info(first_player, second_player, @cells, @current_player)
+
     true
+  end
+
+  def update_save_game_info(_first_player, _second_player, board, _current_player)
+    # save_game_info[:player1] = first_player
+    # save_game_info[:player2] = second_player
+    save_game_info[:board] = board
+    # save_game_info[:current_player] = current_player
   end
 
   def piece_blocking?(piece, move)
