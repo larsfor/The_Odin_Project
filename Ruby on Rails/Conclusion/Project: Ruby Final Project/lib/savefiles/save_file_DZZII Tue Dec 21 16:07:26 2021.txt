@@ -1,8 +1,10 @@
 ---
-:player1: &1 !ruby/object:Player
+:player1: !ruby/object:Player
   name: w
   color: w
-:player2: *1
+:player2: &1 !ruby/object:Player
+  name: b
+  color: b
 :board:
 - - !ruby/object:Rook
     name: rook
@@ -436,9 +438,10 @@
       - 0
     - - 7
       - 0
-- - !ruby/object:Pawn
+- - " "
+  - !ruby/object:Pawn
     name: pawn
-    position: a7
+    position: b7
     color: b
     symbol: "♟"
     first_move: true
@@ -468,7 +471,6 @@
       - -1
     - - 0
       - -1
-  - " "
   - !ruby/object:Pawn
     name: pawn
     position: c7
@@ -661,10 +663,9 @@
       - -1
     - - 0
       - -1
-- - " "
-  - !ruby/object:Pawn
+- - !ruby/object:Pawn
     name: pawn
-    position: b6
+    position: a6
     color: b
     symbol: "♟"
     first_move: false
@@ -700,6 +701,15 @@
   - " "
   - " "
   - " "
+  - " "
+- - " "
+  - " "
+  - " "
+  - " "
+  - " "
+  - " "
+  - " "
+  - " "
 - - " "
   - " "
   - " "
@@ -710,7 +720,7 @@
   - " "
 - - !ruby/object:Pawn
     name: pawn
-    position: a4
+    position: a3
     color: w
     symbol: "♙"
     first_move: false
@@ -740,14 +750,6 @@
       - -1
     - - 0
       - -1
-  - " "
-  - " "
-  - " "
-  - " "
-  - " "
-  - " "
-  - " "
-- - " "
   - " "
   - " "
   - " "
@@ -1412,6 +1414,4 @@
       - 0
     - - 7
       - 0
-:current_player: !ruby/object:Player
-  name: b
-  color: b
+:current_player: *1

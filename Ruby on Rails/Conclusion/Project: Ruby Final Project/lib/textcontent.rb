@@ -18,7 +18,8 @@ module TextContent
       'load' => "To load a previous save state, chose one of the savefiles listed below:\n\n",
       'loaded' => "Successfully loaded a previous save state.\n\n",
       'choose_load' => "Enter the save file name below:\n\n",
-      'saved' => "Game has been saved.\n\n"
+      'saved' => "Game has been saved.\n\n",
+      'save' => "Write 'save' if you want to save your game.\n\n"
     }[message]
   end
 

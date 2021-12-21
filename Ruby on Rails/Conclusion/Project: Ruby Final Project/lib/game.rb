@@ -5,6 +5,12 @@ require_relative 'board'
 require_relative 'saveload'
 require_relative 'textcontent'
 require_relative 'textinstructions'
+require_relative 'pawn'
+require_relative 'knight'
+require_relative 'rook'
+require_relative 'bishop'
+require_relative 'queen'
+require_relative 'king'
 
 # The logic of the game
 class Game
@@ -16,7 +22,7 @@ class Game
   attr_reader :first_player, :second_player, :board, :current_player, :save_game_info
 
   def initialize
-    @board = Board.new
+    @board = Board.new(new_board)
     @first_player = nil
     @second_player = nil
     @current_player = nil
@@ -45,7 +51,7 @@ class Game
   def update_save_game_info(first_player, second_player, board, current_player)
     @save_game_info[:player1] = first_player
     @save_game_info[:player2] = second_player
-    @save_game_info[:board] = board
+    @save_game_info[:board] = board.cells
     @save_game_info[:current_player] = current_player
   end
 
@@ -53,7 +59,7 @@ class Game
     @first_player = first_player
     @second_player = second_player
     @current_player = current_player
-    @board = board
+    @board = Board.new(board)
   end
 
   def play
@@ -107,6 +113,27 @@ class Game
 
   private
 
+  # rubocop:disable Metrics/MethodLength
+  def new_board
+    white_king = King.new('b', 'e8')
+    black_king = King.new('w', 'e1')
+    [
+      [Rook.new('b', 'a8'), Knight.new('b', 'b8'), Bishop.new('b', 'c8'), Queen.new('b', 'd8'), white_king, Bishop.new('b', 'f8'),
+       Knight.new('b', 'g8'), Rook.new('b', 'h8')],
+      [Pawn.new('b', 'a7'), Pawn.new('b', 'b7'), Pawn.new('b', 'c7'), Pawn.new('b', 'd7'),
+       Pawn.new('b', 'e7'), Pawn.new('b', 'f7'), Pawn.new('b', 'g7'), Pawn.new('b', 'g7')],
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+      [Pawn.new('w', 'a2'), Pawn.new('w', 'b2'), Pawn.new('w', 'c2'), Pawn.new('w', 'd2'),
+       Pawn.new('w', 'e2'), Pawn.new('w', 'f2'), Pawn.new('w', 'g2'), Pawn.new('w', 'g2')],
+      [Rook.new('w', 'a1'), Knight.new('w', 'b1'), Bishop.new('w', 'c1'), Queen.new('w', 'd1'), black_king, Bishop.new('w', 'f1'),
+       Knight.new('w', 'g1'), Rook.new('w', 'h1')]
+    ]
+  end
+  # rubocop:enable Metrics/MethodLength
+
   def game_set_up
     puts display_intro
     @first_player = create_player(1)
@@ -146,6 +173,7 @@ class Game
 
   def pick_piece(player)
     puts display_player_pick_piece(player.name)
+    puts turn_message('save')
     piece = gets.chomp.to_s
     if 'save'.include?(piece)
       save(save_game_info) if piece == 'save'
