@@ -8,9 +8,10 @@ require_relative '../lib/display'
 # rubocop:disable Metrics/BlockLength
 
 describe Board do
-  subject(:board) { described_class.new }
   let(:game) { instance_double(Game) }
+  subject(:board) { described_class.new(game.new_board) }
 
+  
   describe '#update_board' do
     context 'when the board is new' do
       it 'updates cells[index]' do
