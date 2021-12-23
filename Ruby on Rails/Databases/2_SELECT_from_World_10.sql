@@ -1,0 +1,3 @@
+SELECT name, ROUND(GDP/population/1000)*1000 AS 'per-capita GDP'
+FROM world
+WHERE GDP > 1000000000000
