@@ -1,3 +1,4 @@
-SELECT yr, subject, winner
+SELECT winner
   FROM nobel
- WHERE yr = 1950
+ WHERE yr = 1962
+   AND subject = 'Literature'
