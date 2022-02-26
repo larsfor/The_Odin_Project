@@ -227,11 +227,7 @@ GEM
     zeitwerk (2.5.3)
 
 PLATFORMS
-  java
   ruby
-  x64-mingw32
-  x86-mingw32
-  x86-mswin32
 
 DEPENDENCIES
   bootsnap (>= 1.4.4)
@@ -242,11 +238,11 @@ DEPENDENCIES
   pg
   puma (~> 5.0)
   rack-mini-profiler (~> 2.0)
-  rails (~> 6.1.4, >= 6.1.4.4)
+  rails (~> 6.1.4)
   sass-rails (>= 6)
   selenium-webdriver
   spring
-  sqlite3
+  sqlite3 (~> 1.4)
   turbolinks (~> 5)
   tzinfo-data
   web-console (>= 4.1.0)
