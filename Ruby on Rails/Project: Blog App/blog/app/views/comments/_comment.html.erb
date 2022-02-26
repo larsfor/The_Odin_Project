@@ -6,3 +6,10 @@
     <strong>Comment:</strong>
     <%= comment.body %>
 </p>
+
+<p>
+    <%' article_path(@article) == [comment.article, comment]' %>
+    <%= link_to 'Destroy Comment', article_path(@article), 
+                method: :delete,
+                data: { confirm: 'Are you sure?' } %>
+</p>
