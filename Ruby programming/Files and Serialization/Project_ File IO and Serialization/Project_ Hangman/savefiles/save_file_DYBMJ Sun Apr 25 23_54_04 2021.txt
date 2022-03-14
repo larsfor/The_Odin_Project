@@ -1,0 +1,7 @@
+---
+:word: plainsong
+:guessed_letters:
+- p
+- l
+- a
+:turn: 4
