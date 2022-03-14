@@ -1,7 +1,0 @@
----
-:word: windsurfing
-:guessed_letters:
-- w
-- i
-- n
-:turn: 4
