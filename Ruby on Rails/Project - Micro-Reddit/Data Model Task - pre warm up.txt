@@ -1,0 +1,103 @@
+1.You are building an online learning platform (much like this!). You’ve got many different courses, each with a title and description, and each course has multiple lessons. Lesson content consists of a title and body text.
+
+_Users_
+-username:string [unique, 4-12 chars, presence]
+-email:string [unique, presence]
+-password:string [6-16 chars, presence]
+-id:integer
+-created_at:datetime
+-updated_at:datetime
+
+has_many Courses
+has_many Lessons, through: Courses
+
+_Courses_
+-title:string [unique, presence]
+-description:text [presence]
+-lessons:string [unique, presence]
+-teacher:string
+-id:integer
+-create_at:datetime
+-updated_at:datetime
+
+belongs_to Users
+has_many Lessons
+
+_Lessons_
+-title:string [unique, presence]
+-body:text [presence]
+-id:integer
+-create_at:datetime
+-updated_at:datetime
+
+belongs_to Courses
+
+2. You are building the profile tab for a new user on your site. You are already storing your user’s username and email, but now you want to collect demographic information like city, state, country, age and gender. Think – how many profiles should a user have? How would you relate this to the User model?
+
+_Profiles_
+-username:string [unique, presence]
+-password:string [presence]
+-id:integer
+-create_at:datetime
+-updated_at:datetime
+
+belongs_to User
+has_one Demographic through: Users
+
+_Users_
+-username:string [unique, 4-12 chars, presence]
+-email:string [unique, presence]
+-password:string [6-16 chars, presence]
+-id:integer
+-created_at:datetime
+-updated_at:datetime
+
+has_one Demographic
+has_one Profiles
+
+
+_Demographic_
+-city:string [presence]
+-state:string [presence]
+-country:string [presence]
+-gender:string [presence]
+-age:integer
+-id:integer
+-create_at:datetime
+-updated_at:datetime
+
+belong_to Users
+
+3. You want to build a virtual pinboard, so you’ll have users on your platform who can create “pins”. Each pin will contain the URL to an image on the web. Users can comment on pins (but can’t comment on comments).
+
+_PIN_
+-image_url:string [unique]
+
+has_many Comments
+has_one User
+
+_COMMENTS_
+-title:string
+-comment:text
+
+has_one User
+has_one Pin
+
+4. You want to build a message board like Hacker News. Users can post links. Other users can comment on these submissions or comment on the comments. How would you make sure a comment knows where in the hierarchy it lives?
+
+
+_Posts_
+-title:string
+-body:text
+-author:string
+
+has_many Comments
+has_one User
+
+_Comments_
+-author:string
+-comment:text
+
+belongs_to Posts
+
+
