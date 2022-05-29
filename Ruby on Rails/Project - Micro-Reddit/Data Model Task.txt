@@ -14,6 +14,7 @@ has_many Comments
 _Post_
 -title:string
 -body:text
+-user_id:integer
 
 belongs_to Users
 has_many Comments
