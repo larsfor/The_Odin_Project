@@ -1,6 +1,6 @@
 1. Just like in the warmup, plan out what data models you would need to allow users to be on the site (don’t worry about login/logout or securing the passwords right now), to submit links (“posts”), and to comment on links. Users do NOT need to be able to comment on comments… each comment refers to a Post.
 
-_Users_
+_User_
 -username:string [unique, 4-12 chars, presence]
 -email:string [unique, presence]
 -password:string [6-16 chars, presence]
@@ -11,14 +11,14 @@ _Users_
 has_many Posts
 has_many Comments
 
-_Posts_
+_Post_
 -title:string
 -body:text
 
 belongs_to Users
 has_many Comments
 
-_Comments_
+_Comment_
 -body:text
 
 belongs_to Posts
