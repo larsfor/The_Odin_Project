@@ -1,7 +1,15 @@
 <h1>New Users</h1>
 
-  <form accept-charset="UTF-8" action="/search" method="get">
-    <label for="query">Search for:</label>
-    <input id="query" name="query" type="text" />
-    <input name="commit" type="submit" value="Search" data-disable-with="Search" />
+  <form accept-charset="UTF-8" action="/users" method="post">
+    <label for="user">Enter name</label>
+    <input type="text" name="user[username]">
+    <p>
+    <label for="email">Enter email</label>
+    <input type="text" name="user[email]">
+    <p>
+    <label for="password">Enter password</label>
+    <input type="password" name="user[password]">
+    <p>
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+    <input name="commit" type="submit" value="Create" data-disable-with="Create" />
   </form>
