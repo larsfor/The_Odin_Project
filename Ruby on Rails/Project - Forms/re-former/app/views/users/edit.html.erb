@@ -1,0 +1,22 @@
+<h1>Edit User</h1>
+
+<%= form_with model: @user do |form| %>
+  <div>
+    <%= form.label :username %><br>
+    <%= form.text_field :username, placeholder: 'Edit username' %>
+  </div>
+
+  <div>  
+    <%= form.label :email %><br>
+    <%= form.email_field :email, placeholder: 'Edit email'%>
+  </div>
+
+  <div>  
+    <%= form.label :password %><br>
+    <%= form.password_field :password, placeholder: 'New password' %>
+  </div>
+
+  <div>
+    <%= form.submit('Save changes') %>
+  </div>
+<% end %>
