@@ -1,0 +1,19 @@
+Think about and spec out how to set up your data models for this application. You’ll need users with the usual simple identification attributes like name, email and password. They’ll need to create posts as well.
+
+_User_
+-username:string [unique, 4-12 chars, presence]
+-email:string [unique, presence]
+-password:string [6-16 chars, presence]
+-id:integer
+-created_at:datetime
+-updated_at:datetime
+
+has_many Posts
+
+_Post_
+-title:string
+-body:text
+-user_id:integer
+
+belongs_to Users
+
