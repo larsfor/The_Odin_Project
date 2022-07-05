@@ -1,2 +1,35 @@
-<h1>Posts#index</h1>
-<p>Find me in app/views/posts/index.html.erb</p>
+<h1>Posts</h1>
+
+<% @posts.each do |post| %>
+    <br />
+    <div style="border:solid; border-width:2px; width=100px">
+        <div>
+            <strong>Title:</strong>
+            <%= post.title %>
+        </div>
+        <br>
+        <div>
+            <strong>Body:</strong>
+            <%= post.body %>
+        </div>
+        <% if user_signed_in? %>
+            <strong>Author:</strong>
+            <%= post.user.email %>
+        <% end %>
+    </div>
+
+<% end %>
+
+<br />
+<% if user_signed_in? %>
+    <p>
+    <%= button_to "Logout", destroy_user_session_path, method: :delete %>
+    </p>
+<% else %>
+    <p>
+    <%= button_to 'Sign In', new_user_session_path %>
+    </p>
+    <p>
+    <%= button_to 'Sign Up', new_user_registration_path %>
+    </p>
+<% end %>
