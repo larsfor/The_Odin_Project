@@ -35,5 +35,5 @@
 /config/master.key
 
 # Ignore secret key devise
-/config\initializers\devise.rb
+/config/initializers/devise.rb
 
