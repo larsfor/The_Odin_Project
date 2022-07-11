@@ -1,6 +1,6 @@
 # README
 
-*Create a site for private events
+## Create a site for private events
 
 This is a part of the [The Odin Project](http://www.theodinproject.com).
 
