@@ -1,1 +1,35 @@
-<h1>Events#index</h1>
+<h1>Private Events</h1>
+
+<% @events.each do |event| %>
+    <br />
+    <div style="border:solid; border-width:2px; width=100px">
+        <div>
+            <strong>Title:</strong>
+            <%= event.title %>
+        </div>
+        <br>
+        <div>
+            <strong>Body:</strong>
+            <%= event.body %>
+        </div>
+        <% if user_signed_in? %>
+            <strong>Author:</strong>
+            <%= event.user.email %>
+        <% end %>
+    </div>
+
+<% end %>
+
+<br />
+<% if user_signed_in? %>
+    <p>
+    <%= button_to "Logout", destroy_user_session_path, method: :delete %>
+    </p>
+<% else %>
+    <p>
+    <%= button_to 'Sign In', new_user_session_path %>
+    </p>
+    <p>
+    <%= button_to 'Sign Up', new_user_registration_path %>
+    </p>
+<% end %>

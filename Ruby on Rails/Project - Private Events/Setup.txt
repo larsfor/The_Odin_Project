@@ -13,7 +13,7 @@ _Event_
 
 has_many :event_attendings, foreign_key: :attended_event_id
 has_many :attendees, through: :event_attendings, source: :event_attendee
-belongs_to :host, class_name "User"
+belongs_to :creator, class_name: "User"
 
 _User_
 -name:string
@@ -22,7 +22,7 @@ _User_
 
 has_many :event_attendings, foreign_key: :event_attendee_id
 has_many :attended_events, through: :event_attendings
-has_many :hosted_events, foreign_key: :host_id, class_name "Event"
+has_many :hosted_events, foreign_key: :creator_id, class_name: "Event"
 
 _Event_attending_
 belongs_to :event_attendee, class_name: "User"
