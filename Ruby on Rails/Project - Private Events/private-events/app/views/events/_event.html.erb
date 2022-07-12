@@ -1,22 +1,33 @@
-<div id="<%= dom_id event %>">
-  <p>
-    <strong>Date:</strong>
-    <%= event.date %>
-  </p>
+<p style="color: green"><%= notice %></p>
 
-  <p>
-    <strong>Location:</strong>
-    <%= event.location %>
-  </p>
+<section class="section">
+  <div class="container">
+    <div class="columns">
 
-  <p>
-    <strong>Title:</strong>
-    <%= event.title %>
-  </p>
+    <div id="<%= dom_id event %>">
+      <p>
+        <strong>Date:</strong>
+        <%= event.date %>
+      </p>
 
-  <p>
-    <strong>Description:</strong>
-    <%= event.description %>
-  </p>
+      <p>
+        <strong>Location:</strong>
+        <%= event.location %>
+      </p>
 
-</div>
+      <p>
+        <strong>Title:</strong>
+        <%= event.title %>
+      </p>
+
+      <p>
+        <strong>Description:</strong>
+        <%= event.description %>
+      </p>
+
+    </div>
+
+
+    </div>
+  </div>
+</section>

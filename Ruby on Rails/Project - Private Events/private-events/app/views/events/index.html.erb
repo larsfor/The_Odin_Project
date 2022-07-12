@@ -3,16 +3,14 @@
 <section class="section">
   <div class="container">
     <div class="columns">
-
-<div id="events">
-  <% @events.each do |event| %>
-    <%= render event %>
-    <p>
-      <%= link_to "Show this event", event %>
-    </p>
-  <% end %>
-</div>
-
+      <div id="events">
+        <% @events.each do |event| %>
+          <%= render event %>
+          <p>
+            <%= link_to "Show this event", event %>
+          </p>
+        <% end %>
+      </div>
     </div>
   </div>
 </section>
