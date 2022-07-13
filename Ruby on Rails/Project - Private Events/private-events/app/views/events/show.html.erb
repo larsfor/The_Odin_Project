@@ -1,4 +1,4 @@
-<p style="color: green"><%= notice %></p>
+
 
 <%= render @event %>
 
@@ -6,10 +6,15 @@
   <div class="container">
     <div class="columns">
       <div>
-        <%= link_to "Edit this event", edit_event_path(@event) %> |
-        <%= link_to "Back to events", events_path %>
-
-        <%= button_to "Destroy this event", @event, method: :delete %>
+      <% if @event.creator == current_user%>
+          <%= link_to "Edit this event", edit_event_path(@event) %> |
+          <%= link_to "Back to events", events_path %>
+          <%= button_to "Cancel this event", @event, method: :delete %>
+      <% elsif @event.attendees.include?(current_user) %>
+        <%= link_to 'Cancel attending', cancel_event_attending_path %>
+      <% else %>
+        <%= link_to "Attend this event", attend_event_attending_path %>
+      <% end %>
       </div>
     </div>
   </div>
