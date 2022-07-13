@@ -2,13 +2,27 @@
   <div class="container">
     <div class="columns">
       <div id="events">
-        <% @events.each do |event| %>
+      <% if Event.future.any?%>
+        <h1 class="title">Future events</h1>
+        <% Event.future.each do |event|%>
           <%= render event %>
-          <p>
-            <%= link_to "Show this event", event %>
-          </p>
+            <p>
+              <%= link_to "Show this event", event %>
+            </p>
           <hr/>
         <% end %>
+      <% end %>
+      <br/>
+      <% if Event.past.any?%>
+        <h1 class="title">Past events</h1>
+        <% Event.past.each do |event|%>
+          <%= render event %>
+            <p>
+              <%= link_to "Show this event", event %>
+            </p>
+          <hr/>
+        <% end %>
+      <% end %>
       </div>
     </div>
   </div>
