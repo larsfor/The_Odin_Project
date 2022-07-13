@@ -15,6 +15,11 @@
       <% else %>
         <%= link_to "Attend this event", attend_event_attending_path %>
       <% end %>
+      <br/>
+      <strong>Attendees</strong>
+      <% @event.attendees.each do |attendee| %>
+        <li><%=attendee.name %></li>
+      <% end%>
       </div>
     </div>
   </div>
