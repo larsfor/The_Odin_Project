@@ -6,8 +6,8 @@ We’ll be creating a one-way flight booker.
 4. Enter billing information (Not applicable in this project)
 
 _Flight_
--departure_airport:string
--arrival_airport:string
+-departure_airport_id:integer
+-arrival_airport_id:integer
 -start:datetime
 -flight_duration:float
 
