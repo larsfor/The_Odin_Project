@@ -1,0 +1,35 @@
+We’ll be creating a one-way flight booker. 
+
+1. Enter desired dates / airports and click “Search”
+2. Choose from among a list of available flights
+3. Enter passenger information for all passengers
+4. Enter billing information (Not applicable in this project)
+
+_Flight_
+-departure_airport:string
+-arrival_airport:string
+-start:datetime
+-flight_duration:float
+
+has_many :bookings
+has_many :passengers, through: :bookings
+belongs_to :departure_airport, foreign_key: :departure_airport_id, class_name: "Airport"
+belongs_to :arrival_airport, foreign_key: :arrival_airport_id, class_name: "Airport"
+
+
+_Passenger_
+-name:string
+-email:string
+
+belongs_to :booking
+
+_Booking_
+has_many :passengers
+belongs_to :flight
+accepts_nested_attributes_for :passengers
+
+_Airport_
+-airport_code:string
+
+has_many :departing_flights, foreign_key: :departure_airport, class_name: "Flight"
+has_many :arriving_flights, foreign_key: :arrival_airport, class_name: "Flight"
