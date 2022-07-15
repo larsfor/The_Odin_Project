@@ -1,0 +1,29 @@
+<h1>Flight selector and viewer</h1>
+
+<%= form_with model: Flight, method: :get do |form| %>
+  <div>
+    <%= form.label :departure_airport %><br>
+    <%= form.select(:departure_airport, @airports) %>
+  </div>
+
+    <div>
+    <%= form.label :arrival_airport %><br>
+    <%= form.select(:arrival_airport, @airports) %>
+  </div>
+
+    <div>
+    <%= form.label :number_of_passengers %><br>
+    <%= form.select(:number_of_passengers, 1..4, selected: '1') %>
+  </div>
+
+    <div>
+    <%= form.label :flight_date %><br>
+    <%= form.select(:flight_date, @dates.first..@dates.last) %>
+  </div>
+
+  <br/>
+
+  <div>
+    <%= form.submit('Search for a flight') %>
+  </div>
+<% end %>

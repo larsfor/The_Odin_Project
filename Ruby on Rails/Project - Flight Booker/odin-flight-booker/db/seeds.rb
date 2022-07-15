@@ -14,25 +14,25 @@ Airport.create(airport_code: "FNT")
 
 Flight.create(departure_airport_id: 1, 
               arrival_airport_id: 2, 
-              start: '2022-07-15 19:24:01.32674 +0200', 
+              start: '2022-07-15', 
               flight_duration: 1.5)
 Flight.create(departure_airport_id: 3, 
               arrival_airport_id: 4, 
-              start: '2022-07-15 20:24:01.32674 +0200', 
+              start: '2022-07-16', 
               flight_duration: 2.5)
 Flight.create(departure_airport_id: 5, 
               arrival_airport_id: 1, 
-              start: '2022-07-15 21:24:01.32674 +0200', 
+              start: '2022-07-17', 
               flight_duration: 0.5)
 Flight.create(departure_airport_id: 1, 
               arrival_airport_id: 3, 
-              start: '2022-07-15 22:24:01.32674 +0200', 
+              start: '2022-07-18', 
               flight_duration: 3.0)
 Flight.create(departure_airport_id: 2, 
               arrival_airport_id: 4, 
-              start: '2022-07-15 23:24:01.32674 +0200', 
+              start: '2022-07-19', 
               flight_duration: 2.0)
 Flight.create(departure_airport_id: 5, 
               arrival_airport_id: 2, 
-              start: '2022-07-16 00:24:01.32674 +0200', 
+              start: '2022-07-20', 
               flight_duration: 1.0)
