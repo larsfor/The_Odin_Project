@@ -1,6 +1,6 @@
 <h1>Flight selector and viewer</h1>
 
-<%= form_with model: Flight, method: :get do |form| %>
+<%= form_with url: "/flights", method: :get do |form| %>
   <div>
     <%= form.label :departure_airport %><br>
     <%= form.select(:departure_airport, @airports) %>
@@ -20,10 +20,14 @@
     <%= form.label :flight_date %><br>
     <%= form.select(:flight_date, @dates.first..@dates.last) %>
   </div>
-
   <br/>
-
   <div>
     <%= form.submit('Search for a flight') %>
   </div>
+<% end %>
+
+<hr/>
+
+<% if @flights.any? %>
+  <%= render 'search_results' %>
 <% end %>
