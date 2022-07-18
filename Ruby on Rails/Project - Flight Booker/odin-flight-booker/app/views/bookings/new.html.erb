@@ -1,0 +1,38 @@
+<h3>Flight information</h3>
+    <table>
+        <tr>
+            <th>Flight ID</th>
+            <th>Flight date</th>
+        </tr>
+        <tr style="text-align: center;">
+            <td ><%= @selected_flight.id %></td>
+            <td><%= @selected_flight.start %></td>
+        </tr>
+    </table>
+
+<h4>Enter passenger information:</h4>
+<%= form_with model: @booking do |f| %>
+    <% i = 1 %>
+    <table class='passenger_info'>
+        <tr>
+            <th>Passenger # </th>
+            <th><%=f.label(:name) %></th>
+            <th><%=f.label(:email) %></th>
+        </tr>
+        <%= f.fields_for :passengers do |passenger_form| %>
+            <tr>
+                <td>Passenger <%= i %></td>
+                <td><%= passenger_form.text_field(:name, required: true) %></td>
+                <td><%= passenger_form.email_field(:email, required: true) %></td>
+            </tr>
+            <% i += 1 %>
+        <% end %>
+    </table> 
+
+    <%= f.hidden_field :flight_id, value: params[:flight]%>
+    
+    <hr/>
+    <div>
+        <%= f.submit('Register the passenger(s)') %>
+    </div>
+<% end %>

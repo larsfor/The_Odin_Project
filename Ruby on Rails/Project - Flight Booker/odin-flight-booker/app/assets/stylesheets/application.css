@@ -17,3 +17,8 @@
  table, th, td {
     border:1px solid black;
  }
+
+ .passenger_info {
+   width: auto;
+ }
+ 

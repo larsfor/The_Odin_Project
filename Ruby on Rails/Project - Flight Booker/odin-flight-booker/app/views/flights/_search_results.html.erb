@@ -1,29 +1,28 @@
 <%= form_with url: "/bookings/new", method: :get do |form| %>
-
-<h3>Available flight(s):</h3>
-    <% @flights.each do |flight|%>
-        <% departure_airport = flight.departure_airport.airport_code %>
-        <% arrival_airport = flight.arrival_airport.airport_code %>
-        <% date = flight.start %>
-        <table>
-        <tr>
-            <th></th>
-            <th>Date</th>
-            <th>From</th>
-            <th>To</th>
-        </tr>
-        <tr>
-            <td><%= form.radio_button(:flight, flight.id) %></td>
-            <td><%= date %></td>
-            <td><%= departure_airport %></td>
-            <td><%= arrival_airport %></td>
-        </tr>
-        </table> 
-    <% end %>
-    <div>
-        <%= form.hidden_field :number_of_passengers, value: params[:number_of_passengers] %>
-        <%= form.submit('Choose this flight') %>
-    </div>
+    <h3>Available flight(s):</h3>
+        <% @flights.each do |flight|%>
+            <% departure_airport = flight.departure_airport.airport_code %>
+            <% arrival_airport = flight.arrival_airport.airport_code %>
+            <% date = flight.start %>
+            <table>
+            <tr>
+                <th></th>
+                <th>Date</th>
+                <th>From</th>
+                <th>To</th>
+            </tr>
+            <tr>
+                <td><%= form.radio_button(:flight, flight.id, required: true) %></td>
+                <td><%= date %></td>
+                <td><%= departure_airport %></td>
+                <td><%= arrival_airport %></td>
+            </tr>
+            </table> 
+        <% end %>
+        <div>
+            <%= form.hidden_field :number_of_passengers, value: params[:number_of_passengers] %>
+            <%= form.submit('Choose this flight') %>
+        </div>
 <% end %>
 
 <hr/>

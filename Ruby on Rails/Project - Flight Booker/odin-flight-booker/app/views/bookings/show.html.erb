@@ -1,0 +1,26 @@
+<h3>Flight summary</h3>
+    <table>
+        <tr>
+            <th>Flight ID</th>
+            <th>Flight date</th>
+        </tr>
+        <tr style="text-align: center;">
+            <td><%= @booking.flight.id %></td>
+            <td><%= @booking.flight.start %></td>
+        </tr>
+    </table>
+
+    <br/>
+
+    <table class='passenger_info'>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                </tr>
+    <% @booking.passengers.each do |passenger| %>
+        <tr>
+            <td><%= passenger.name %></td>
+            <td><%= passenger.email %></td>
+        </tr>
+    <% end %>
+    </table>
