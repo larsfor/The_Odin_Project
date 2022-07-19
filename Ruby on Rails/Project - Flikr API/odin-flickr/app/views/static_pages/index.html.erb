@@ -1,0 +1,25 @@
+<h2>A simple photo viewer from Flickr</h2>
+
+<% if params[:user_id].nil? %>
+Please enter a User ID:
+
+<%= form_with url: "/", method: :get do |form| %>
+  <div>
+    <%= form.text_field :user_id, placeholder: "User ID" %>
+  </div>
+  <br/>
+  <div>
+    <%= form.submit('Search for images') %>
+  </div>
+<% end %>
+
+<% else %>
+    <h3>
+        Showing the user's picture(s):
+    </h3>
+    <% @urls.each do |url| %>
+    <p>
+        <%= image_tag(url) %>
+    </p>
+    <% end %>
+<% end %>
