@@ -1,0 +1,46 @@
+<h1>Stimulus Exercises</h1>
+
+<h3>1. Write some HTML that uses the example controller in app/javascript/controllers/hello_controller.js</h3>
+<div data-controller="hello" data-hello-target="hello">
+</div>
+
+<h3>2. Create your own toggle controller and use it in your view. It should be able to show/hide elements 
+upon clicking a button.</h3> 
+        <div data-controller="toggle" data-toggle-change-class="hidden">
+                <button data-action="toggle#toggle">
+                        Click me
+                </button>
+                <div data-toggle-target="hide">
+                     Text
+                </div>
+
+<h3>3. Make sure your toggle controller is reusable. Try to make it do the following things:</h3>
+        <ul>
+                <li>Clicking a button will show another element (like a dropdown menu)</li>
+                <button data-action="toggle#dropdown">Show / Hide dropdown</button>
+                <li>Clicking an element will hide the clicked element and show another</li>
+                <button data-action="toggle#hideshow">Show and hide</button>
+                <li>Clicking an checkbox will highlight the element containing the checkbox</li>
+                <input type="checkbox" data-action="toggle#highlight" data-toggle-change-class="highlight">
+
+        </ul>
+        <div data-toggle-target="highlight">
+                <div data-toggle-target="dropdown" >
+                        <select>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                        </select>
+                </div>
+        </div>
+        </div>
+<div data-controller="textinput">
+        <h3>4. Write a controller for text inputs with a limited length. Warn a user when they are close or over the maximum character count (imagine a user writing a tweet which has a maximum length of 280 characters)
+        </h3>
+        <textarea rows="4" 
+                  cols="50" 
+                  data-textinput-target="maxchars" 
+                  data-action="keyup->textinput#checkLength"></textarea>
+</div>
+
+
