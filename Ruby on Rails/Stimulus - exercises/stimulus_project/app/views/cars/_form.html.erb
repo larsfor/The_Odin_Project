@@ -1,0 +1,37 @@
+<hr>
+<h3>Enter variants for your car</h3>
+    <%= form_with model: car do |form| %>
+        <% form.fields_for car.variants.build do |sub_form| %>
+    <table>
+        <tr>
+            <th>Variant</th>
+            <th>Your input</th>
+        </tr>
+        <tr>
+            <td><%= sub_form.label "Model (string):" %></td>
+            <td><%= sub_form.text_field :model %></td>
+        </tr>
+        <tr>
+            <td><%= sub_form.label "Color (String):" %></td>
+            <td><%= sub_form.text_field :color %></td>
+        </tr>
+                <tr>
+            <td><%= sub_form.label "Seats (integer):" %></td>
+            <td><%= sub_form.text_field :seats %></td>
+        </tr>
+                <tr>
+            <td><%= sub_form.label "Horsepower (integer):" %></td>
+            <td><%= sub_form.text_field :horsepower %></td>
+        </tr>
+                <tr>
+            <td><%= sub_form.label "Engine volum (integer):" %></td>
+            <td><%= sub_form.text_field :engine_volume %></td>
+        </tr>
+    </table>
+    <br/>
+    <div>
+        <%= sub_form.submit %>
+    </div>
+    <% end %>
+<% end %>
+
