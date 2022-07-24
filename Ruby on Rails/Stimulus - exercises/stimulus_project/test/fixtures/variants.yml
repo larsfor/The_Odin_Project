@@ -1,13 +1,7 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  color: MyString
-  seats: 1
-  horsepower: 1
-  engine_volume: 1
+  user: one
 
 two:
-  color: MyString
-  seats: 1
-  horsepower: 1
-  engine_volume: 1
+  user: two

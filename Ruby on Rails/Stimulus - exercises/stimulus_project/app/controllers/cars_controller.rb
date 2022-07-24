@@ -1,30 +1,27 @@
 class CarsController < ApplicationController
-    def index
-        @cars = Car.all
+  def new
+    @car = Car.new
+    1.times { @car.variants.build }
+  end
+
+  def create
+    @car = Car.new(car_params)
+
+    if @car.save
+      flash[:notice] = "Car has been made!"
+      redirect_to @car
+    else
+      render :new
     end
+  end
 
-    def new
-        @car = Car.new
-        @variants = Variant.all.map {|v| v.model}
-    end
+  def show
+    @car = Car.find_by(id: params[:id])
+  end
 
-    def create
-        @car = Car.new(car_params)
+  private
 
-        respond_to do |format|
-            if @car.save
-                format.html { redirect_to car_url(@car), notice: "Car was successfully created." }
-                format.json { render :show, status: :created, location: @car }
-            else
-                format.html { render :new, status: :unprocessable_entity }
-                format.json { render json: @car.errors, status: :unprocessable_entity }
-            end
-        end
-    end
-
-    private
-
-    def car_params
-        params.require(:car).permit(:id, variants_attributes: [:color, :seats, :horsepower, :engine_volume, :model])
-    end
+  def car_params
+    params.require(:car).permit(variants_attributes: %i[model, color, seats, horsepower, engine_volume])
+  end
 end
