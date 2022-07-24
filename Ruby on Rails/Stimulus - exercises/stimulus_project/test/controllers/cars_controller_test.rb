@@ -1,23 +1,48 @@
 require "test_helper"
 
 class CarsControllerTest < ActionDispatch::IntegrationTest
+  setup do
+    @car = cars(:one)
+  end
+
   test "should get index" do
-    get cars_index_url
+    get cars_url
     assert_response :success
   end
 
   test "should get new" do
-    get cars_new_url
+    get new_car_url
     assert_response :success
   end
 
-  test "should get create" do
-    get cars_create_url
+  test "should create car" do
+    assert_difference("Car.count") do
+      post cars_url, params: { car: {  } }
+    end
+
+    assert_redirected_to car_url(Car.last)
+  end
+
+  test "should show car" do
+    get car_url(@car)
     assert_response :success
   end
 
-  test "should get show" do
-    get cars_show_url
+  test "should get edit" do
+    get edit_car_url(@car)
     assert_response :success
+  end
+
+  test "should update car" do
+    patch car_url(@car), params: { car: {  } }
+    assert_redirected_to car_url(@car)
+  end
+
+  test "should destroy car" do
+    assert_difference("Car.count", -1) do
+      delete car_url(@car)
+    end
+
+    assert_redirected_to cars_url
   end
 end

@@ -1,14 +1,14 @@
-<h1>A list of cars</h1>
-<% if @cars.any? %>
-<div>
-    <% @cars.each do |c| %>
-    <div>
-        <%= link_to c.id, c %>
-    </div>
-    <% end %>
-</div>
-<% else %>
-    <h3>No cars have been made yet</h3>
-<% end %>
+<p style="color: green"><%= notice %></p>
 
-<%= link_to "Create a new car", new_car_path %>
+<h1>Cars</h1>
+
+<div id="cars">
+  <% @cars.each do |car| %>
+    <%= render car %>
+    <p>
+      <%= link_to "Show this car", car %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New car", new_car_path %>

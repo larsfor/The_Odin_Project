@@ -1,0 +1,49 @@
+<%= form_with(model: car) do |form| %>
+  <% if car.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(car.errors.count, "error") %> prohibited this car from being saved:</h2>
+
+      <ul>
+        <% car.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <table>
+        <tr>
+            <th>Variant</th>
+            <th>Your input</th>
+        </tr>
+        <tr>
+        <%= form.fields_for :variants do |variants_form| %>
+        <tr>
+            <td><%= variants_form.label :model %></td>
+            <td><%= variants_form.text_field :model %></td>
+        </tr>
+        <tr>
+            <td><%= variants_form.label :color %></td>
+            <td><%= variants_form.text_field :color %></td>
+        </tr>
+        <tr>
+            <td><%= variants_form.label :seats %></td>
+            <td><%= variants_form.text_field :seats %></td>
+        </tr>
+        <tr>
+            <td><%= variants_form.label :horsepower %></td>
+            <td><%= variants_form.text_field :horsepower %></td>
+        </tr>
+        <tr>
+            <td><%= variants_form.label :engine_volume %></td>
+            <td><%= variants_form.text_field :engine_volume %></td>
+        </tr>
+        <% end %>
+  </table>
+  <br/>
+
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
