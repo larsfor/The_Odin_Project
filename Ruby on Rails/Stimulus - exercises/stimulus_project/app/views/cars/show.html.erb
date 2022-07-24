@@ -1,2 +1,10 @@
-<h1>Cars#show</h1>
-<p>Find me in app/views/cars/show.html.erb</p>
+<p style="color: green"><%= notice %></p>
+
+<%= render @car %>
+
+<div>
+  <%= link_to "Edit this car", edit_car_path(@car) %> |
+  <%= link_to "Back to car", cars_path %>
+
+  <%= button_to "Destroy this car", @car, method: :delete %>
+</div>

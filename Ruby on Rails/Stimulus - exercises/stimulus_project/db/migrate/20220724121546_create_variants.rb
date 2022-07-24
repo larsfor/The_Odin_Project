@@ -6,7 +6,7 @@ class CreateVariants < ActiveRecord::Migration[7.0]
       t.integer :seats
       t.integer :horsepower
       t.integer :engine_volume
-      t.references :user, null: false, foreign_key: true
+      t.references :car, null: false, foreign_key: true
 
       t.timestamps
     end
