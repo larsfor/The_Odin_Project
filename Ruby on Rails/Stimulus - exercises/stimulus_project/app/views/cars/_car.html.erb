@@ -1,2 +1,6 @@
 <div id="<%= dom_id car %>">
+    <%= car.id %>
+    <%= car.variants.all.each do |var| %>
+        <%= var.id %>
+    <% end%>
 </div>
