@@ -1,0 +1,13 @@
+Thanks for booking.
+===============================================
+
+We wish you a safe travel!
+
+To login to the site, just follow this link: <%= @url %>.
+
+Passengers:
+<% @booking.passengers.each do |passenger| %>
+  <%= passenger.name %>
+<% end %>
+
+Thanks for joining and have a great day!
