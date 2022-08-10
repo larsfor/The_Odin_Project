@@ -1,0 +1,51 @@
+Build Facebook! You’ll build a large portion of the core Facebook user functionality in this project.
+
+_Post_
+-body:text
+-num_likes:integer
+
+belongs_to :user
+has_many :likes
+has_many :comments, as: :commentable
+
+
+_User_
+-name:string
+-username:string
+-email:string
+-password:string
+
+has_many :friends, class_name: "User", foreign_key: "person_id"
+belongs_to :person, class_name: "User"
+
+has_many :posts, dependent: :destroy
+has_many :likes, dependent: :destroy
+has_many :profiles
+
+
+_Like_
+belongs_to :post
+belongs_to :user
+
+
+_Comment_
+-body:text
+-commentable_id:integer
+-commentable_type:string
+
+belongs_to :commentable, polymorphic: true
+
+
+_Profile_
+-name:string
+-username:string
+-email:string
+-address_1:string
+-address_2:string
+-photo
+
+belongs_to :user
+
+_Picture_
+has_many :comments, as: :commentable
+
