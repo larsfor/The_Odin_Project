@@ -4,5 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_many :posts
+  has_many :posts, dependent: :destroy
+  
+  has_many :friends, class_name: "User", foreign_key: "people_id"
+  belongs_to :people, class_name: "User", optional: true
 end

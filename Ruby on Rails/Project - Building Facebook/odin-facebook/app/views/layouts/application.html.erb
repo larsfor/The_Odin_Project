@@ -64,6 +64,7 @@
           <div class="navbar-item">
             <div class="buttons">
               <% if current_user %>
+                <%= link_to 'Edit profile', edit_user_registration_path, class: 'button is-link' %>
                 <%= link_to "Logout", destroy_user_session_path, method: :delete, class: 'button is-link' %>
               <% else %>
               <div class="button is-primary">
