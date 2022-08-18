@@ -1,8 +1,10 @@
 <p style="color: green"><%= notice %></p>
 
-<h1 class="title">Posts</h1>
+<h1 class="title">Posts | 
+  <%= link_to "Create a new post", new_post_path, class: "button is-link" %>
+</h1>
 
-<%= link_to "New post", new_post_path, class: "subtitle" %>
+<hr>
 
 <div id="posts">
   <% @posts.each do |post| %>

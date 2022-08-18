@@ -1,14 +1,15 @@
-<p style="color: green"><%= notice %></p>
+<div class="column is-10">
+  <p style="color: green"><%= notice %></p>
 
-<%= render @post %>
+  <%= render @post %>
 
-<div class="buttons">
-  <button class="button is-info is-light">
-  <%= link_to "Edit this post", edit_post_path(@post) %>
-  </button>
+  <div class="buttons">
     <button class="button is-info is-light">
-  <%= link_to "Back to posts", posts_path %>
-  </button>
-  <%= button_to "Destroy this post", @post, method: :delete, class: "button is-danger is-light" %>
-
+    <%= link_to "Edit this post", edit_post_path(@post) %>
+    </button>
+      <button class="button is-info is-light">
+    <%= link_to "Back to posts", posts_path %>
+    </button>
+    <%= button_to "Destroy this post", @post, method: :delete, class: "button is-danger is-light" %>
+  </div>
 </div>
