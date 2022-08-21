@@ -14,52 +14,27 @@
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
         <a class="navbar-item">
-        <%= link_to root_path, class: "navbar-item" do %>
-          <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
-        <% end %>
+          <%= link_to root_path, class: "navbar-item" do %>
+            <img src="https://cdn-icons-png.flaticon.com/512/2145/2145067.png">
+          <% end %>
         </a>
       </div>
-
       <div id="navbarBasicExample" class="navbar-menu">
         <div class="navbar-start">
-          <a class="navbar-item">
-            <%= link_to root_path, class: "navbar-item" do %>
-              Home
-            <% end %>
-          </a>
-
-          <a class="navbar-item">
-            Documentation
-          </a>
-
-          <div class="navbar-item has-dropdown is-hoverable">
-            <a class="navbar-link">
-              More
-            </a>
-
-            <div class="navbar-dropdown">
-              <a class="navbar-item">
-                About
-              </a>
-              <a class="navbar-item">
-                Jobs
-              </a>
-              <a class="navbar-item">
-                Contact
-              </a>
-              <hr class="navbar-divider">
-              <a class="navbar-item">
-                Report an issue
-              </a>
-            </div>
-          </div>
+          <%= link_to root_path, class: "navbar-item" do %>
+            Home
+          <% end %>
+          
+          <%= link_to friend_requests_path, class: "navbar-item" do %>
+            Friend requests: 0
+          <% end %>
         </div>
         
-          <% if current_user %>
-            <a class="navbar-item">
-              Signed in as <%= current_user.name %>
-            </a>
-          <% end %>
+        <% if current_user %>
+          <a class="navbar-item">
+            Signed in as <%= current_user.name %>
+          </a>
+        <% end %>
 
         <div class="navbar-end">
           <div class="navbar-item">
@@ -80,7 +55,10 @@
         </div>
       </div>
     </nav>
-
-    <%= yield %>
+    <section class="section">
+      <div class="container">
+        <%= yield %>
+      </div>
+    </section>
   </body>
 </html>

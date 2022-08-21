@@ -8,4 +8,6 @@ class User < ApplicationRecord
   
   has_many :friends, class_name: "User", foreign_key: "people_id"
   belongs_to :people, class_name: "User", optional: true
+
+  has_many :friend_requests
 end

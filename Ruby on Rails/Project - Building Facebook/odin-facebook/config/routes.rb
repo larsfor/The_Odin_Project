@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  resources :friend_requests do
+    member do
+      get 'send_request'
+    end
+  end
   resources :profiles
   resources :posts
   devise_for :users

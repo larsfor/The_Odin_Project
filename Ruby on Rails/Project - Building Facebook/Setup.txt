@@ -21,6 +21,10 @@ belongs_to :people, class_name: "User", optional: true
 has_many :posts, dependent: :destroy
 has_many :likes, dependent: :destroy
 has_many :profiles
+has_many :friendrequests
+
+_FriendRequest_
+belongs_to :user
 
 
 _Like_

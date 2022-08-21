@@ -1,0 +1,16 @@
+<h1 class="title"> Friend Requests </h1>
+<% if @friend_requests.any? %>
+  <% @friend_requests.each do |request| %>
+      <article class="message">      
+      <div class="message-body">
+        <%= request %>
+      </div>
+    </article>
+  <% end%>
+<% else %>
+    <article class="message">      
+      <div class="message-body">
+        You have no awaiting friend requests.
+      </div>
+    </article>
+<% end %>
