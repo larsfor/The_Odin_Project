@@ -26,14 +26,14 @@
           <% end %>
           
           <%= link_to friend_requests_path, class: "navbar-item" do %>
-            Friend requests: 0
+            Friend requests: <%= FriendRequest.where(friend_id: current_user.id).count %>
           <% end %>
         </div>
         
         <% if current_user %>
           <a class="navbar-item">
             Signed in as <%= current_user.name %>
-          </a>
+          </a> 
         <% end %>
 
         <div class="navbar-end">

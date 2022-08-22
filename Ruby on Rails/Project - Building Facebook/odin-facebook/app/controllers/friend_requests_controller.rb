@@ -1,6 +1,6 @@
 class FriendRequestsController < ApplicationController
   def index
-    @friend_requests = current_user.friend_requests
+    @friend_requests = FriendRequest.where(friend_id: current_user.id)
   end
 
   def send_request
