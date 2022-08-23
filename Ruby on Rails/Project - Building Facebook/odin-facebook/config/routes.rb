@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   resources :friend_requests do
     member do
       get 'send_request'
+      get 'accept_request'
+      get 'decline_request'
     end
   end
   resources :profiles

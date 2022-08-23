@@ -1,0 +1,30 @@
+<div class="column is-10">
+  <h1 class="title"> Friend Requests </h1>
+    <% if @friend_requests.any? %>
+      <% @friend_requests.each do |req| %>
+        <article class="message">
+          <div class="message-body">
+            <div class="columns">
+              <div class="column is-two-thirds">
+                <%= User.find(req.user_id).name %> would like to be your friend
+              </div>
+              <div class="column"><button class="button is-success">
+                <%= link_to "Accept", accept_request_friend_request_path(req) %>
+              </button></div>
+              
+              <div class="column"><button class="button is-danger">
+              </button></div>
+
+            </div>
+          </div>
+        </article>
+      <hr />
+      <% end%>
+    <% else %>
+        <article class="message">      
+          <div class="message-body">
+            You have no awaiting friend requests.
+          </div>
+        </article>
+    <% end %>
+</div>
