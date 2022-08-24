@@ -22,15 +22,17 @@ class FriendRequestsController < ApplicationController
     if friend.friends << current_user
       current_user.friends << friend
       friend_request = FriendRequest.where(user_id: current_user.id, friend_id: friend)
-      redirect_to root_path, warning: "You and #{friend.name} are now friends"
+      redirect_to root_path, notice: "You and #{friend.name} are now friends"
     else
       render :index, status: :unprocessable_entity
     end
   end
 
   def decline_request
-    friend_request = FriendRequest.where(user_id: current_user.id, friend_id: friend)
-    friend_request.delete
+    friend = User.find(params[:id])
+
+    friend_request = FriendRequest.where(user_id: friend.id, friend_id: current_user.id)
+    friend_request.last.delete
     redirect_to root_path, notice: "You declined #{friend.name}'s friend request"
   end
 
