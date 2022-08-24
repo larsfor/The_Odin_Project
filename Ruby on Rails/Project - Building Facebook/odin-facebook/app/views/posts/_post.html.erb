@@ -1,16 +1,13 @@
 <div id="<%= dom_id post %>">
 
     <article class="message">
-
       <div class="message-header">
         <p><%= link_to "Post #{post.id} - #{post.user.name}", post %></p>
+      <span class="icon"><i class="fa fa-thumbs-up"></i></span>
       </div>
-      
       <div class="message-body">
             <%= post.body %>
       </div>
-    
     </article>
-
-    <hr>
+    <div></div>
 </div>

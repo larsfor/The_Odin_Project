@@ -10,4 +10,5 @@ class User < ApplicationRecord
   belongs_to :people, class_name: "User", optional: true
 
   has_many :friend_requests
+  has_many :likes
 end

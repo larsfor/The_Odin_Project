@@ -7,10 +7,13 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
+      <span class="icon"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+
       <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
           <a class="navbar-item">
@@ -62,5 +65,7 @@
           <%= yield %>
         </div>
       </section>
+
   </body>
+
 </html>
