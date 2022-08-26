@@ -3,10 +3,21 @@
     <article class="message">
       <div class="message-header">
         <p><%= link_to "Post #{post.id} - #{post.user.name}", post %></p>
-      <span class="icon"><i class="fa fa-thumbs-up"></i></span>
+          <span class="icon">
+            <div><%= Like.where(like: true, post_id: post.id).count %></div>
+            <% if Like.where(like: true, user_id: current_user.id, post_id: post.id).any? %>
+              <%= link_to dislike_post_like_path(post) do %>
+                <i id="p0" class="fa fa-thumbs-up"></i>
+              <% end %>
+            <% else %>
+              <%= link_to like_post_like_path(post) do %>
+                <i id="p0" class="fa fa-thumbs-up"></i>
+              <% end %>
+            <% end %>
+          </span>
       </div>
       <div class="message-body">
-            <%= post.body %>
+        <%= post.body %>
       </div>
     </article>
     <div></div>

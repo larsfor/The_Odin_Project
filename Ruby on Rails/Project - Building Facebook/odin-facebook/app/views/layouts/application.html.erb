@@ -12,60 +12,57 @@
   </head>
 
   <body>
-      <span class="icon"><i class="fa fa-pencil" aria-hidden="true"></i></span>
-
-      <nav class="navbar" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand">
-          <a class="navbar-item">
-            <%= link_to root_path, class: "navbar-item" do %>
-              <img src="https://cdn-icons-png.flaticon.com/512/2145/2145067.png">
-            <% end %>
-          </a>
-        </div>
-        <div id="navbarBasicExample" class="navbar-menu">
-          <div class="navbar-start">
-            <%= link_to root_path, class: "navbar-item" do %>
-              Home
-            <% end %>
-            
-          <% if user_signed_in? %>
-            <%= link_to friend_request_path(current_user), class: "navbar-item" do %>
-              Friend requests: <%= FriendRequest.where(friend_id: current_user.id).count %>
-            <% end %>
-          </div>
-          
-          <% if current_user %>
-            <a class="navbar-item">
-              Signed in as <%= current_user.name %>
-            </a> 
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item">
+          <%= link_to root_path, class: "navbar-item" do %>
+            <img src="https://cdn-icons-png.flaticon.com/512/2145/2145067.png">
           <% end %>
-      <% end%>
+        </a>
+      </div>
+      <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-start">
+          <%= link_to root_path, class: "navbar-item" do %>
+            Home
+          <% end %>
+          
+        <% if user_signed_in? %>
+          <%= link_to friend_request_path(current_user), class: "navbar-item" do %>
+            Friend requests: <%= FriendRequest.where(friend_id: current_user.id).count %>
+          <% end %>
+        </div>
+        
+        <% if current_user %>
+          <a class="navbar-item">
+            Signed in as <%= current_user.name %>
+          </a> 
+        <% end %>
+        <% end%>
 
-          <div class="navbar-end">
-            <div class="navbar-item">
-              <div class="buttons">
-                <% if current_user %>
-                  <%= link_to 'Edit profile', edit_user_registration_path, class: 'button is-link' %>
-                  <%= link_to "Logout", destroy_user_session_path, method: :delete, class: 'button is-link' %>
-                <% else %>
-                <div class="button is-primary">
-                  <%= link_to "Sign up", new_user_registration_path, class: "a-primary" %>
-                </div>
-                <div class="button is-light">
-                    <%= link_to "Login", new_user_session_path, class: "a-primary" %>
-                </div>
-                <% end %>
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="buttons">
+              <% if current_user %>
+                <%= link_to 'Edit profile', edit_user_registration_path, class: 'button is-link' %>
+                <%= link_to "Logout", destroy_user_session_path, method: :delete, class: 'button is-link' %>
+              <% else %>
+              <div class="button is-primary">
+                <%= link_to "Sign up", new_user_registration_path, class: "a-primary" %>
               </div>
+              <div class="button is-light">
+                  <%= link_to "Login", new_user_session_path, class: "a-primary" %>
+              </div>
+              <% end %>
             </div>
           </div>
         </div>
-      </nav>
-      <section class="section">
-        <div class="container">
-          <%= yield %>
-        </div>
-      </section>
-
+      </div>
+    </nav>
+    <section class="section">
+      <div class="container">
+        <%= yield %>
+      </div>
+    </section>
   </body>
 
 </html>

@@ -8,6 +8,13 @@ Rails.application.routes.draw do
   end
   resources :profiles
   resources :posts
+  resources :likes do
+    member do
+      get 'like_post'
+      get 'dislike_post'
+    end
+  end
+
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
