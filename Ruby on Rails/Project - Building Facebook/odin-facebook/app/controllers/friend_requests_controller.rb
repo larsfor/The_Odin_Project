@@ -29,7 +29,8 @@ class FriendRequestsController < ApplicationController
   end
 
   def decline_request
-    friend = User.find(params[:id])
+    request = FriendRequest.find(params[:id])
+    friend = User.find(request.user_id)
 
     friend_request = FriendRequest.where(user_id: friend.id, friend_id: current_user.id)
     friend_request.last.delete

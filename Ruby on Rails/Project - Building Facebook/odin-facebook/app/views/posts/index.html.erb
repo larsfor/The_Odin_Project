@@ -1,6 +1,34 @@
-<div class="column is-10">
-  <%= render "posts/profile" %>
-</div>
-<div class="column is-10">
+<div class="column is-8">
+  <%= render "posts/profile" %><br>
   <%= render "posts/message" %>
+</div>
+
+<div class="column is-4">
+  <div class="content is-normal">
+    <h1>Non-friended users</h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Friend request</th>
+        </tr>
+      </thead>
+      <% @users.each do |user| %>
+        <div class="mb-2">
+          <tbody>
+            <tr>
+              <% if current_user != user %>
+                <% unless current_user.friends.include?(user) %>
+                  <% unless FriendRequest.where(user_id: current_user.id, friend_id: user.id).any? %>
+                    <td><%= user.name %></td>
+                    <td><%= link_to "Send a friend request", send_request_friend_request_path(user), class: 'button is-rounded is-small is-info' %> </td>
+                  <% end %>
+                <% end %>
+              <% end %>
+            </tr>
+          </tbody>
+        </div>
+      <% end %>
+    </table>
+  </div>
 </div>
