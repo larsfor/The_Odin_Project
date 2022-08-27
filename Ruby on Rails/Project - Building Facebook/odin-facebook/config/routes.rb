@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :comments
   resources :friend_requests do
     member do
       get 'send_request'
