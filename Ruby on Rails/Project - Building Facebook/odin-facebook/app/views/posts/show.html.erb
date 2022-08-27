@@ -19,4 +19,23 @@
     <% end%>
   
   </div>
+  
+  <h4 class="title is-4">Comments</h4>
+  <p>
+    <% if @post.comments.any? %>
+      <%= render @post.comments %>
+    <% else %> 
+      No comments yet.
+    <% end %>
+  </p>
+
+  <hr>
+
+  <p>
+    <h4 class="title is-4">Add a comment</h4>
+    <%= render "comments/form" %>
+  </p>
+
 </div>
+
+

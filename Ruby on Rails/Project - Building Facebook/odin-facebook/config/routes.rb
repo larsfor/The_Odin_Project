@@ -8,7 +8,9 @@ Rails.application.routes.draw do
     end
   end
   resources :profiles
-  resources :posts
+  resources :posts do
+    resources :comments
+  end
   resources :likes do
     member do
       get 'like_post'
