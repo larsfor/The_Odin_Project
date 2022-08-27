@@ -3,7 +3,8 @@ class PostsController < ApplicationController
 
   # GET /posts or /posts.json
   def index
-    @posts = Post.all
+    friends_ids = current_user.friends.map { |f| f.id }.push(current_user.id)
+    @posts = Post.where(user_id: friends_ids).limit(5)
   end
 
   # GET /posts/1 or /posts/1.json
