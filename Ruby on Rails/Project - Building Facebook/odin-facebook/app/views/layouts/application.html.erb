@@ -49,6 +49,11 @@
               <div class="button is-primary">
                 <%= link_to "Sign up", new_user_registration_path, class: "a-primary" %>
               </div>
+             
+              <div>
+                <%= button_to "Sign in with Facebook", user_facebook_omniauth_authorize_path, class: "button is-info" %>
+              </div>
+
               <div class="button is-light">
                   <%= link_to "Login", new_user_session_path, class: "a-primary" %>
               </div>
