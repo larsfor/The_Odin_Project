@@ -14,6 +14,13 @@ class User < ApplicationRecord
   has_many :friend_requests
   has_many :likes
 
+  after_create_commit :send_welcome_email
+
+  
+  def send_welcome_email
+    UserMailer.with(user: self).welcome_email.deliver_now
+  end
+
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email

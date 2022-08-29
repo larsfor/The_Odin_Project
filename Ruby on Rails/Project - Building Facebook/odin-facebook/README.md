@@ -12,3 +12,10 @@ We are here tasked with building a Facebook clone, where we are implementing the
 * Sign in through OmniAuth (not fully implemented - so not working at the moment)
 * Have a mailer to send a welcome email
 * Heroku deployment
+
+
+TODOs:
+* Add some JavaScript or TurboStreams
+* Add photos
+* Have the mailer as a part of the Controller, not the Model
+* Style it up more nicely
