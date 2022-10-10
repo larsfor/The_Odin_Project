@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Projectforms</h1>
+
+<div id="projectforms">
+  <% @projectforms.each do |projectform| %>
+    <%= render projectform %>
+    <p>
+      <%= link_to "Show this projectform", projectform %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New projectform", new_projectform_path %>

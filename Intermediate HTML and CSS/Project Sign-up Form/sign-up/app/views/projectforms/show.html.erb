@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @projectform %>
+
+<div>
+  <%= link_to "Edit this projectform", edit_projectform_path(@projectform) %> |
+  <%= link_to "Back to projectforms", projectforms_path %>
+
+  <%= button_to "Destroy this projectform", @projectform, method: :delete %>
+</div>
