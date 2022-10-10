@@ -1,2 +1,0 @@
-class Projectform < ApplicationRecord
-end
