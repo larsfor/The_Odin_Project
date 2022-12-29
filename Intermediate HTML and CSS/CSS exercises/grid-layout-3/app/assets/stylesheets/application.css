@@ -1,0 +1,154 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+ * {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .container {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    gap: 4px;
+    /* text-align: center; */
+  }
+  
+  .container div {
+    padding: 15px;
+    font-size: 32px;
+    font-family: Helvetica;
+    font-weight: bold;
+    color: white;
+  }
+  
+  .header {
+    background-color: #393f4d;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-column: 1 / 3;
+  }
+  
+  .menu ul,
+  .menu li {
+    font-size: 16px;
+    list-style-type: none; /* added from solution */
+  }
+  
+  .sidebar {
+    background-color: #FF7755;
+    gap: 50px;
+    display: grid;
+    /* text-align: center; */
+    /* grid-column: 1 / 2; */
+    grid-row: 2 / 4;
+  }
+  
+  .sidebar .photo {
+    background-color: white;
+    color: black;
+    font-size: 12px;
+    font-weight: normal;
+    border-radius: 10px;
+  }
+  
+  
+  .sidebar .side-content {
+    background-color: white;
+    color: black;
+    font-size: 16px;
+    font-weight: normal;
+  }
+  
+  .nav {
+    background-color: #FF7755;
+    grid-column: 2 / 3;
+  }
+  
+  .nav ul li {
+    font-size: 16px;
+    text-transform: uppercase;
+    /* display: inline-grid; */
+    /* grid-template-columns: repeat(auto-fit, minmax(300px, 3fr)); */
+  }
+  
+  .article {
+    display: grid;
+    background-color: #bccbde;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    /* grid-column: 2 / 3; */
+  }
+  
+  .article p {
+    font-size: 18px;
+    font-family: sans-serif;
+    color: white;
+    text-align: left;
+  }
+  
+  .article .card {
+    background-color: #FFFFFF;
+    color: black;
+    text-align: center;
+    height: 200px;
+  }
+  
+  .card p {
+    color: black;
+    font-weight: normal;
+    font-size: 14px;
+  }
+  
+  .card .title {
+    font-size: 18px;
+    text-align: center;
+  }
+  
+  .footer {
+    background-color: #393f4d;
+    grid-column: 1 / 3;
+  }
+  
+  .footer p {
+    font-size: 13px;
+    font-weight: normal;  
+  }
+
+  /* Copied from the solution */
+
+  .menu {
+    align-self: center;
+  }
+
+  .menu ul {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .side-content, .photo {
+    display: grid; 
+    align-items: center;
+  }
+
+  .nav ul {
+    list-style-type: none;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .card p {
+    padding: 5px;
+  }
