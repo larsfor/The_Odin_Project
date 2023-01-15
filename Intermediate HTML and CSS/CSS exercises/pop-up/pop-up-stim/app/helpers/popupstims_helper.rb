@@ -1,0 +1,2 @@
+module PopupstimsHelper
+end
