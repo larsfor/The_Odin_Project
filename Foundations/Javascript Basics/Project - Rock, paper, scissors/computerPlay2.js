@@ -2,6 +2,7 @@
 const buttons = document.querySelectorAll('.button');
 
 // Use the .forEach to iterate through each button
+// small change
 buttons.forEach( (button) => {
     
     // For each one we add a 'click' listener
