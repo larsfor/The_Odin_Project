@@ -1,3 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
 body {
+    font-family: Roboto, sans-serif;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
     display: flex;
+    flex-direction: column;
+}
+
+.header {
+    display: flex;
+    background-color: #1F2937;
+    color: #e5e7eb;
+    padding-left: 150px;
+    padding-right: 150px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    display: flex;
+    list-style: none;
+    gap: 8px;
+    color: #e5e7eb;
+
+}
+
+.headerlinks > ul > li > a {
+    color: #e5e7eb;
+}
+
+.body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: space-evenly;
+}
+
+.headerinfo {
+    height: 100%;
+    background-color: #1F2937;
+    padding-left: 150px;
+    padding-right: 150px;
+}
+
+.information {
+    height: 100%;
+    padding-left: 150px;
+    padding-right: 150px;
+}
+
+.quote {
+    height: 100%;
+    background-color: #e5e7eb;
+    padding-left: 150px;
+    padding-right: 150px;
+
+}
+
+.signup {
+    height: 100%;
+    padding-left: 150px;
+    padding-right: 150px;
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+    background-color: #1F2937;
+    color: #e5e7eb;
 }
