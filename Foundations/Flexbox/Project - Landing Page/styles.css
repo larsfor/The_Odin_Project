@@ -102,8 +102,8 @@ ul {
     height: 100%;
     padding-left: 150px;
     padding-right: 150px;
-    padding-top: 50px;
-    padding-bottom: 50px;
+    padding-top: 48px;
+    padding-bottom: 48px;
 }
 
 .informationtext {
@@ -135,11 +135,30 @@ ul {
 }
 
 .quote {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
     height: 100%;
     background-color: #e5e7eb;
     padding-left: 150px;
     padding-right: 150px;
+    padding-top: 96px;
+    padding-bottom: 96px;
+}
 
+.quotetext {
+    display: flex;
+    width: 700px;
+    font-size: 32px;
+    font-weight: lighter;
+    font-style: italic;
+    color: #1F2937;
+    padding-bottom: 16px;
+}
+.quoteauthor {
+    font-weight: bold;
+    padding-left: 500px;
+    font-size: large;
 }
 
 .signup {
