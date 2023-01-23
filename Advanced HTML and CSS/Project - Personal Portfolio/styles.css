@@ -1,0 +1,37 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto);
+
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.header {
+    display: flex;
+    flex: 1;
+    background-color: aquamarine;
+}
+
+.content {
+    display: flex;
+    flex: 1;
+    background-color: blueviolet;
+}
+
+.footer {
+    /* display: flex;
+    align-items: center;
+    justify-content: center; */
+    background-color: bisque;
+    height: 10%;
+}
