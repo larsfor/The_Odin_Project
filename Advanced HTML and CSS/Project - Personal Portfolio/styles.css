@@ -10,28 +10,38 @@ body {
     flex-direction: column;
 }
 
-.container {
-    display: flex;
-    flex-direction: column;
+.header {
     flex: 1;
+    background-color: #ffeead;
 }
 
-.header {
-    display: flex;
-    flex: 1;
-    background-color: aquamarine;
+.container {
+    flex: 2;
+    background-color: skyblue;
 }
 
 .content {
-    display: flex;
-    flex: 1;
-    background-color: blueviolet;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.project {
+    border-style: solid;
+    margin: 1rem;
+    height: 200px;
 }
 
 .footer {
-    /* display: flex;
-    align-items: center;
-    justify-content: center; */
-    background-color: bisque;
-    height: 10%;
+    flex: 1;
+    background-color: peachpuff;
+    display: flex;
+    gap: 1rem;
+}
+
+.footerleft {
+    flex: 1;
+}
+
+.footerright {
+    flex: 1;
 }
