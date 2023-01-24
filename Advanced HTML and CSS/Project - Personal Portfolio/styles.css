@@ -18,17 +18,33 @@ body {
 .container {
     flex: 2;
     background-color: skyblue;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-left: 5rem;
+    padding-right: 5rem;
+
 }
 
 .content {
     display: grid;
+    justify-content: center;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 }
 
 .project {
+    text-align: center;
+}
+
+.projectbox {
     border-style: solid;
+    border-radius: 20px;
+    border-width: thin;
     margin: 1rem;
     height: 200px;
+}
+
+.projecttext {
+
 }
 
 .footer {
@@ -36,6 +52,9 @@ body {
     background-color: peachpuff;
     display: flex;
     gap: 1rem;
+    padding-top: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 
 .footerleft {
@@ -44,4 +63,9 @@ body {
 
 .footerright {
     flex: 1;
+}
+
+.footertext {
+    padding-top: 8px;
+    padding-bottom: 8px;
 }
