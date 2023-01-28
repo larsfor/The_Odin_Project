@@ -5,7 +5,6 @@ body {
     margin: 0;
     padding: 0;
     height: 100vh;
-
     display: flex;
     flex-direction: column;
 }
@@ -68,7 +67,8 @@ a {
 
 .container {
     flex: 2;
-    /* background-color: whitesmoke; */
+    /* background-color: lightblue; */
+    background-color: skyblue;
     padding-top: 1rem;
     padding-bottom: 1rem;
     padding-left: 5rem;
@@ -76,7 +76,7 @@ a {
     box-shadow: 1px 0px .4em black;
 }
 
-div > img:hover {
+.project img:hover {
     transition: transform .5s ease-in-out;
     transform: scale(1.1);
 }
@@ -113,6 +113,8 @@ div > img:hover {
 
 .projecttext {
     font-size: small;
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 
 .footer {
