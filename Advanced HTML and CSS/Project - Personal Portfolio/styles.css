@@ -13,15 +13,9 @@ body {
 @media (max-width: 770px) {
     
     .header {
+        gap: 2rem !important;  
         flex-direction: column;
-        gap: 5rem;
     }
-}
-
-.body {
-    /* flex: 1; */
-    box-shadow: 1px 0px .4em black;
-    z-index: 1;
 }
 
 a:visited {
@@ -37,11 +31,9 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
-    /* background-color: #ffeead; */
     background-size: cover;
-    gap: 2rem;
+    gap: 5rem;
     padding: 2rem;
-    box-shadow: 1px 0px .4em black;
 }
 
 .headerimage > img {
@@ -50,7 +42,6 @@ a {
     width: 100%;
     height: auto;
     border-radius: 25px;
-    box-shadow: 8px 8px 2px 1px grey;
 }
 
 .picturecopyright {
@@ -59,7 +50,6 @@ a {
 }
 
 .card {
-    /* border-style: solid; */
     border-width: thin;
     max-width: 450px;
     padding: 1rem;
@@ -75,11 +65,17 @@ a {
 
 .container {
     flex: 2;
-    /* background-color: skyblue; */
+    background-color: whitesmoke;
     padding-top: 1rem;
     padding-bottom: 1rem;
     padding-left: 5rem;
     padding-right: 5rem;
+    box-shadow: 1px 0px .4em black;
+}
+
+div > img:hover {
+    transition: transform .25s ease-in-out;
+    transform: scale(1.1);
 }
 
 .content {
@@ -95,27 +91,28 @@ a {
 .projectbox {
     border-style: solid;
     border-radius: 20px;
-    /* border-width: thin; */
     border-color: gold;
     margin: 1rem;
     height: 200px;
     background-color: white;
     box-shadow: 5px 5px .4em black;
+    overflow:hidden
+
 }
 
-.projectbox > img {
-    max-width: 100%;
-    max-height: 100%;
-    /* border-radius: 25px; */
+.projectbox img {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    object-fit: cover;
 }
 
 .footer {
-    /* background-color: peachpuff; */
     display: flex;
     align-items: center;
     flex-direction: column;
     background-image: url("images/61769.jpg");
-
+    box-shadow: 1px 0px .4em black;
     gap: 1rem;
     padding: 1rem;
 }
