@@ -20,6 +20,7 @@ function Book(author, title, pages, read) {
 
 function addBookToLibrary(book) {
     myLibrary.push(book);
+    updateTable();
 }
 
 function displayBooks () {
@@ -30,8 +31,13 @@ function displayBooks () {
 
 function removeBook () {
     myLibrary.splice(this.id, 1);
-    let row = document.getElementById(`row-${this.id}`)
-    row.remove()
+    updateTable();
+}
+
+function updateTable() {
+    let table = document.querySelector("#libraryTable");
+    table.innerHTML = "";
+    generateTable();
 }
 
 function newBook(form) {
@@ -86,17 +92,17 @@ function generateTable() {
     readHeader.appendChild(readTitle);
 
     // appending the titlees to the table
-    tbl.appendChild(authorHeader)
-    tbl.appendChild(titleHeader)
-    tbl.appendChild(pagesHeader)
-    tbl.appendChild(readHeader)
+    tbl.appendChild(authorHeader);
+    tbl.appendChild(titleHeader);
+    tbl.appendChild(pagesHeader);
+    tbl.appendChild(readHeader);
 
     // creating all cells
     for (let i = 0; i < myLibrary.length; i++) {
 
         // creates a table row
         const row = document.createElement("tr");
-        row.id = `row-${i}`
+        row.id = `row-${i}`;
 
         // getting the different attributes
         const book = myLibrary[i];
@@ -118,10 +124,10 @@ function generateTable() {
         readCell.append(read);
 
         // create a button to delete the entry
-        const button = document.createElement("button")
-        button.innerHTML = "Remove from list"
+        const button = document.createElement("button");
+        button.innerHTML = "Remove from list";
         button.id = i
-        button.addEventListener("click", removeBook)
+        button.addEventListener("click", removeBook);
 
 
         // appending the cell to the row
@@ -129,7 +135,7 @@ function generateTable() {
         row.appendChild(titleCell);
         row.appendChild(pagesCell);
         row.appendChild(readCell);
-        row.appendChild(button)
+        row.appendChild(button);
 
         // add the row to the end of the table body
         tblBody.appendChild(row);
