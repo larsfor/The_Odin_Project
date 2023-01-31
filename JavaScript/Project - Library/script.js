@@ -29,8 +29,21 @@ function displayBooks () {
     });
 }
 
-function removeBook () {
+function removeBook() {
     myLibrary.splice(this.id, 1);
+    updateTable();
+}
+
+function markRead() {
+    let book = myLibrary[this.id]
+    
+    if (book.read === "Read") {
+        book.read = "Not read";
+    } else {
+        book.read = "Read";
+    };
+
+    // console.log(book.read);
     updateTable();
 }
 
@@ -124,10 +137,16 @@ function generateTable() {
         readCell.append(read);
 
         // create a button to delete the entry
-        const button = document.createElement("button");
-        button.innerHTML = "Remove from list";
-        button.id = i
-        button.addEventListener("click", removeBook);
+        const removeButton = document.createElement("button");
+        removeButton.innerHTML = "Remove from list";
+        removeButton.id = i
+        removeButton.addEventListener("click", removeBook);
+
+        // create a button to change read status
+        const readButton = document.createElement("button");
+        readButton.innerHTML = "Mark book as read";
+        readButton.id = i
+        readButton.addEventListener("click", markRead);
 
 
         // appending the cell to the row
@@ -135,7 +154,8 @@ function generateTable() {
         row.appendChild(titleCell);
         row.appendChild(pagesCell);
         row.appendChild(readCell);
-        row.appendChild(button);
+        row.appendChild(removeButton);
+        row.appendChild(readButton);
 
         // add the row to the end of the table body
         tblBody.appendChild(row);
