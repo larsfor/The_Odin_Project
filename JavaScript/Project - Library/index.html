@@ -13,6 +13,33 @@
 
 <div id="libraryTable"></div>
 
+<hr>
+
+<form action="" id="newBookForm">
+
+    <div class="field">
+        <label for="author">Author</label>
+        <input type="text" id="author" placeholder="Enter the author" required>
+    </div>
+
+    <div class="field">
+        <label for="title">Book title</label>
+        <input type="text" id="title" placeholder="Enter the title of the book" required>
+    </div>
+
+    <div class="field">
+        <label for="pages">Pages</label>
+        <input type="number" id="pages" placeholder="How many pages?" required>
+    </div>
+
+    <div class="field">
+        <label for="read">Read?</label>
+        <input type="checkbox" id="read">
+    </div>
+
+    <button style="margin-top: 1rem;" type="submit" id="newBookButton">New Book</button>
+</form>
+
 <script type="text/javascript" src="script.js"></script>
 
 </body>

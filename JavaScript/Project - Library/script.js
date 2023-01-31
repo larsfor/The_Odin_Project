@@ -1,7 +1,12 @@
-document.addEventListener('DOMContentLoaded', function(event) {
-    event.preventDefault();
-
+document.addEventListener('DOMContentLoaded', () => {
     generateTable();
+    
+    // Add action to the newBookForm, both add to library and reset form
+    let newBookForm = document.querySelector("#newBookForm");
+    newBookForm.addEventListener('submit', (event) => {
+        newBook(newBookForm);
+        event.preventDefault();
+    });
 });
 
 let myLibrary = [];
@@ -27,6 +32,26 @@ function removeBook () {
     myLibrary.splice(this.id, 1);
     let row = document.getElementById(`row-${this.id}`)
     row.remove()
+}
+
+function newBook(form) {
+    let author = form['author'].value;
+    let title = form['title'].value;
+    let pages = form['pages'].value;
+    let read = form['read'].checked;
+    
+    if (read === false) {
+        read = 'Not read';
+    } else {
+        read = 'Read';
+    };
+
+    // console.log(read);
+    let newBook = new Book(author, title, pages, read);
+    addBookToLibrary(newBook);
+
+    // reset form
+    form.reset();
 }
 
 // adding some examples to the library
