@@ -19,17 +19,23 @@ function addBookToLibrary(book) {
 
 function displayBooks () {
     myLibrary.forEach(function(book) {
-        console.log(book)
+        console.log(book);
     });
 }
 
+function removeBook () {
+    myLibrary.splice(this.id, 1);
+    let row = document.getElementById(`row-${this.id}`)
+    row.remove()
+}
+
+// adding some examples to the library
 const theHobbit = new Book('J.R.R. Tolkien', 'The Hobbit', 295, 'Not read')
 const LOTR = new Book('J.R.R. Tolkien', 'Lord of the Rings', 423, 'Not read')
 const HGTTG = new Book('Douglas Adams', "Hitchhicker's Guide to the Galaxy", 208, 'Not read')
 
-addBookToLibrary(theHobbit);
-addBookToLibrary(LOTR);
-addBookToLibrary(HGTTG);
+myLibrary.push(theHobbit, LOTR, HGTTG);
+
 
 function generateTable() {
     // creates a <table> element and a <tbody> element
@@ -65,6 +71,7 @@ function generateTable() {
 
         // creates a table row
         const row = document.createElement("tr");
+        row.id = `row-${i}`
 
         // getting the different attributes
         const book = myLibrary[i];
@@ -85,11 +92,19 @@ function generateTable() {
         pagesCell.append(pages);
         readCell.append(read);
 
+        // create a button to delete the entry
+        const button = document.createElement("button")
+        button.innerHTML = "Remove from list"
+        button.id = i
+        button.addEventListener("click", removeBook)
+
+
         // appending the cell to the row
         row.appendChild(autorCell);
         row.appendChild(titleCell);
         row.appendChild(pagesCell);
         row.appendChild(readCell);
+        row.appendChild(button)
 
         // add the row to the end of the table body
         tblBody.appendChild(row);
