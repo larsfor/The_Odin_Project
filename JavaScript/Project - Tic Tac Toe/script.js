@@ -1,48 +1,61 @@
-window.addEventListener("DOMContentLoaded", (event) => {
+window.addEventListener("DOMContentLoaded", () => {
     console.log('DOMContent loaded')
 
-    
-    // // adding a click-event to get the  for the table <td>-cells
-    // let cells = document.querySelectorAll("td")
-    // cells.forEach((cell) => {
-    //     cell.addEventListener("click", () => {
-    //         // console.log(cell);
-    //         return cell;
-    //     })
-    // });
     game = Game;
     game.newGame();
 });
 
-const Game = ( () => {
+const Game = (() => {
+    
     const newGame = () => {
         const player1 = Player('Lars', 'X');
-        const player2 = Player('Klars', 'O')
-        let cur_play = player1
-        while (true) {
-            // console.log('test');
+        const player2 = Player('Klars', 'O');
+        const board = Gameboard.board;
 
-            // console.log(cur_play);
+        player = player1;
+        marker = player.marker;
 
-            let player = getPlayer(cur_play);
-            let cur_play = player
+        // Showing which player's turn it is
+        playerPrompt = document.querySelector('#playerprompt')
+        playerPrompt.innerHTML = `${player.name}'s turn  ( ${player.marker} )`
 
-            console.log(cur_play);
+        // Add a click event to the <td>-cells
+        let cells = document.querySelectorAll("td")
+        cells.forEach( (cell) => {
+            cell.addEventListener("click", () => {
+                // Placing marker on webpage and on board
+                placeMarker(cell, board, marker);
 
+                // Change the player and marker
+                player = nextPlayer(player, player1, player2);
+                marker = player.marker;
 
-            if (gameOver) {
-                console.log('over');
-                break;
-            }
-        }
+                // Updating the player prompt
+                playerPrompt.innerHTML = `${player.name}'s turn  ( ${player.marker} )`
+            });
+        });
     }
+
     return { newGame }
 })();
 
-const getPlayer = ( (player) => {
-    let turn = (player == newGame.player1 ? newGame.player2 : newGame.player1);
-    return { turn };
-})
+function placeMarker(cell, board, marker) {
+    cell.innerHTML = marker;
+    let r = cell.id[0];
+    let c =  cell.id[2];
+    board[r][c] = marker;
+}
+
+function nextPlayer(player, player1, player2) {
+    return (player == player1 ? player2 : player1)
+};
+
+
+// A 3x3 array as a module
+const Gameboard = (() => {
+    const board = Array.from(Array(3), () => new Array(3));
+    return { board };
+})();
 
 const gameOver = ( () => {
     let status = true;
@@ -52,28 +65,4 @@ const gameOver = ( () => {
 // A player constructor as a factory
 const Player = (name, marker) => {
     return { name, marker };
-  };
-
-
-// A 3x3 array as a module
-const Gameboard = ( () => {
-    let board = Array.from(Array(3), () => new Array(3, ''));
-    return { board };
-})();
-
-// function generateTable() {
-//     gameboard = Gameboard;
-//     for (let i = 0; i < 3; i++) {
-//         for (let j = 0; j < 3; j++) {
-//             let GameCell = gameboard.board[i][j];
-//             let HTMLcell = document.querySelector(`#\\3${i}-${j}`);
-//             HTMLcell.append(GameCell);
-//         }
-//     }
-// }
-
-function placeMarker(cell, marker) {
-    
-    gameboard = Gameboard;
-
-}
+};
