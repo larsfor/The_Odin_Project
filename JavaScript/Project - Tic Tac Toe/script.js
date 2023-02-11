@@ -23,24 +23,54 @@ const Game = (() => {
         let cells = document.querySelectorAll("td")
         cells.forEach( (cell) => {
             cell.addEventListener("click", () => {
-                // Placing marker on webpage and on board
-                placeMarker(cell, board, marker);
+                // If it's a legal placement, continue
+                // If not, do nothing
+                if (validPlacement(cell, board)) {
+                    // Placing marker on webpage and on board
+                    placeMarker(cell, board, marker);
 
-                // Change the player and marker
-                player = nextPlayer(player, player1, player2);
-                marker = player.marker;
+                    // Change the player and marker
+                    player = nextPlayer(player, player1, player2);
+                    marker = player.marker;
 
-                // Updating the player prompt
-                playerPrompt.innerHTML = `${player.name}'s turn  ( ${player.marker} )`
+                    // Updating the player prompt
+                    playerPrompt.innerHTML = `${player.name}'s turn  ( ${player.marker} )`
+                } else {
+                    console.log('false');
+                }
             });
         });
     }
 
+    // A 3x3 array as a module
+    const Gameboard = (() => {
+        const board = Array.from(Array(3), () => new Array(3));
+        return { board };
+    })();
+
+    const gameOver = ( () => {
+        let status = true;
+        return { status };
+    })();
+
+
     return { newGame }
 })();
 
+function validPlacement(cell, board) {
+    // Get the coordinates to check the board
+    let r = cell.id[0];
+    let c =  cell.id[2];
+
+    // Return true if the cell is empty, false if not
+    return (board[r][c] == null ? true : false)
+}
+
 function placeMarker(cell, board, marker) {
+    // Place marker on the DOM
     cell.innerHTML = marker;
+
+    // Place the marker the game's board
     let r = cell.id[0];
     let c =  cell.id[2];
     board[r][c] = marker;
@@ -49,18 +79,6 @@ function placeMarker(cell, board, marker) {
 function nextPlayer(player, player1, player2) {
     return (player == player1 ? player2 : player1)
 };
-
-
-// A 3x3 array as a module
-const Gameboard = (() => {
-    const board = Array.from(Array(3), () => new Array(3));
-    return { board };
-})();
-
-const gameOver = ( () => {
-    let status = true;
-    return { status };
-})();
 
 // A player constructor as a factory
 const Player = (name, marker) => {
