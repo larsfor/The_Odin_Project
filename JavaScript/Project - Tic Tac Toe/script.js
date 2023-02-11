@@ -35,20 +35,21 @@ const Game = (() => {
     
                         // Updating the player prompt
                         playerPrompt.innerHTML = `${player.name}'s turn  ( ${player.marker} )`
-                    } else {
-                        alert('you are the winner');
-                        
-                        // Remove the placements of the game's board
-                        // Gameboard.clearBoard;
 
+                    } else {
+                        alert(`${player.name} is the winner!`);
+                        
                         // Remove the placements of the DOM's board
                         cells.forEach((cell) => {
                             cell.innerHTML = '';
                         })
+
+                        // Clear the game's board
+                        clearBoard(board);
                     }
 
                 } else {
-                    console.log('false');
+                    console.log('Illegal move!');
                 }
             });
         });
@@ -57,11 +58,19 @@ const Game = (() => {
     // A 3x3 array as a module
     const Gameboard = (() => {
         const board = Array.from(Array(3), () => new Array(3));
-        const clearBoard = board.forEach((cell) => {
-            cell = '';
-        })
-        return { board, clearBoard };
+        
+        return { board };
     })();
+
+    function clearBoard(board) {
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 3; j++) {
+                board[i][j] = null;
+            }
+        }
+
+        return board;
+    };
 
     function gameOver(board, marker) {
         let placements = [];
@@ -83,10 +92,8 @@ const Game = (() => {
         }
 
         if (isWinner(placements)) {
-            console.log('sann');
             return true;
         } else {
-            console.log('usann');
             return false;
         }
     }
@@ -105,7 +112,6 @@ const Game = (() => {
             [1, 5, 9], // diagonal left to right
             [3, 5, 7]  // diagonal right to left
         ]
-        
         
         let isWinner = false;
         const isWinningCondition = (number) => placements.includes(number);
