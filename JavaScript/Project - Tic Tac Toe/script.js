@@ -1,6 +1,12 @@
 window.addEventListener("DOMContentLoaded", () => {
     console.log('DOMContent loaded')
 
+    const startButton = document.querySelector("#startButton");
+    startButton.addEventListener("click", startGame)
+});
+
+// A module to start a new game
+const startGame = (() => {
     game = Game;
     game.newGame();
 });

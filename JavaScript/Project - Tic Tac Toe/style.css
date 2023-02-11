@@ -22,3 +22,8 @@ td {
 td:hover {
   background-color: blanchedalmond;
 }
+
+.centered_button {
+  margin-top: 1rem;
+  text-align: center;
+}
