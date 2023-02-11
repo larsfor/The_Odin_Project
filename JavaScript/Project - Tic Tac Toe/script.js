@@ -1,11 +1,11 @@
 window.addEventListener("DOMContentLoaded", () => {
     console.log('DOMContent loaded')
 
-    const startButton = document.querySelector("#startButton");
     const refreshButton = document.querySelector("#refreshButton");
-    startButton.addEventListener("click", startGame);
     refreshButton.style.display = "none";
-    
+
+    const startButton = document.querySelector("#startButton");
+    startButton.addEventListener("click", startGame);
 });
 
 // A 3x3 array as a module
@@ -16,30 +16,32 @@ const Gameboard = (() => {
 
 // A module to start a new game
 const startGame = (() => {
-    // Remove the placements of the DOM's board
-    removeDOMBoard();
-
+    board = Gameboard.board;
     game = Game;
-    game.newGame();
+    game.newGame(board);
 });
 
 const Game = (() => {
-    const newGame = () => {
-        const player1 = Player('Lars', 'X');
-        const player2 = Player('Klars', 'O');
-        board = Gameboard.board;
+    const newGame = (board) => {
+        // Get the player's names
+        let [player1, player2] = getPlayers();
 
         player = player1;
         marker = player.marker;
-
+        
         const startButton = document.querySelector("#startButton");
         const refreshButton = document.querySelector("#refreshButton");
         startButton.style.display = "none";
         refreshButton.style.display = "inline-block";
 
+
+
         refreshButton.addEventListener("click", () => {
             clearBoard(board);
             removeDOMBoard();
+            let [player1, player2] = getPlayers();
+            player1 = player1;
+            player2 = player2;
 
             player = player1;
             marker = player.marker;
@@ -52,7 +54,7 @@ const Game = (() => {
 
         // Add a click event to the <td>-cells
         let cells = document.querySelectorAll("td")
-        cells.forEach( (cell) => {
+        cells.forEach((cell) => {
             cell.addEventListener("click", () => {
                 // If it's a legal placement, continue
                 // If not, do nothing
@@ -158,15 +160,23 @@ const Game = (() => {
     function nextPlayer(player, player1, player2) {
         return (player == player1 ? player2 : player1)
     };
-    
-    // A player constructor as a factory
-    const Player = (name, marker) => {
-        return { name, marker };
-    };
 
     return { newGame }
 })();
 
+// A player constructor as a factory
+const Player = (name, marker) => {
+    return { name, marker };
+};
+
+function getPlayers() {
+    pOneName = document.querySelector("#playerone").value;
+    pTwoName = document.querySelector("#playertwo").value;
+    let player1 = Player(pOneName, 'X');
+    let player2 = Player(pTwoName, 'O');
+
+    return [player1, player2];
+}
 
 function removeDOMBoard () {
     let cells = document.querySelectorAll("td")
@@ -184,3 +194,4 @@ function clearBoard(board) {
 
     return board;
 };
+

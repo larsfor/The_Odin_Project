@@ -25,5 +25,16 @@ td:hover {
 
 .centered_button {
   margin-top: 1rem;
-  align-items: center;
+  text-align: center;
+}
+
+.player_names {
+  position: relative;
+  right: 70px;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+input {
+  width: 150px;
 }
