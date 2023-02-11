@@ -2,11 +2,23 @@ window.addEventListener("DOMContentLoaded", () => {
     console.log('DOMContent loaded')
 
     const startButton = document.querySelector("#startButton");
-    startButton.addEventListener("click", startGame)
+    const refreshButton = document.querySelector("#refreshButton");
+    startButton.addEventListener("click", startGame);
+    refreshButton.style.display = "none";
+    
 });
+
+// A 3x3 array as a module
+const Gameboard = (() => {
+    let board = Array.from(Array(3), () => new Array(3));
+    return { board };
+})();
 
 // A module to start a new game
 const startGame = (() => {
+    // Remove the placements of the DOM's board
+    removeDOMBoard();
+
     game = Game;
     game.newGame();
 });
@@ -15,14 +27,28 @@ const Game = (() => {
     const newGame = () => {
         const player1 = Player('Lars', 'X');
         const player2 = Player('Klars', 'O');
-        const board = Gameboard.board;
+        board = Gameboard.board;
 
         player = player1;
         marker = player.marker;
 
+        const startButton = document.querySelector("#startButton");
+        const refreshButton = document.querySelector("#refreshButton");
+        startButton.style.display = "none";
+        refreshButton.style.display = "inline-block";
+
+        refreshButton.addEventListener("click", () => {
+            clearBoard(board);
+            removeDOMBoard();
+
+            player = player1;
+            marker = player.marker;
+            playerPrompt.innerHTML = `${player.name}'s turn  ( ${player.marker} )`
+        })
+
         // Showing which player's turn it is
         playerPrompt = document.querySelector('#playerprompt')
-        playerPrompt.innerHTML = `${player.name}'s turn  ( ${player.marker} )`
+        playerPrompt.innerHTML = `${player.name}'s turn ( ${player.marker} )`
 
         // Add a click event to the <td>-cells
         let cells = document.querySelectorAll("td")
@@ -46,9 +72,7 @@ const Game = (() => {
                         alert(`${player.name} is the winner!`);
                         
                         // Remove the placements of the DOM's board
-                        cells.forEach((cell) => {
-                            cell.innerHTML = '';
-                        })
+                        removeDOMBoard();
 
                         // Clear the game's board
                         clearBoard(board);
@@ -60,23 +84,6 @@ const Game = (() => {
             });
         });
     }
-
-    // A 3x3 array as a module
-    const Gameboard = (() => {
-        const board = Array.from(Array(3), () => new Array(3));
-        
-        return { board };
-    })();
-
-    function clearBoard(board) {
-        for (let i = 0; i < 3; i++) {
-            for (let j = 0; j < 3; j++) {
-                board[i][j] = null;
-            }
-        }
-
-        return board;
-    };
 
     function gameOver(board, marker) {
         let placements = [];
@@ -161,3 +168,19 @@ const Game = (() => {
 })();
 
 
+function removeDOMBoard () {
+    let cells = document.querySelectorAll("td")
+    cells.forEach((cell) => {
+        cell.innerHTML = '';
+    })
+}
+
+function clearBoard(board) {
+    for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
+            board[i][j] = null;
+        }
+    }
+
+    return board;
+};

@@ -25,5 +25,5 @@ td:hover {
 
 .centered_button {
   margin-top: 1rem;
-  text-align: center;
+  align-items: center;
 }
