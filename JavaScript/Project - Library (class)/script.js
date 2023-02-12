@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     newBookForm.addEventListener('submit', (event) => {
         event.preventDefault();
         library.addBook(newBookForm);
+        newBookForm.reset();
     });
 });
 
@@ -51,18 +52,21 @@ class Library {
     }
 }
 
-function removeBook() {
-    let id = this.id
-    console.log(id);
-    // this.library.splice(this.id, 1);
-    // updateTable();
+function removeBook(library, id) {
+    library.splice(id, 1);
+    updateTable(library);
 }
 
-function updateTable (library, form) {
+function markRead(library, id) {
+    let book = library[id]
+    book.read = book.read === 'Read' ? 'Not read' : 'Read'
+    updateTable(library);
+}
+
+function updateTable (library) {
     const table = document.querySelector("#libraryTable")
     table.innerHTML = '';
     generateTable(library);
-    form.reset();
 }
 
 function generateTable(library) {
@@ -94,54 +98,51 @@ function generateTable(library) {
     tbl.appendChild(pagesHeader);
     tbl.appendChild(readHeader);
 
-    let length = library.length
-
     // creating all cells
-    for (let i = 0; i < length; i++) {
+    for (let i = 0; i < library.length; i++) {
 
         // creates a table row
         const row = document.createElement("tr");
         row.id = `row-${i}`;
 
-        // // getting the different attributes
-        // const book = library[i];
-        // const author = book.author;
-        // const title = book.title;
-        // const pages = book.pages;
-        // const read = book.read;
+        // getting the different attributes
+        const book = library[i];
+        const author = book.author;
+        const title = book.title;
+        const pages = book.pages;
+        const read = book.read;
 
-        // // creating a <td> cell for each attribute
-        // const autorCell = document.createElement("td");
-        // const titleCell = document.createElement("td");
-        // const pagesCell = document.createElement("td");
-        // const readCell = document.createElement("td");
+        // creating a <td> cell for each attribute
+        const autorCell = document.createElement("td");
+        const titleCell = document.createElement("td");
+        const pagesCell = document.createElement("td");
+        const readCell = document.createElement("td");
 
-        // // appending the attributes to the cell
-        // autorCell.append(author);
-        // titleCell.append(title);
-        // pagesCell.append(pages);
-        // readCell.append(read);
+        // appending the attributes to the cell
+        autorCell.append(author);
+        titleCell.append(title);
+        pagesCell.append(pages);
+        readCell.append(read);
 
         // create a button to delete the entry
         const removeButton = document.createElement("button");
         removeButton.innerHTML = "Remove from list";
         removeButton.id = i
-        removeButton.addEventListener("click", removeBook);
+        removeButton.addEventListener("click", () => removeBook(library, removeButton.id));
 
-        // // create a button to change read status
-        // const readButton = document.createElement("button");
-        // readButton.innerHTML = "Mark book as read";
-        // readButton.id = i
-        // readButton.addEventListener("click", library.markRead);
-
+        // create a button to change read status
+        const readButton = document.createElement("button");
+        readButton.innerHTML = "Mark book as read";
+        readButton.id = i
+        readButton.addEventListener("click", () => markRead(library, readButton.id));
 
         // appending the cell to the row
-        // row.appendChild(autorCell);
-        // row.appendChild(titleCell);
-        // row.appendChild(pagesCell);
-        // row.appendChild(readCell);
+        row.appendChild(autorCell);
+        row.appendChild(titleCell);
+        row.appendChild(pagesCell);
+        row.appendChild(readCell);
         row.appendChild(removeButton);
-        // row.appendChild(readButton);
+        row.appendChild(readButton);
 
         // add the row to the end of the table body
         tblBody.appendChild(row);
