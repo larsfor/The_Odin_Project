@@ -1,4 +1,8 @@
 #content {
-    font-style: italic;
-    background: url('./restaurant.jpg');
+    
+}
+
+.background {
+    background: url('background.jpg');
+    background-repeat: no-repeat;
 }

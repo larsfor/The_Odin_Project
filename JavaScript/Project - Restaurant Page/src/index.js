@@ -1,19 +1,24 @@
 import './style.css';
-import image from './restaurant.jpg';
+import printMe from './print.js';
+
+document.body.classList.add("background")
 
 function component() {
-    const element = document.createElement('h1');
-  
-    // Lodash, currently included via a script, is required for this line to work
-    element.innerHTML = 'Restaurant Page'
-    element.setAttribute("id", "content")
+  const element = document.createElement('div');
 
-    // Add the image to our existing div.
-    const myImage = new Image();
-    myImage.src = image;
-    element.appendChild(myImage);
+ const btn = document.createElement('button');
 
-    return element;
-  }
-  
-  document.body.appendChild(component());
+  element.innerHTML = _.join(['Hello', 'webpack'], ' ');
+
+ btn.innerHTML = 'Click me and check the console!';
+
+ btn.onclick = printMe;
+
+
+ element.appendChild(btn);
+
+
+  return element;
+}
+
+document.body.appendChild(component());
