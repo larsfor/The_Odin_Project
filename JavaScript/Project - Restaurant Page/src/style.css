@@ -1,8 +1,7 @@
 #content {
-    
+    color: red;
 }
 
 .background {
     background: url('background.jpg');
-    background-repeat: no-repeat;
 }

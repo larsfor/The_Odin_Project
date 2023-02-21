@@ -1,24 +1,15 @@
 import './style.css';
-import printMe from './print.js';
+// import printMe from './print.js';
 
 document.body.classList.add("background")
 
-function component() {
-  const element = document.createElement('div');
+// function component() {
+//   const element = document.createElement('div');
+//   const btn = document.createElement('button');
+//   btn.innerHTML = 'Click me and check the console!';
+//   btn.onclick = printMe;
+//   element.appendChild(btn);
+//   return element;
+// }
 
- const btn = document.createElement('button');
-
-  element.innerHTML = _.join(['Hello', 'webpack'], ' ');
-
- btn.innerHTML = 'Click me and check the console!';
-
- btn.onclick = printMe;
-
-
- element.appendChild(btn);
-
-
-  return element;
-}
-
-document.body.appendChild(component());
+// document.body.appendChild(component());
