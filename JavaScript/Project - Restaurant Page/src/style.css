@@ -1,5 +1,13 @@
+@font-face {
+    font-family: 'MyFont';
+    src: url('./SimpleHandmade.otf') format('opentype'),
+         url('./SimpleHandmade.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+  }
+
 #content {
-    color: red;
+    font-family: 'MyFont', "PT Sans", Calibri, Tahoma, sans-serif;;
 }
 
 .background {
