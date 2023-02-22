@@ -1,13 +1,8 @@
 import './style.css';
+import initalPage from './initalPage';
 import aboutPage from './aboutPage';
 
-function component() {
-  const element = document.createElement('div');
-
-  // use your function!
-  element.textContent = aboutPage('Cody');
-  return element;
-}
-
-content = document.querySelector('#content');
-content.appendChild(component());
+let content = document.querySelector('#content');
+initalPage().forEach((element) => {
+  content.appendChild(element);
+})

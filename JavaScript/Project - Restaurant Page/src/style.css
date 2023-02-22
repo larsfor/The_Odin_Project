@@ -6,12 +6,65 @@
     font-style: normal;
   }
 
+/* RESET */
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
 body {
-    background: url('./background.jpg');
-    font-family: 'MyFont';
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    /* justify-content: space-between; */
-    /* flex: 1; */
+  background: url('./background.jpg');
+  font-family: 'MyFont';
+
+}
+
+#content {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  background: orangered;
+}
+
+.middle {
+  background: darkslateblue;
+}
+
+.footer {
+  background: deeppink;
+}
+
+.left, .right {
+  /* background: wheat; */
+}
+
+@media all and (min-width: 768px) {
+  #content {
+      flex-direction: row;
+      flex-wrap: wrap;    
+  } 
+  .header, 
+  .footer {
+      width: 100%;
+  }
+  .middle {
+      flex: 2;
+      order: 2;
+      min-height: 80vh;
+  }
+  
+  .left {
+      order: 1;
+      flex: 1;
+  }
+  .right {
+      flex: 1;
+      order: 3;
+  }
+  footer {
+      order: 4;
+  }
 }
