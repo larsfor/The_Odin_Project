@@ -1,10 +1,10 @@
 @font-face {
-    font-family: 'MyFont';
-    src: url('./SimpleHandmade.otf') format('opentype'),
-         url('./SimpleHandmade.ttf') format('truetype');
-    font-weight: 600;
-    font-style: normal;
-  }
+  font-family: 'MyFont';
+  src: url('./SimpleHandmade.otf') format('opentype'),
+        url('./SimpleHandmade.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
 
 /* RESET */
 * {
@@ -16,55 +16,62 @@
 body {
   background: url('./background.jpg');
   font-family: 'MyFont';
-
 }
 
 #content {
-  height: 100vh;
   display: flex;
   flex-direction: column;
+  height: 100vh;
 }
 
 .header {
-  background: orangered;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  background-color: #2196F3;
+  gap: 1rem;
+  padding: 10px;
 }
 
-.middle {
-  background: darkslateblue;
+.about,
+.contact,
+.menu {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  font-size: 20px;
+  text-align: center;
+  border-radius: 5px;
 }
 
+.header,
 .footer {
-  background: deeppink;
+  flex: 0 0 50px;
+  background: #34495e;
+
+  /* display: flex; */
+  align-items: center;
+  justify-content: center;
 }
 
-.left, .right {
-  /* background: wheat; */
+.content-body {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
 }
 
-@media all and (min-width: 768px) {
-  #content {
-      flex-direction: row;
-      flex-wrap: wrap;    
-  } 
-  .header, 
-  .footer {
-      width: 100%;
-  }
-  .middle {
-      flex: 2;
-      order: 2;
-      min-height: 80vh;
-  }
-  
-  .left {
-      order: 1;
-      flex: 1;
-  }
-  .right {
-      flex: 1;
-      order: 3;
-  }
-  footer {
-      order: 4;
-  }
+.content-body .content {
+  flex: 4;
+  overflow: auto;
+  /* background: #1abc9c; */
+  background-color: wheat;
+}
+
+.content-body .left,
+.content-body .right {
+  flex: 1;
+  overflow: auto;
+}
+
+a {
+  color: whitesmoke;
 }

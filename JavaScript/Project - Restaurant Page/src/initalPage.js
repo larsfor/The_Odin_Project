@@ -1,24 +1,45 @@
 const initalPage = () => {
+    const contentBody = document.createElement("div");
     const header = document.createElement("header");
     const left = document.createElement("nav");
-    const middle = document.createElement("main");
+    const content = document.createElement("main");
     const right = document.createElement("aside");
     const footer = document.createElement("footer");
 
-    header.classList.add("header");
+    contentBody.classList.add("content-body");
     left.classList.add("left");
-    middle.classList.add("middle");
+    content.classList.add("content");
     right.classList.add("right");
+    header.classList.add("header");
     footer.classList.add("footer");
     
-    header.innerHTML = "header";
-    left.innerHTML = "left";
-    middle.innerHTML = "middle";
-    right.innerHTML = "right";
+    const about = document.createElement("div");
+    about.classList.add("about");
+    about.innerHTML = "About";
+    
+    const contact = document.createElement("div");
+    contact.classList.add("contact");
+    contact.innerHTML = "Contact";
+
+    
+    const menu = document.createElement("div");
+    menu.classList.add("menu");
+    menu.innerHTML = "Menu";
+
+    
     footer.innerHTML = `<a href="http://www.freepik.com">Background designed by Bimbimkha / Freepik</a>`;
 
+    // // Adding the different tabs to the header element
+    header.appendChild(about);
+    header.appendChild(contact);
+    header.appendChild(menu);
 
-    return [header, middle, left, right, footer];
+    // Adding the left, middle and right div to the contentBody div
+    contentBody.appendChild(left);
+    contentBody.appendChild(content);
+    contentBody.appendChild(right);
+
+    return [header, contentBody, footer];
 }
 
 export default initalPage;
