@@ -1,3 +1,3 @@
-const aboutPage = (name) => 'Hi! My name is ' + name;
+const aboutPage = () => 'Hi! This is the about page.';
 
 export default aboutPage;

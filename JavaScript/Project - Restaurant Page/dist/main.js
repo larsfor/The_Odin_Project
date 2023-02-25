@@ -126,7 +126,17 @@ eval("\n\n/* istanbul ignore next  */\nfunction styleTagTransform(css, styleElem
   \**************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nconst aboutPage = (name) => 'Hi! My name is ' + name;\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (aboutPage);\n\n//# sourceURL=webpack://project---restaurant-page/./src/aboutPage.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nconst aboutPage = () => 'Hi! This is the about page.';\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (aboutPage);\n\n//# sourceURL=webpack://project---restaurant-page/./src/aboutPage.js?");
+
+/***/ }),
+
+/***/ "./src/contactPage.js":
+/*!****************************!*\
+  !*** ./src/contactPage.js ***!
+  \****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nconst contactPage = () => 'Hi! This is the contact page.';\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (contactPage);\n\n//# sourceURL=webpack://project---restaurant-page/./src/contactPage.js?");
 
 /***/ }),
 
@@ -136,7 +146,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n/* harmony import */ var _initalPage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./initalPage */ \"./src/initalPage.js\");\n/* harmony import */ var _aboutPage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./aboutPage */ \"./src/aboutPage.js\");\n\r\n\r\n\r\n\r\ndocument.addEventListener(\"DOMContentLoaded\", (event) => {\r\n  console.log('DOM Content loaded');\r\n\r\n  const headerChilds = document.querySelector(\".header\").children;\r\n  for (let i = 0; i < headerChilds.length; i++) {\r\n    const element = headerChilds[i];\r\n    element.addEventListener(\"click\", selectHeader);\r\n  }\r\n\r\n  event.preventDefault();\r\n})\r\n\r\n// Appending the initial page with the holy grail, background and styles\r\nlet content = document.querySelector('#content');\r\n(0,_initalPage__WEBPACK_IMPORTED_MODULE_1__[\"default\"])().forEach((element) => {\r\n  content.appendChild(element);\r\n})\r\n\r\nfunction selectHeader() {\r\n  const headerChilds = document.querySelector(\".header\").children;\r\n  for (let i = 0; i < headerChilds.length; i++) {\r\n    const child = headerChilds[i];\r\n    child.classList.remove(\"selected\");\r\n  }\r\n\r\n  this.classList.add(\"selected\");\r\n}\n\n//# sourceURL=webpack://project---restaurant-page/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n/* harmony import */ var _initalPage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./initalPage */ \"./src/initalPage.js\");\n/* harmony import */ var _aboutPage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./aboutPage */ \"./src/aboutPage.js\");\n/* harmony import */ var _contactPage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./contactPage */ \"./src/contactPage.js\");\n/* harmony import */ var _menuPage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./menuPage */ \"./src/menuPage.js\");\n\r\n\r\n\r\n\r\n\r\n\r\ndocument.addEventListener(\"DOMContentLoaded\", (event) => {\r\n  console.log('DOM Content loaded');\r\n\r\n  const headerChilds = document.querySelector(\".header\").children;\r\n  for (let i = 0; i < headerChilds.length; i++) {\r\n    const element = headerChilds[i];\r\n    element.addEventListener(\"click\", selectHeader);\r\n  }\r\n\r\n  event.preventDefault();\r\n})\r\n\r\n// Appending the initial page with the holy grail, background and styles\r\nlet content = document.querySelector('#content');\r\n(0,_initalPage__WEBPACK_IMPORTED_MODULE_1__[\"default\"])().forEach((element) => {\r\n  content.appendChild(element);\r\n})\r\n\r\n// On click, select the corresponding header and insert the approprirate page\r\nfunction selectHeader() {\r\n  \r\n  const headerChilds = document.querySelector(\".header\").children;\r\n  for (let i = 0; i < headerChilds.length; i++) {\r\n    const child = headerChilds[i];\r\n    child.classList.remove(\"selected\");\r\n  }\r\n  this.classList.add(\"selected\");\r\n  \r\n  let content = document.querySelector(\".content\");\r\n  let contentName = this.className;\r\n\r\n  content.innerHTML = \"\";\r\n  let page = component(contentName);\r\n  content.appendChild(page);\r\n}\r\n\r\nfunction component(contentName) {\r\n  const element = document.createElement(\"div\");\r\n\r\n  if (contentName.includes('about')) {\r\n    // console.log('about');\r\n    element.textContent = (0,_aboutPage__WEBPACK_IMPORTED_MODULE_2__[\"default\"])();\r\n  } else if (contentName.includes('contact'))  {\r\n    // console.log('contact');\r\n    element.textContent = (0,_contactPage__WEBPACK_IMPORTED_MODULE_3__[\"default\"])();\r\n  } else {\r\n    // console.log('menu');\r\n    element.textContent = (0,_menuPage__WEBPACK_IMPORTED_MODULE_4__[\"default\"])();\r\n  }\r\n  return element;\r\n}\n\n//# sourceURL=webpack://project---restaurant-page/./src/index.js?");
 
 /***/ }),
 
@@ -147,6 +157,16 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _sty
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nconst initalPage = () => {\r\n    const contentBody = document.createElement(\"div\");\r\n    const header = document.createElement(\"header\");\r\n    const left = document.createElement(\"nav\");\r\n    const content = document.createElement(\"main\");\r\n    const right = document.createElement(\"aside\");\r\n    const footer = document.createElement(\"footer\");\r\n\r\n    contentBody.classList.add(\"content-body\");\r\n    left.classList.add(\"left\");\r\n    content.classList.add(\"content\");\r\n    right.classList.add(\"right\");\r\n    header.classList.add(\"header\");\r\n    footer.classList.add(\"footer\");\r\n    \r\n    const about = document.createElement(\"div\");\r\n    about.classList.add(\"about\");\r\n    about.classList.add(\"selected\");\r\n    about.innerHTML = \"About\";\r\n    \r\n    const contact = document.createElement(\"div\");\r\n    contact.classList.add(\"contact\");\r\n    contact.innerHTML = \"Contact\";\r\n\r\n    \r\n    const menu = document.createElement(\"div\");\r\n    menu.classList.add(\"menu\");\r\n    menu.innerHTML = \"Menu\";\r\n\r\n    \r\n    footer.innerHTML = `<a href=\"http://www.freepik.com\">Background designed by Bimbimkha / Freepik</a>`;\r\n\r\n    // // Adding the different tabs to the header element\r\n    header.appendChild(about);\r\n    header.appendChild(contact);\r\n    header.appendChild(menu);\r\n\r\n    // Adding the left, middle and right div to the contentBody div\r\n    contentBody.appendChild(left);\r\n    contentBody.appendChild(content);\r\n    contentBody.appendChild(right);\r\n\r\n    return [header, contentBody, footer];\r\n}\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (initalPage);\n\n//# sourceURL=webpack://project---restaurant-page/./src/initalPage.js?");
+
+/***/ }),
+
+/***/ "./src/menuPage.js":
+/*!*************************!*\
+  !*** ./src/menuPage.js ***!
+  \*************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nconst menuPage = () => 'Hi! This is the menu page.';\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (menuPage);\n\n//# sourceURL=webpack://project---restaurant-page/./src/menuPage.js?");
 
 /***/ }),
 
