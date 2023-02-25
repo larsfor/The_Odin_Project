@@ -13,6 +13,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
     element.addEventListener("click", selectHeader);
   }
 
+  // On page load, select the about page first
+  const content = document.querySelector(".content");
+  content.appendChild(aboutPage());
+
   event.preventDefault();
 })
 
@@ -30,28 +34,32 @@ function selectHeader() {
     const child = headerChilds[i];
     child.classList.remove("selected");
   }
+
   this.classList.add("selected");
   
+  // First clear the content element, then append the selected page the .content
   let content = document.querySelector(".content");
-  let contentName = this.className;
+  let headerName = this.className;
 
   content.innerHTML = "";
-  let page = component(contentName);
+  let page = chooseComponent(headerName);
   content.appendChild(page);
 }
 
-function component(contentName) {
-  const element = document.createElement("div");
+function chooseComponent(headerName) {
+  // const element = document.createElement("div");
 
-  if (contentName.includes('about')) {
+  let element = "";
+
+  if (headerName.includes('about')) {
     // console.log('about');
-    element.textContent = aboutPage();
-  } else if (contentName.includes('contact'))  {
+    element = aboutPage();
+  } else if (headerName.includes('contact'))  {
     // console.log('contact');
-    element.textContent = contactPage();
+    element = contactPage();
   } else {
     // console.log('menu');
-    element.textContent = menuPage();
+    element = menuPage();
   }
   return element;
 }
