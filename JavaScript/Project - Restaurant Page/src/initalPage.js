@@ -15,6 +15,7 @@ const initalPage = () => {
     
     const about = document.createElement("div");
     about.classList.add("about");
+    about.classList.add("selected");
     about.innerHTML = "About";
     
     const contact = document.createElement("div");

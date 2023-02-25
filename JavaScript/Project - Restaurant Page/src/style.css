@@ -36,11 +36,17 @@ body {
 .contact,
 .menu {
   background-color: rgba(255, 255, 255, 0.8);
-  border: 1px solid rgba(0, 0, 0, 0.8);
+  border: 2px solid rgba(0, 0, 0, 0.8);
   padding: 20px;
   font-size: 20px;
   text-align: center;
   border-radius: 5px;
+}
+
+.about:hover,
+.contact:hover,
+.menu:hover {
+  cursor: pointer;
 }
 
 .header,
@@ -48,7 +54,7 @@ body {
   flex: 0 0 50px;
   background: #34495e;
 
-  /* display: flex; */
+  display: flex;
   align-items: center;
   justify-content: center;
 }
@@ -60,9 +66,8 @@ body {
 }
 
 .content-body .content {
-  flex: 4;
+  flex: 3;
   overflow: auto;
-  /* background: #1abc9c; */
   background-color: wheat;
 }
 
@@ -74,4 +79,10 @@ body {
 
 a {
   color: whitesmoke;
+}
+
+.selected {
+  /* background: #1abc9c; */
+  background: wheat;
+  box-shadow: 0 1rem 0px -2px wheat;
 }
