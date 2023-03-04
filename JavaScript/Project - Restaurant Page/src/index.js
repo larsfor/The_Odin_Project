@@ -49,17 +49,14 @@ function selectHeader() {
 function chooseComponent(headerName) {
   // const element = document.createElement("div");
 
-  let element = "";
-
   if (headerName.includes('about')) {
     // console.log('about');
-    element = aboutPage();
+    return aboutPage();
   } else if (headerName.includes('contact'))  {
     // console.log('contact');
-    element = contactPage();
+    return contactPage();
   } else {
     // console.log('menu');
-    element = menuPage();
+    return menuPage();
   }
-  return element;
 }

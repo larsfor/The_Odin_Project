@@ -86,3 +86,15 @@ a {
   background: wheat;
   box-shadow: 0 1rem 0px -2px wheat;
 }
+
+.centered {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.pageText {
+  padding-top: 1rem;
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
