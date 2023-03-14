@@ -1,0 +1,62 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+/* COLORS and FONTS */
+body {
+    color: white;
+    text-align: center;
+    font-size: 24px;
+    line-height: 3;
+}
+.header {
+    background: orangered;
+}
+.main {
+    background: darkslateblue;
+}
+.footer {
+    background: deeppink;
+}
+.left {
+    background: dodgerblue;
+}
+.right {
+    background: forestgreen;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+@media all and (min-width: 768px) {
+    .container {
+        flex-direction: row;
+        flex-wrap: wrap;    
+    } 
+    .header, 
+    .footer {
+        width: 100%;
+    }
+    .main {
+        flex: 2;
+        order: 2;
+        min-height: 80vh;
+    }
+    
+    .left {
+        order: 1;
+        flex: 1;
+    }
+    .right {
+        flex: 1;
+        order: 3;
+    }
+    .footer {
+        order: 4;
+    }
+}
