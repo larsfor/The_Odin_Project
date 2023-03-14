@@ -36,14 +36,14 @@ body {
 @media all and (min-width: 768px) {
     .container {
         flex-direction: row;
-        flex-wrap: wrap;    
+        flex-wrap: wrap;
     } 
     .header, 
     .footer {
         width: 100%;
     }
     .main {
-        flex: 2;
+        flex: 4;
         order: 2;
         min-height: 80vh;
     }
@@ -59,4 +59,12 @@ body {
     .footer {
         order: 4;
     }
+}
+
+.form {
+    height: 200px;
+    width: 200px;
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
 }
