@@ -33,7 +33,7 @@ body {
     height: 100vh;
 }
 
-@media all and (min-width: 768px) {
+@media all and (min-width: 600px) {
     .container {
         flex-direction: row;
         flex-wrap: wrap;
@@ -62,9 +62,30 @@ body {
 }
 
 .form {
-    height: 200px;
-    width: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    /* height: 300px; */
+    /* width: 700px; */
+
     border-style: solid;
     border-color: black;
     border-width: 1px;
+    font-size: small;
+}
+
+.formHeader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.formDescription {
+    flex: 2;
+}
+
+.form > #submitButton {
+    width: 100px;
 }
