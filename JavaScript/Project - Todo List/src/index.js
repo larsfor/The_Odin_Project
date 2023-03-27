@@ -5,15 +5,29 @@ import todoItem from './todoItem';
 document.addEventListener("DOMContentLoaded", (event) => {
     console.log('DOM content loaded');
 
-    // // Apply the holy grail css (flex) to the page, including some basic todo-functions
-    // const content = document.querySelector(".container");
-    // initialPage().forEach(e => {
-    //     content.appendChild(e);
-    // });
+    const todoForm = document.querySelector("#newTodoForm");
+    todoForm.addEventListener("submit", (todo) => {
+        let newTodo = createTodo(todoForm);
+        addTodoToLibrary(newTodo);
+        console.log(todoLibrary);        
+
+        todo.preventDefault();
+    })
     event.preventDefault();
 })
 
-function createTodo(title, description, dueDate, priority) {
+const todoLibrary = [];
+
+function createTodo(form) {
+    let title = form['title'].value;
+    let description = form['description'].value;
+    let dueDate = form['dueDate'].value;
+    let priority = form['priority'].value;
+
     const todo = todoItem(title, description, dueDate, priority);
     return todo;
+}
+
+function addTodoToLibrary(todoItem) {
+    todoLibrary.push(todoItem);
 }

@@ -10,20 +10,23 @@
     <div class="container">
         <header class="header">header</header>
         <main class="main">
-            <div class="form">
-                <form action="">
+            <div class="form" >
+                <form action="" id="newTodoForm">
                     <label for="title">Title</label>
-                    <input type="title">
+                    <input type="title" id="title">
 
                     <label for="dueDate">Due date</label>
-                    <input type="date">
+                    <input type="date" id="dueDate">
 
                     <label for="priority">Priority</label>
-                    <input type="range" min="1" max="5">
+                    <input type="range" min="1" max="5" id="priority">
 
                     <p>
-                        <textarea name="description" id="description" cols="40" rows="10">Enter your next todo here.
-                        </textarea>
+                        <textarea name="description"
+                                  id="description" 
+                                  cols="40" 
+                                  rows="10" 
+                                  placeholder="Enter your next todo here."></textarea>
                     </p>
                     <button type="submit">Submit</button>
                 </form>
