@@ -1,37 +1,40 @@
 import './style.css';
 // import initialPage from "./initialPage";
 import todoItem from './todoItem';
+import todoProjects from './todoProjects';
 
 document.addEventListener("DOMContentLoaded", (event) => {
     console.log('DOM content loaded');
 
     // Refresh and re-generate the todo list
-    generateTodoList()
+    generateTodoList();
 
     // Adding the action to add the todo item to the library
     // when submitting the item.
     const todoForm = document.querySelector("#newTodoForm");
     todoForm.addEventListener("submit", (todo) => {
         let newTodo = createTodo(todoForm);
-        addTodoToLibrary(newTodo);
+        addTodoToProjects(newTodo);
+        generateTodoList();
         todo.preventDefault();
     })
     event.preventDefault();
 })
 
-const todoLibrary = [1, 2];
-const gridContainer = document.querySelector(".grid-container");
+const projects = todoProjects();
+const gridContainer = document.querySelector(".projects-container");
 
 function generateTodoList() {
-    console.log('starting');
+    // console.log('starting');
     gridContainer.innerHTML = "";
-    console.log('list cleared');
-    todoLibrary.forEach((item) => {
+    // console.log('list cleared');
+    projects.forEach((item) => {
         let div = document.createElement("div");
         div.classList.add("grid-item");
-        div.innerHTML = item;
+        div.innerHTML = item.projectName;
         gridContainer.appendChild(div);
     })
+    // console.log('updated cleared');
 }
 
 function createTodo(form) {
@@ -45,6 +48,6 @@ function createTodo(form) {
     return todo;
 }
 
-function addTodoToLibrary(todoItem) {
-    todoLibrary.push(todoItem);
+function addTodoToProjects(todoItem) {
+    projects.push(todoItem);
 }
