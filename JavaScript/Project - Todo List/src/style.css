@@ -1,5 +1,5 @@
 * {
-    box-sizing: border-box;
+    /* box-sizing: border-box; */
     padding: 0;
     margin: 0;
 }
@@ -9,7 +9,7 @@ body {
     color: black;
     text-align: center;
     font-size: 24px;
-    line-height: 3;
+    /* line-height: 3; */
 }
 .header {
     background: orangered;
@@ -98,10 +98,20 @@ body {
     padding: 10px;
 }
 
-.grid-item {
+.project-item {
     background-color: rgba(255, 255, 255, 0.8);
     border: 1px solid rgba(0, 0, 0, 0.8);
     padding: 5px;
     font-size: small;
-    text-align: center;
+    /* text-align: center; */
+  }
+
+.todo-item {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    margin-top: 5px;
+    /* height: 30px; */
+    /* padding: 5px; */
+    /* font-size: small; */
+    /* text-align: center; */
   }
