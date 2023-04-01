@@ -1,14 +1,15 @@
-const todoProjects = () => {
-    const newProject = (projectName) => { 
-        let projectNumber = 0;
-        projectNumber++;
-        return { projectName, projectNumber };
-    }    
+let projectNumber = 0;
 
+const todoProjects = () => {
     const defaultProject = newProject('Default Projects');
     const todoProjects = [defaultProject];
 
     return todoProjects;
 }
 
-export default todoProjects;
+const newProject = (projectName) => { 
+    projectNumber++;
+    return { projectName, projectNumber };
+}   
+
+export {todoProjects, newProject};

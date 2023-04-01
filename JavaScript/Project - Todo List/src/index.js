@@ -1,14 +1,15 @@
 import './style.css';
 // import initialPage from "./initialPage";
 import todoItem from './todoItem';
-import todoProjects from './todoProjects';
+import { todoProjects, newProject } from './todoProjects';
 
 document.addEventListener("DOMContentLoaded", () => {
     console.log('DOM content loaded');
-
+    
+    
     // Generate the project list
     generateProjectsList();
-
+    
     // Adding the action to add the todo item to the project library
     // when submitting the item.
     const todoForm = document.querySelector("#newTodoForm");
@@ -23,6 +24,14 @@ document.addEventListener("DOMContentLoaded", () => {
 })
 
 const projects = todoProjects();
+
+const addProject = document.querySelector(".material-symbols-outlined")
+// console.log(newProject);
+addProject.addEventListener("click", () => {
+    const project = newProject('test');
+    console.log(project);
+    // console.log(newProject);
+})
 
 function generateProjectsList() {
     const projectsContainer = document.querySelector(".projects-container");
