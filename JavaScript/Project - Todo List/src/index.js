@@ -29,7 +29,9 @@ const addProject = document.querySelector(".material-symbols-outlined")
 // console.log(newProject);
 addProject.addEventListener("click", () => {
     const project = newProject('test');
+    projects.push(project);
     console.log(project);
+    generateProjectsList();
     // console.log(newProject);
 })
 
