@@ -16,6 +16,35 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+// Adding API constraints to the input
+const authorForm = document.getElementById("author")
+const authorFormError = document.querySelector("#author + span.authorError")
+const titleForm = document.getElementById("title")
+const titleFormError = document.querySelector("#title + span.titleError")
+const pagesForm = document.getElementById("pages")
+const pagesFormError = document.querySelector("#pages + span.pagesError")
+
+
+authorForm.addEventListener("input", (e) => {
+    if (authorForm.validity.valueMissing) {
+        authorFormError.textContent = "You need to enter an author."
+    }
+})
+
+titleForm.addEventListener("input", (e) => {
+    if (titleForm.validity.valueMissing) {
+        titleFormError.textContent = "You need to enter a book title."
+    }
+})
+
+pagesForm.addEventListener("input", (e) => {
+    if (pagesForm.validity.valueMissing) {
+        pagesFormError.textContent = "You need to add the number of pages."
+    }
+})
+
+// The classes
+
 class Book {
     constructor(author, title, pages, read) {
         this.author = author
@@ -132,7 +161,7 @@ function generateTable(library) {
 
         // create a button to change read status
         const readButton = document.createElement("button");
-        readButton.innerHTML = "Mark book as read";
+        readButton.innerHTML = "Mark book as read/unread";
         readButton.id = i
         readButton.addEventListener("click", () => markRead(library, readButton.id));
 

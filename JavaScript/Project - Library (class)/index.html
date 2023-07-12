@@ -16,26 +16,32 @@
 
 <hr>
 
-<form action="" id="newBookForm">
+<form action="" id="newBookForm" novalidate>
 
     <div class="field">
         <label for="author">Author</label>
         <input type="text" id="author" placeholder="Enter the author" required>
+        
+        <span class="authorError" aria-live="polite"></span>
     </div>
 
     <div class="field">
         <label for="title">Book title</label>
         <input type="text" id="title" placeholder="Enter the title of the book" required>
+
+        <span class="titleError" aria-live="polite"></span>
     </div>
 
     <div class="field">
         <label for="pages">Pages</label>
         <input type="number" id="pages" placeholder="How many pages?" required>
+
+        <span class="pagesError" aria-live="polite"></span>
     </div>
 
     <div class="field">
         <label for="read">Read?</label>
-        <input type="checkbox" id="read">
+        <input type="checkbox" id="read" >
     </div>
 
     <button style="margin-top: 1rem;" type="submit" id="newBookButton">New Book</button>
