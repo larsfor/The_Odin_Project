@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+
+    <h1>Simple form validator</h1>
+
+    <form action="" novalidate>
+        <p>
+            <label for="email">
+                <span>Email</span>
+                <input type="email" id="email" name="email" required minlength="5">
+                <span class="emailError" aria-live="polite"></span>
+            </label>
+        </p>
+        <p>
+            <label for="country">
+                <span>Country</span>
+                <select name="country" id="country" selected="" required min-length="5">
+                    <option value="" label="Select a country...">Select a country...</option>
+                    <optgroup id="country-optgroup-some" label="Some Countries">
+                        <option value="NO" label="Norway">Norway</option>
+                        <option value="UK" label="Sweden">Sweden</option>
+                        <option value="US" label="United States">United States</option>
+                        <option value="CN" label="China">China</option>
+                        <option value="AU" label="Australie">Australia</option>
+                    </optgroup>
+                </select>
+                <span class="countryError" aria-live="polite"></span>
+            </label>
+        </p>
+
+        <p>
+            <label for="zip-code">
+                <span>Zip Code</span>
+                <input type="text" name="zipcode" id="zipcode">
+                <span class="zipcodeError" aria-live="polite"></span>
+            </label>
+        </p>
+
+        <button>Submit</button>
+    </form>
+
+    <script src="script.js"></script>    
+</body>
+</html>

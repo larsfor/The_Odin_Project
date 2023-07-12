@@ -1,0 +1,18 @@
+h1 {
+    padding-left: 150px;
+}
+
+.emailError,
+.countryError {
+    font-size: 11px;
+    color: red;
+    font-weight: bold;
+}
+
+form {
+    padding-left: 150px;
+}
+
+input:invalid {
+    background-color: #fdd;
+}
