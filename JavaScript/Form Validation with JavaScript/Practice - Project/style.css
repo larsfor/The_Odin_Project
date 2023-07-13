@@ -4,7 +4,9 @@ h1 {
 
 .emailError,
 .countryError,
-.zipcodeError {
+.zipcodeError,
+.passwordError,
+.passwordConfirmationError {
     font-size: 11px;
     color: red;
     font-weight: bold;

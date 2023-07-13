@@ -21,7 +21,7 @@
         <p>
             <label for="country">
                 <span>Country</span>
-                <select name="country" id="country" selected="" required min-length="5">
+                <select name="country" id="country" selected="" required minlength="5">
                     <option value="" label="Select a country...">Select a country...</option>
                     <optgroup id="country-optgroup-some" label="Some Countries">
                         <option value="NO" label="Norway">Norway</option>
@@ -40,6 +40,33 @@
                 <span>Zip Code</span>
                 <input type="text" name="zipcode" id="zipcode" required minlength="4">
                 <span class="zipcodeError" aria-live="polite"></span>
+            </label>
+        </p>
+
+        <p>
+            <label for="password">
+                <span>Password</span>
+                <input 
+                type="password" 
+                name="password"
+                minlength="4"
+                pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{4,}$$"
+                id="password" 
+                required>
+                <span class="passwordError" aria-live="polite"></span>
+            </label>
+        </p>
+
+        <p>
+            <label for="passwordConfirmation">
+                <span>Password Confirmation</span>
+                <input 
+                type="password" 
+                name="passwordConfirmation"
+                id="passwordConfirmation"
+                minlength="4"
+                required>
+                <span class="passwordConfirmationError" aria-live="polite"></span>
             </label>
         </p>
 
