@@ -26,6 +26,8 @@ form.addEventListener("submit", (e) => {
     } else if (passwordConfirmation.value != document.getElementById("password").value) {
         showError();
         e.preventDefault();
+    } else if (email.validity.valid && country.validity.valid && password.validity.valid && passwordConfirmation.validity.valid) {
+        alert('High five!')
     }
 });
 
