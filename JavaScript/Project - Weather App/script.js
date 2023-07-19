@@ -21,16 +21,20 @@ function renderWeatherInfo(weatherInfo) {
     const weatherLocation = document.getElementById("weatherLocation");
     const weatherRegion = document.getElementById("weatherRegion");
     const weatherCountry = document.getElementById("weatherCountry");
-    const weatherTemp = document.getElementById("weatherTemp");
+    const weatherTempC = document.getElementById("weatherTempC");
+    const weatherTempF = document.getElementById("weatherTempF");
     const weatherImage = document.getElementById("weatherImage");
-    const weatherText = document.getElementById("weatherWind");
-    const weatherWind = document.getElementById("weatherWind");
+    const weatherText = document.getElementById("weatherText");
+    const weatherWindKph = document.getElementById("weatherWindKph");
+    const weatherWindMph = document.getElementById("weatherWindMph");
 
     weatherLocation.textContent = weatherInfo.location.name;
     weatherRegion.textContent = weatherInfo.location.region;
     weatherCountry.textContent = weatherInfo.location.country;
-    weatherTemp.textContent = weatherInfo.current.temp_c;
+    weatherTempC.textContent = weatherInfo.current.temp_c;
+    weatherTempF.textContent = weatherInfo.current.temp_f;
     weatherImage.src = `https://${weatherInfo.current.condition.icon.slice(2)}`;
     weatherText.textContent = weatherInfo.current.condition.text;
-    weatherWind.textContent = weatherInfo.current.wind_kph;
+    weatherWindKph.textContent = weatherInfo.current.wind_kph;
+    weatherWindMph.textContent = weatherInfo.current.wind_mph;
 }
