@@ -3,3 +3,10 @@ body {
     width: 600px;
 }
 
+.inactive {
+    display: none;
+}
+
+.active {
+    display: inline-block;
+}

@@ -32,10 +32,10 @@
     </p>
     <p>
         <label for="temperature"><strong>Temperature:</strong></label>
-        <span id="weatherTempC" class="active">C°</span>
-        <span id="weatherTempF" class="inactive">F°</span>
+        <span id="weatherTempC" class="active" display="block">C°</span>
+        <span id="weatherTempF" class="inactive" display="none">F°</span>
         <div>
-            <select name="changeCF" id="changeCF">
+            <select name="changeCF" id="changeCF" onchange="changeCelsiusFahrenheit()">
                 <option value="Celsius">Celsius</option>
                 <option value="Fahrenheit">Fahrenheit</option>
             </select>
@@ -53,7 +53,7 @@
         <span id="weatherWindKph" class="active">km/h</span>
         <span id="weatherWindMph" class="inactive">mp/h</span>
         <div>
-            <select name="changeKM" id="changeKM">
+            <select name="changeKM" id="changeKM" onchange="changeKphMph()">
                 <option value="km/h">km/h</option>
                 <option value="mp/h">mp/h</option>
             </select>
