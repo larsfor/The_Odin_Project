@@ -32,4 +32,42 @@ const calculator = (() => {
     };
 })();
 
-export { capitalize, reverseString, calculator };
+
+function caesarCipher(str, rot) {
+    let rotString = ""
+    for (let i = 0; i < str.length; i++) {
+        let ord = str.charCodeAt(i);
+        const alpha = /[A-Za-z]/.test(str[i]);
+        if (!alpha) {
+            rotString += str[i];
+        } else if (ord > 96) {
+            let rotOrd = ((ord - 97) + rot) % 26 + 97
+            rotString += String.fromCharCode(rotOrd);
+        } else if (ord < 96) {
+            let rotOrd = ((ord - 65) + rot) % 26 + 65
+            rotString += String.fromCharCode(rotOrd);
+        }
+    }
+    return rotString
+}
+
+function analyzeArray(arr) {
+    if (arr.length < 1) {
+        throw new Error("Please provide an array.");
+    }
+
+    let avg = arr.reduce((acc, curr) => acc + curr, 0) / arr.length;
+    let min = arr.reduce((acc, curr) => acc > curr ? curr : acc, Infinity);
+    let max = arr.reduce((acc, curr) => acc > curr ? acc : curr, -Infinity);
+
+    let obj = {
+        average: avg,
+        min: min,
+        max: max,
+        length: arr.length
+    }
+
+    return obj
+}
+
+export { capitalize, reverseString, calculator, caesarCipher, analyzeArray };
