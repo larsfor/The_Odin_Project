@@ -1,4 +1,4 @@
-import { ship } from './ship.js';
+import { Ship } from './ship.js';
 import './style.css';
 
 function component() {
@@ -6,7 +6,7 @@ function component() {
     const btn = document.createElement('button');
 
     btn.innerHTML = 'Click me and check the console!';
-    btn.onclick = ship;
+    btn.onclick = Ship;
     element.appendChild(btn);
     
     return element;
