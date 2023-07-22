@@ -36,4 +36,9 @@ describe('Testing Ship factory', () => {
         ship.hit();
         expect(ship.isSunk()).toBe(true);
     });
+    test("A size 4 Ship should have size 3 after 1 hit ", () => {
+        let ship = Ship(4);
+        ship.hit();
+        expect(ship.getSize()).toBe(3);
+    });
 })
