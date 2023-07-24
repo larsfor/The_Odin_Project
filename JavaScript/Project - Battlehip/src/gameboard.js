@@ -4,23 +4,54 @@ const Gameboard = (player) => {
     let missed = [];
     let board = Array.from(Array(10), () => new Array(10).fill(0));
 
-    const placeShip = (coords, type) => {
+    const receiveAttack = (coords) => {
+        const [x, y] = coords;
+        const attack = board[x][y];
+        
+        // Check if the attack has been picked previously
+        if ( missed.includes(coords) ||  attack === 'X' ) {
+            console.log('Coordinates already chosen, try again.');
+            return;
+        };
+
+        // Check if the cell is eiter a blank cell (0) or already attacked (X)
+        // If not, the ship gets hit.
+        if ( /[^0xX]/.test(attack) ) {
+            const hitShip = attack;
+            hitShip.hit();
+            board[x][y] = 'X';
+
+            // If all boats are sunk, it's game over!
+            if ( allSunk() ) {
+                console.log('You lose!');
+                return;
+            };
+            return;
+        };
+
+        console.log('Miss!');
+        missed.push(coords);
+    };
+
+    const placeShip = (coords) => {
         if ( !validShipPlacement(coords, board) ) { return false };
         
         // If valid placement, place the ship on the board with the coords
+        let ship = Ship(4);
+        ship.type = 'D';
         coords.forEach((c) => {
+            ship.coords.push(c);
             const [x, y] = c;
-            board[x][y] = type;
+            board[x][y] = ship;
         });
     };
 
     const allSunk = () => {
-
-        // Checking if there are any more boat or boat parts left on the board
+        // Checking if there are any more boat parts left on the board
         const types = ['c', 'b', 'd', 's', 'p'];
         let remaining = 0;
         types.forEach((t) => {
-            remaining += board.flat().filter(i => String(i).toLowerCase() === t).length;
+            remaining += board.flat().filter(i => String(i.type).toLowerCase() === t).length;
         });
 
         if (remaining < 1) {
@@ -29,7 +60,7 @@ const Gameboard = (player) => {
         return false;
     }
     
-    return { placeShip, allSunk, player, missed };
+    return { placeShip, allSunk, receiveAttack, player, missed };
 }
 
 function validShipPlacement(coords, board) {
@@ -67,8 +98,14 @@ let coords = [ [[0, 0], [0, 1], [0, 2], [0, 3]], // correct
             ];
 
 let b = Gameboard(player);
-// b.placeShip(coords[1], 'D');
-// console.log(b.placeShip(coords[1], 'D'));
+b.placeShip(coords[0]);
+b.receiveAttack([0, 0]);
+b.receiveAttack([0, 0]);
+b.receiveAttack([0, 1]);
+b.receiveAttack([0, 2]);
+b.receiveAttack([0, 3]);
+// b.placeShip(coords[2]);
+// console.log(b.placeShip(coords[1]));
 // console.log(b.allSunk());
 // console.log(coords[1]);
 // console.log(validShipPlacement(coords[0]));
