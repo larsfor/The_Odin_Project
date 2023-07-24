@@ -1,6 +1,6 @@
 const Ship = require('./ship');
 
-describe('Testing Ship factory', () => {
+describe('Testing the Ship factory', () => {
     test('Ship should be an object', () => {
         expect(typeof Ship()).toBe('object');
     });

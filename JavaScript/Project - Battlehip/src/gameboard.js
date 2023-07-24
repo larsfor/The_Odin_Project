@@ -1,36 +1,41 @@
 const Ship = require('./ship');
 
 const Gameboard = (player) => {
+    let ships = [];
     let missed = [];
     let board = Array.from(Array(10), () => new Array(10).fill(0));
 
     const receiveAttack = (coords) => {
         const [x, y] = coords;
         const attack = board[x][y];
-        
+
+        const a = JSON.stringify(missed);
+        const b = JSON.stringify(coords);
+        const occupied = a.indexOf(b);
+
         // Check if the attack has been picked previously
-        if ( missed.includes(coords) ||  attack === 'X' ) {
-            console.log('Coordinates already chosen, try again.');
-            return;
+        if ( occupied === 1 ||  attack === 'X' ) {
+            // console.log('Coordinates already chosen, try again.');
+            return 'Coordinates already chosen, try again.';
         };
 
-        // Check if the cell is eiter a blank cell (0) or already attacked (X)
+        // Check if the cell is a blank cell (0).
         // If not, the ship gets hit.
-        if ( /[^0xX]/.test(attack) ) {
+        if ( attack != 0 ) {
             const hitShip = attack;
             hitShip.hit();
             board[x][y] = 'X';
 
             // If all boats are sunk, it's game over!
             if ( allSunk() ) {
-                console.log('You lose!');
-                return;
+                return 'You lose!';
             };
-            return;
+            return true;
         };
 
-        console.log('Miss!');
+        // If the cell is a blank cell, the attack misses
         missed.push(coords);
+        return 'Miss!';
     };
 
     const placeShip = (coords) => {
@@ -40,27 +45,18 @@ const Gameboard = (player) => {
         let ship = Ship(4);
         ship.type = 'D';
         coords.forEach((c) => {
+            ships.push(ship)
             ship.coords.push(c);
             const [x, y] = c;
             board[x][y] = ship;
         });
+
+        return true;
     };
 
-    const allSunk = () => {
-        // Checking if there are any more boat parts left on the board
-        const types = ['c', 'b', 'd', 's', 'p'];
-        let remaining = 0;
-        types.forEach((t) => {
-            remaining += board.flat().filter(i => String(i.type).toLowerCase() === t).length;
-        });
-
-        if (remaining < 1) {
-            return true;
-        }
-        return false;
-    }
+    const allSunk = () => ships.every(s => s.isSunk());
     
-    return { placeShip, allSunk, receiveAttack, player, missed };
+    return { placeShip, allSunk, receiveAttack, player, missed, board };
 }
 
 function validShipPlacement(coords, board) {
@@ -89,31 +85,4 @@ function validShipPlacement(coords, board) {
     return isValid;
 }
 
-let player = 'test';
-let coords = [ [[0, 0], [0, 1], [0, 2], [0, 3]], // correct
-               [[9, 0], [9, 1], [9, 2], [9, 3]], // correct
-               [[0, -1], [0, 0], [0, 1], [0, 2]], // incorrect - y < 0
-               [[7, 0], [8, 0], [9, 0], [10, 0]], // incorrect - x > 9
-               [[2, 3], [3, 4], [4, 5], [5, 6]], // incorrect - only vertical or horizontal placement
-            ];
-
-let b = Gameboard(player);
-b.placeShip(coords[0]);
-b.receiveAttack([0, 0]);
-b.receiveAttack([0, 0]);
-b.receiveAttack([0, 1]);
-b.receiveAttack([0, 2]);
-b.receiveAttack([0, 3]);
-// b.placeShip(coords[2]);
-// console.log(b.placeShip(coords[1]));
-// console.log(b.allSunk());
-// console.log(coords[1]);
-// console.log(validShipPlacement(coords[0]));
-// let Board = b.board;
-// Board[0][0] = 'D';
-// console.log(Board);
-// validShipPlacement(coords[0], Board);
-// console.log(b.board);
-// console.log(b.player);
-
-// module.exports = Gameboard;
+module.exports = Gameboard;
