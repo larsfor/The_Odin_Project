@@ -15,7 +15,6 @@ const Gameboard = (player) => {
 
         // Check if the attack has been picked previously
         if ( occupied === 1 ||  attack === 'X' ) {
-            // console.log('Coordinates already chosen, try again.');
             return 'Coordinates already chosen, try again.';
         };
 
