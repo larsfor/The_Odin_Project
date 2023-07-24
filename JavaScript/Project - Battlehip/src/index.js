@@ -1,25 +1,53 @@
-import { Ship } from './ship.js';
+const Ship = require('./ship');
+const Board = require('./gameboard');
 import './style.css';
 
 function component() {
-    const element = document.createElement('div');
-    const btn = document.createElement('button');
+    let playerOneBoard = Board();
+    let playerTwoBoard = Board();
 
-    btn.innerHTML = 'Click me and check the console!';
-    btn.onclick = Ship;
-    element.appendChild(btn);
+    const playerOneBoardDiv = document.createElement('div');
+    playerOneBoardDiv.id = 'PlayerOneBoardDiv';
+
+    const splitter = document.createElement('div');
+
+    const playerTwoBoardDiv = document.createElement('div');
+    playerTwoBoardDiv.id = 'PlayerTwoBoardDiv';
+
+    playerOneBoardDiv.classList.add('grid-container');
+    splitter.classList.add('splitter');
+    playerTwoBoardDiv.classList.add('grid-container');
+
+    let gridPlayerOne = document.createElement('div');
+    let gridPlayerTwo = document.createElement('div');
+
+    // Creating the 10x10 grid for player one
+    for (let i = 0; i < 10; i++) {
+      for (let j = 0; j < 10; j++) {
+        let cell = document.createElement('div');
+        cell.id = `p1-${i}-${j}`;
+        cell.innerText = playerOneBoard.board[i][j];
+        playerOneBoardDiv.appendChild(cell);
+      }
+    }
+
+    // Creating the 10x10 grid for player two
+    for (let i = 0; i < 10; i++) {
+      for (let j = 0; j < 10; j++) {
+        let cell = document.createElement('div');
+        cell.id = `p1-${i}-${j}`;
+        cell.innerText = playerTwoBoard.board[i][j];
+        playerTwoBoardDiv.appendChild(cell);
+      }
+    }
+
+    gridPlayerOne.appendChild(playerOneBoardDiv);
+    gridPlayerTwo.appendChild(playerTwoBoardDiv);
     
-    return element;
+    return [playerOneBoardDiv, splitter, playerTwoBoardDiv];
   }
   
-  let element = component(); // Store the element to re-render on ship.js changes
-  document.body.appendChild(element);
-
-  if (module.hot) {
-    module.hot.accept('./ship.js', function() {
-      console.log('Accepting the updated printMe module!');
-      document.body.removeChild(element);
-      element = component(); // Re-render the "component" to update the click handler
-      document.body.appendChild(element);
-    })
-  }
+  let element = component();
+  element.forEach((e) => {
+    document.body.appendChild(e);
+  })
