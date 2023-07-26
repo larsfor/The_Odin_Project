@@ -1,7 +1,8 @@
 const Player = (name) => {
     let attacks = [];
     let computer = false;
-
+    const ID = 0;
+ 
     // If computer is true, then the computer chooses a random coordinate
     const attack = () => {
         while (true) {
