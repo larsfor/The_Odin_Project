@@ -6,32 +6,58 @@ import './style.css';
 function components() {
     let playerOneHTMLBoard = renderHTMLMBoard('Player1');
     let playerTwoHTMLBoard = renderHTMLMBoard('Player2');
+    
+    let startButton = document.createElement('button');
+    startButton.innerText = 'Start game'
+    
+    let playerOneInput = document.createElement('input'); 
+    playerOneInput.placeholder = 'Player one';
+    playerOneInput.required = true;
+    
+    let playerTwoInput = document.createElement('input');     
+    playerTwoInput.placeholder = 'Player two';
+    playerTwoInput.required = true;
 
     // Split board one and board two and add game start and player form
     const splitter = document.createElement('div');
     splitter.classList.add('splitter');
     
+    // Adding an onsubmit function to start the game
     const form = document.createElement('form');
-    let btn = document.createElement('button');
-    btn.innerText = 'Start game'
+    form.onsubmit = (e) => {
+        e.preventDefault();
 
-    let playerOneInput = document.createElement('input'); 
-    playerOneInput.placeholder = 'Player one';
+        console.log('Starting the game');
+        let [ playerOne, playerTwo, boardOne, boardTwo ] = gameStart(playerOneInput.value, playerTwoInput.value);
+        gameLogic( playerOne, playerTwo, boardOne, boardTwo );
+    };
 
-    let playerTwoInput = document.createElement('input'); 
-    playerTwoInput.placeholder = 'Player two';
-    
+    // Adding the form to the div separating the boards
     splitter.appendChild(form);
 
-     [playerOneInput, playerTwoInput, btn ].forEach( (e) => {
+     [ playerOneInput, playerTwoInput, startButton ].forEach( (e) => {
          form.appendChild(e);
      });
 
     return [playerOneHTMLBoard, splitter, playerTwoHTMLBoard];
 }
 
-function gameLogic() {
-    let [ playerOne, playerTwo, boardOne, boardTwo ] = gameStart();
+function gameLogic(playerOne, playerTwo, boardOne, boardTwo) {
+    console.log(playerOne, playerTwo, boardOne, boardTwo);
+}
+
+function gameStart(playerOneName, playerTwoName) {
+    const playerOne = Player(playerOneName);
+    playerOne.ID = 1;
+
+    const playerTwo = Player(playerOneName);
+    playerTwo.ID = 2;
+    playerTwo.computer = true;
+
+    let boardOne = Board(playerOneName);
+    let boardTwo = Board(playerTwoName);
+
+    return [playerOne, playerTwo, boardOne, boardTwo];
 }
 
 function renderBoard(board) {
@@ -65,19 +91,6 @@ function renderHTMLMBoard(player) {
     return gridPlayer;
 }
 
-function gameStart() {
-    const playerOne = Player('Player 1');
-    playerOne.ID = 1;
-
-    const playerTwo = Player('Player 2');
-    playerOne.ID = 2;
-    playerTwo.computer = true;
-
-    let boardOne = Board(playerOne.name);
-    let boardTwo = Board(playerTwo.name);
-
-    return [playerOne, playerTwo, boardOne, boardTwo];
-}
 
 // Placing the game elements on the page
 let elements = components();

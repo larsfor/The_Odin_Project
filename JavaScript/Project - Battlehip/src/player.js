@@ -27,5 +27,7 @@ const Player = (name) => {
     return { attack, name, computer }
 }
 
+module.exports = Player;
+
 // let p = Player('Geir');
 // console.log(p.attack());

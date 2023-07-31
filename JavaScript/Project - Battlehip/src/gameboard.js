@@ -79,7 +79,7 @@ function validShipPlacement(coords, board) {
     const [ start, end ] = [ coords[0], coords[coords.length - 1] ]
     if ( end[0] > start[0] && end[1] > start[1] ) {
         return isValid = false;
-    }
+    };
 
     return isValid;
 }
