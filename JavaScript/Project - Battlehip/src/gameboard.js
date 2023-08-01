@@ -34,6 +34,7 @@ const Gameboard = (player) => {
 
         // If the cell is a blank cell, the attack misses
         missed.push(coords);
+        board[x][y] = 'X';
         return 'Miss!';
     };
 

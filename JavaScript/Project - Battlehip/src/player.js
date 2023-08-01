@@ -5,7 +5,7 @@ const Player = (name) => {
  
     // If computer is true, then the computer chooses a random coordinate
     const attack = () => {
-        while (true) {
+        while ( true ) {
             let x = Math.floor(Math.random() * 10);
             let y = Math.floor(Math.random() * 10);
 
@@ -21,13 +21,10 @@ const Player = (name) => {
             };
 
             return false;
-        }
-    }
+        };
+    };
     
     return { attack, name, computer }
-}
+};
 
 module.exports = Player;
-
-// let p = Player('Geir');
-// console.log(p.attack());
