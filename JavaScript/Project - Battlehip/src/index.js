@@ -59,9 +59,11 @@ function components() {
 }
 
 function playerAction() {
-    // console.log(game.curBoard);
-    // To not let the current player attack it's own board
-    disablePlayerBoard(game.curPlayer);
+    // Making sure the player isn't attacking its own board
+    if ( !enemyBoard(this.id) ) {
+        console.log("Only allowed to attack enemy's board");
+        playerAction();
+    }
     
     // Placing the coordinates in the board that the player chose
     playerAttack(game.curPlayer, this.id);
@@ -70,6 +72,10 @@ function playerAction() {
     renderBoard();
     changeCurPlayer(); // Setting curPlayer to the player whose turn it is to play
 };
+
+function enemyBoard(coords) {
+    return coords.slice(1, 2) != game.curPlayer.ID;
+}
 
 function renderBoard() {
     console.log('Rendering board');
@@ -102,19 +108,6 @@ function playerAttack(player, coords) {
 
 function changeCurPlayer() {
     return ( game.curPlayer.ID === 1 ?  game.curPlayer = game.playerTwo : game.curPlayer = game.playerOne );
-};
-
-function disablePlayerBoard(curPlayer) {
-    let playerOneHTMLBoard = document.getElementById('p1BoardDiv');
-    let playerTwoHTMLBoard = document.getElementById('p2BoardDiv');
-
-    if ( curPlayer.ID === 1 ) {
-        playerOneHTMLBoard.disabled = true;
-        playerTwoHTMLBoard.disabled = false;
-    } else if ( curPlayer.ID === 2 ) {
-        playerOneHTMLBoard.disabled = false;
-        playerTwoHTMLBoard.disabled = true;
-    }
 };
 
 function gameStart(game, playerOneName, playerTwoName) {
