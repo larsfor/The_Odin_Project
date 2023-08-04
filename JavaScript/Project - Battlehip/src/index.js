@@ -59,30 +59,33 @@ function components() {
 }
 
 function playerAction() {
-    getCurPlayer(); // Setting curPlayer to the player whose turn it is to play
-    getCurBoard(); // Setting curBoard to the board of the corresponding current player
-    
-    // console.log(this.id);
-    // console.log(curPlayer);
-
+    // console.log(game.curBoard);
     // To not let the current player attack it's own board
     disablePlayerBoard(game.curPlayer);
-
+    
     // Placing the coordinates in the board that the player chose
     playerAttack(game.curPlayer, this.id);
-
+    
     // Re-render the board to show the attack on the HTML board
-    renderBoard(game.curBoard);
+    renderBoard();
+    changeCurPlayer(); // Setting curPlayer to the player whose turn it is to play
 };
 
-function renderBoard(board) {
+function renderBoard() {
     console.log('Rendering board');
     let oppPlayer = null;
-    ( board.player === 1 ? oppPlayer = 'p2' : oppPlayer = 'p1' );
+    let board = null;
+    if ( game.curPlayer.ID === 1 ) {
+        oppPlayer = 'p2'
+        board = game.boardTwo;
+    } else {
+        oppPlayer = 'p1'
+        board = game.boardOne;
+    };
 
     for (let i = 0; i < 10; i++) {
         for (let j = 0; j < 10; j++) {
-            let cell = document.getElementById(`${oppPlayer}-${i}-${j}`)
+            let cell = document.getElementById(`${oppPlayer}-${i}-${j}`);
             cell.innerText = board.board[i][j];
         };
     };
@@ -95,22 +98,11 @@ function playerAttack(player, coords) {
     let attackedBoard = null;
     ( player.ID === 1 ? attackedBoard = game.boardTwo : attackedBoard = game.boardOne )
     attackedBoard.receiveAttack([i, j]);
-    // console.log(attackedBoard);
 };
 
-function getCurPlayer() {
-    if ( game.curPlayer === null ) {
-        return game.curPlayer = game.playerOne;
-    }
+function changeCurPlayer() {
     return ( game.curPlayer.ID === 1 ?  game.curPlayer = game.playerTwo : game.curPlayer = game.playerOne );
-}
-
-function getCurBoard() {
-    if ( game.curBoard === null ) {
-        return game.curBoard = game.boardOne;
-    }
-    return ( game.curPlayer.ID === 1 ? game.curBoard = game.boardOne : game.curBoard = game.boardTwo );
-}
+};
 
 function disablePlayerBoard(curPlayer) {
     let playerOneHTMLBoard = document.getElementById('p1BoardDiv');
@@ -131,7 +123,7 @@ function gameStart(game, playerOneName, playerTwoName) {
     game.playerOne.ID = 1;
 
     // Creating player two, and setting it as a computer
-    game.playerTwo = Player(playerOneName);
+    game.playerTwo = Player(playerTwoName);
     game.playerTwo.ID = 2;
     game.playerTwo.computer = true;
 
