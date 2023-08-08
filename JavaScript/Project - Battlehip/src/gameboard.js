@@ -2,19 +2,19 @@ const Ship = require('./ship');
 
 const Gameboard = (player) => {
     let ships = [];
-    let missed = [];
+    let attacks = [];
     let board = Array.from(Array(10), () => new Array(10).fill(0));
 
     const receiveAttack = (coords) => {
         const [x, y] = coords;
         const attack = board[x][y];
 
-        const a = JSON.stringify(missed);
+        const a = JSON.stringify(attacks);
         const b = JSON.stringify(coords);
         const occupied = a.indexOf(b);
 
         // Check if the attack has been picked previously
-        if ( occupied === 1 ||  attack === 'X' ) {
+        if ( occupied === 1 ) {
             return 'Coordinates already chosen, try again.';
         };
 
@@ -23,28 +23,22 @@ const Gameboard = (player) => {
         if ( attack != 0 ) {
             const hitShip = attack;
             hitShip.hit();
-            board[x][y] = 'X';
-
-            // If all boats are sunk, it's game over!
-            if ( allSunk() ) {
-                return 'You lose!';
-            };
-            return true;
+            attacks.push(coords);
+            return 'hit';
         };
 
         // If the cell is a blank cell, the attack misses
-        missed.push(coords);
-        board[x][y] = 'X';
-        return 'Miss!';
+        attacks.push(coords);
+        return 'miss';
     };
 
-    const placeShip = (coords) => {
+    const placeShip = (ship) => {
+        let coords = ship.coords;
         if ( !validShipPlacement(coords, board) ) { return false };
-        
+
         // If valid placement, place the ship on the board with the coords
-        let ship = Ship(4);
-        ship.type = 'D';
         coords.forEach((c) => {
+            // console.log(c);
             ships.push(ship)
             ship.coords.push(c);
             const [x, y] = c;
@@ -56,7 +50,7 @@ const Gameboard = (player) => {
 
     const allSunk = () => ships.every(s => s.isSunk());
     
-    return { placeShip, allSunk, receiveAttack, player, missed, board };
+    return { placeShip, allSunk, receiveAttack, player, attacks, board };
 }
 
 function validShipPlacement(coords, board) {
