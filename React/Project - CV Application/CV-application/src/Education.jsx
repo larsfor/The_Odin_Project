@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */ // TODO: upgrade to latest eslint tooling
 import { useState } from "react";
 import EducationList from './EducationList'
+import AddItem from "./AddItem";
 
 let nextId = 1;
 const initialItems = [
@@ -10,20 +11,11 @@ const initialItems = [
 
 export default function Education() {
   const [items, setItems] = useState(initialItems);
-  const [total, setTotal] = useState(0);
   
-  function AddEduButton({ text = "Add", onClick }) {
-    return (
-      <button onClick={onClick}>
-        { text }
-      </button>
-    );
-  }
-
-  function handleAddItem(name, title, dateFrom, dateTo) {
-    setTotal(total + 1)
+   function handleAddItem(name, title, dateFrom, dateTo) {
+    // console.log(nextId);
     setItems([
-      ...items, 
+      ...items,
       {
         id: nextId++,
         name: name,
@@ -33,36 +25,12 @@ export default function Education() {
       }
     ]);
   }
-
   
   return (
     <div>
       <h3>Educational Experience</h3>
-      <div className="container">
-        <div>
-          <label htmlFor="schoolName">School name</label>
-          <input type="text" placeholder="School name" />
-        </div>
-        
-        <div>
-          <label htmlFor="studyTitle">Title of study</label>
-          <input type="text" placeholder="Title of study" />
-        </div>
-
-        <div>
-          <label htmlFor="dateFrom">Date from:</label>
-          <input type="date" />
-        </div>
-
-        <div>
-          <label htmlFor="dateTo">Date to:</label>
-          <input type="date" />
-        </div>
-
-        <AddEduButton 
-          onClick={handleAddItem}/>
-      </div>
-      <EducationList items={items}/>
+      <AddItem onAddItem={handleAddItem} />
+      <EducationList items={items} />
     </div>
   )
 }
