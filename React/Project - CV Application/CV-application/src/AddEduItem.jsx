@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */ // TODO: upgrade to latest eslint tooling
 import { useState } from "react";
 
-export default function AddItem( {onAddItem} ) {
+export default function AddEduItem( {onAddItem} ) {
   const [name, setName] = useState('');
   const [title, setTitle] = useState('');
   const [dateFrom, setDateFrom] = useState('');

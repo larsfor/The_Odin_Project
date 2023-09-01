@@ -17,6 +17,9 @@ export default function EducationList({ items, onDeleteItem }) {
           <button onClick={() => onDeleteItem(item.id)}>
             Delete
           </button>
+          <button>
+            Edit
+          </button>
         </li>
       ))}
     </>

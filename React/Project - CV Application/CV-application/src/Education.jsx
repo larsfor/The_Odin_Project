@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */ // TODO: upgrade to latest eslint tooling
 import { useState } from "react";
 import EducationList from './EducationList'
-import AddItem from "./AddItem";
+import AddEduItem from "./AddEduItem";
 
 let nextId = 1;
 const initialItems = [
@@ -34,7 +34,7 @@ export default function Education() {
   return (
     <div>
       <h3>Educational Experience</h3>
-      <AddItem onAddItem={handleAddItem} />
+      <AddEduItem onAddItem={handleAddItem} />
       <EducationList 
         items={items} 
         onDeleteItem={handleDeleteItem}

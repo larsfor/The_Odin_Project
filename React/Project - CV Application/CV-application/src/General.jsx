@@ -2,7 +2,7 @@ export default function General() {
 
   return (
     <div>
-      <h3>General information:</h3>
+      <h3>General information</h3>
       <div className="container">
         <div>
           <label htmlFor="name">Name</label>

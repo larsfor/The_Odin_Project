@@ -1,5 +1,6 @@
 import General from './General.jsx'
 import Education from './Education.jsx'
+import Practical from './Practical.jsx'
 import './App.css'
 
 export default function App() {
@@ -13,7 +14,7 @@ export default function App() {
       <Education />
       <hr />
       
-      <General />
+      <Practical />
       <hr />
 
       <button>Submit CV</button>
