@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */ // TODO: upgrade to latest eslint tooling
-export default function EducationList({ items }) {
+export default function EducationList({ items, onDeleteItem }) {
   return (
     <>
       <div className="educationalListContainer">
@@ -8,14 +8,17 @@ export default function EducationList({ items }) {
         <div><strong>Date from</strong></div>
         <div><strong>Date to</strong></div>
       </div>
-        {items.map((item) => (
-          <li key={item.id} className="educationalListContainer">
-            <div>{item.name}</div>
-            <div>{item.title}</div>
-            <div>{item.dateTo}</div>
-            <div>{item.dateFrom}</div>
-          </li>
-        ))}
+      {items.map((item) => (
+        <li key={item.id} className="educationalListContainer">
+          <div className="listItem">{item.name}</div>
+          <div className="listItem">{item.title}</div>
+          <div className="listItem">{item.dateFrom}</div>
+          <div className="listItem">{item.dateTo}</div>
+          <button onClick={() => onDeleteItem(item.id)}>
+            Delete
+          </button>
+        </li>
+      ))}
     </>
   )
 }

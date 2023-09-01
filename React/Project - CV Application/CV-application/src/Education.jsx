@@ -5,7 +5,7 @@ import AddItem from "./AddItem";
 
 let nextId = 1;
 const initialItems = [
-  { id: 0, name: 'Handelshøyskolen BI', title: 'Bachelor ØkAd', dateFrom: '01.06.09', dateTo: '31.05.13' },
+  { id: 0, name: 'Handelshøyskolen BI', title: 'Bachelor ØkAd', dateFrom: '2009-08-01', dateTo: '2013-05-31' },
 ];
 
 
@@ -13,7 +13,6 @@ export default function Education() {
   const [items, setItems] = useState(initialItems);
   
    function handleAddItem(name, title, dateFrom, dateTo) {
-    // console.log(nextId);
     setItems([
       ...items,
       {
@@ -26,11 +25,20 @@ export default function Education() {
     ]);
   }
   
+  function handleDeleteItem(itemID) {
+    setItems(
+      items.filter(item => item.id !== itemID)
+    )
+  }
+  
   return (
     <div>
       <h3>Educational Experience</h3>
       <AddItem onAddItem={handleAddItem} />
-      <EducationList items={items} />
+      <EducationList 
+        items={items} 
+        onDeleteItem={handleDeleteItem}
+      />
     </div>
   )
 }
