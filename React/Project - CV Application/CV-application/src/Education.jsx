@@ -4,17 +4,17 @@ import EducationList from './EducationList'
 import AddEduItem from "./AddEduItem";
 
 let nextId = 1;
-const initialItems = [
+const initialEduItems = [
   { id: 0, name: 'Handelshøyskolen BI', title: 'Bachelor ØkAd', dateFrom: '2009-08-01', dateTo: '2013-05-31' },
 ];
 
 
 export default function Education() {
-  const [items, setItems] = useState(initialItems);
+  const [eduItems, setEduItems] = useState(initialEduItems);
   
-   function handleAddItem(name, title, dateFrom, dateTo) {
-    setItems([
-      ...items,
+   function handleAddEduItem(name, title, dateFrom, dateTo) {
+    setEduItems([
+      ...eduItems,
       {
         id: nextId++,
         name: name,
@@ -26,17 +26,17 @@ export default function Education() {
   }
   
   function handleDeleteItem(itemID) {
-    setItems(
-      items.filter(item => item.id !== itemID)
+    setEduItems(
+      eduItems.filter(item => item.id !== itemID)
     )
   }
   
   return (
     <div>
       <h3>Educational Experience</h3>
-      <AddEduItem onAddItem={handleAddItem} />
+      <AddEduItem onAddEduItem={handleAddEduItem} />
       <EducationList 
-        items={items} 
+        items={eduItems} 
         onDeleteItem={handleDeleteItem}
       />
     </div>

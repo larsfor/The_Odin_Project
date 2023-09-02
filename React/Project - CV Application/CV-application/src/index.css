@@ -49,6 +49,7 @@ button {
   transition: border-color 0.25s;
   
   margin-left: 10px;
+  margin-bottom: 10px;
 }
 button:hover {
   border-color: #646cff;

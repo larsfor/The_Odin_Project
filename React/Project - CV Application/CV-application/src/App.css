@@ -14,15 +14,34 @@
   justify-items: center;
 }
 
-.educationalListContainer {
+.ListContainer {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  border-style: solid;
+  border-width: 1px;
+  margin-bottom: 10px;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 1rem;
 }
 
 .listItem {
   display: flex;
-  align-items: center;
   justify-content: center;
+  padding-bottom: 10px;
+}
+
+.listResponsItem {
+  text-align: start;
+  grid-column: 2 / 5;
+  border-style: solid;
+  border-width: 1px;
+  padding: 5px;
+}
+
+.listBox {
+  border-style: solid;
+  border-width: 1px;
 }
 
 input, label {

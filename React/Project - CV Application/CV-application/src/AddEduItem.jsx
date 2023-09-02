@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */ // TODO: upgrade to latest eslint tooling
 import { useState } from "react";
 
-export default function AddEduItem( {onAddItem} ) {
+export default function AddEduItem({ onAddEduItem }) {
   const [name, setName] = useState('');
   const [title, setTitle] = useState('');
   const [dateFrom, setDateFrom] = useState('');
@@ -54,7 +54,7 @@ export default function AddEduItem( {onAddItem} ) {
           setDateFrom('');
           setDateTo('');
 
-          onAddItem(name, title, dateFrom, dateTo);
+          onAddEduItem(name, title, dateFrom, dateTo);
         }}>Add</button>
       </div>
     </>
