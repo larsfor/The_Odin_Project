@@ -16,8 +16,6 @@ export default function App() {
       
       <Practical />
       <hr />
-
-      <button>Submit CV</button>
     </form>
   )
 }

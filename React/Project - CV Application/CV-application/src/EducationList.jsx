@@ -1,5 +1,7 @@
 /* eslint-disable react/prop-types */ // TODO: upgrade to latest eslint tooling
-export default function EducationList({ items, onDeleteItem }) {
+import EduItem from "./EduItem"
+
+export default function EducationList({ items, onDeleteItem, onEditItem, editEdu }) {
   return (
     <>
       <div className="ListContainer">
@@ -10,16 +12,27 @@ export default function EducationList({ items, onDeleteItem }) {
       </div>
       {items.map((item) => (
         <li key={item.id} className="ListContainer">
-          <div className="listItem">{item.name}</div>
-          <div className="listItem">{item.title}</div>
-          <div className="listItem">{item.dateFrom}</div>
-          <div className="listItem">{item.dateTo}</div>
-          <button onClick={() => onDeleteItem(item.id)}>
-            Delete
-          </button>
-          <button>
-            Edit
-          </button>
+          { editEdu ? (
+            <>
+              <div>Loading</div>
+            </>
+          ) : (
+            <>
+              <EduItem 
+                name={item.name}
+                title={item.title}
+                dateFrom={item.dateFrom}
+                dateTo={item.dateTo}
+              />
+            </>
+          )
+        }
+        <button onClick={() => onDeleteItem(item.id)}>
+          Delete
+        </button>
+        <button onClick={() => onEditItem(item.id, item.name, item.title, item.dateFrom, item.dateTo)}>
+          { editEdu ? 'Save' : 'Edit' }
+        </button>
         </li>
       ))}
     </>
