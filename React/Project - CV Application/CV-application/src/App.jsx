@@ -1,7 +1,7 @@
-import General from './General.jsx'
-import Education from './Education.jsx'
-import Practical from './Practical.jsx'
-import '../styles/App.css'
+import General from './components/General.jsx'
+import Education from './components/Education.jsx'
+import Practical from './components/Practical.jsx'
+import './App.css'
 
 export default function App() {
 
