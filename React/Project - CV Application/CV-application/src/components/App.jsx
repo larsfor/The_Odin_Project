@@ -1,7 +1,7 @@
 import General from './General.jsx'
 import Education from './Education.jsx'
 import Practical from './Practical.jsx'
-import './App.css'
+import '../styles/App.css'
 
 export default function App() {
 
