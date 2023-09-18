@@ -1,10 +1,9 @@
-import './pokemons'
+/* eslint-disable react/prop-types */
+export default function Cards({ id, url, onClick }) {
 
-export default function Cards() {
+  // console.log(url);
 
   return (
-    <>
-      <img id="pokeImages" />
-    </>
+    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png" className='grid-item' onClick={ () => onClick(id) } />
   )
 }
