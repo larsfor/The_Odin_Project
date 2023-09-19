@@ -13,6 +13,12 @@ export default function App() {
     fetchPokemons(setPokeData);
   }, [])
 
+  useEffect(() => {
+    if ( currentScore > highScore ) {
+      setHighScore(currentScore);
+    }
+  }, [currentScore, highScore])
+
   function handleClick(id) {
     pokeData.map(item => {
       if ( item.id === id ) {

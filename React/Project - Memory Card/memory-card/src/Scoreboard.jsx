@@ -2,8 +2,8 @@
 export default function Scoreboard({ currentScore, highScore}) {
   return (
     <>
-      <h3>Current score: {currentScore}</h3>
-      <h3>Best score: {highScore}</h3>
+      <h2>Current score: {currentScore}</h2>
+      <h2>Best score: {highScore}</h2>
     </>
   )
 }
