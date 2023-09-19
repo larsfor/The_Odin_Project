@@ -9,6 +9,10 @@ export default function App() {
   const [currentScore, setCurrentScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
 
+  function randomize() {
+    return Math.random() - 0.5;
+  }
+
   useEffect(() => {
     fetchPokemons(setPokeData);
   }, [])
@@ -19,6 +23,10 @@ export default function App() {
     }
   }, [currentScore, highScore])
 
+  useEffect(() => {
+    setPokeData(pokeData.sort(randomize));
+  }, [pokeData])
+
   function handleClick(id) {
     pokeData.map(item => {
       if ( item.id === id ) {
@@ -26,6 +34,7 @@ export default function App() {
           setCurrentScore(currentScore + 1);
         } else {
           setCurrentScore(0);
+          fetchPokemons(setPokeData);
         }
       }
     })
