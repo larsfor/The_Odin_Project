@@ -1,5 +1,6 @@
 import './App.css'
 import React, { useState } from "react";
+import PropTypes from 'prop-types';
 
 function App() {
   const [heading, setHeading] = useState("Magnificent Monkeys");

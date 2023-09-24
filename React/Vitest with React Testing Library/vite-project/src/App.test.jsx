@@ -31,5 +31,4 @@ describe("App component", () => {
 
     expect(screen.getByRole("heading").textContent).toMatch(/radical rhinos/i);
   });
-
 });
