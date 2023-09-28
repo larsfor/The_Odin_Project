@@ -1,0 +1,83 @@
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.container header {
+    text-align: center;
+}
+
+.container main {
+    margin-top: 20px;
+}
+
+.container section {
+    margin-bottom: 20px;
+}
+
+.container h2 {
+    color: #333;
+}
+
+.container p {
+    color: #666;
+}
+
+.container .image-gallery img {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.container form label,
+.container form input,
+.container form textarea,
+.container form button {
+    display: block;
+    width: 100%;
+}
+
+.container form label {
+    margin-bottom: 5px;
+}
+
+.container form input,
+.container form textarea {
+    padding: 10px;
+}
+
+.container form button {
+    padding: 10px;
+    background-color: #333;
+    color: white;
+}
+
+/* Styles for the navbar */
+.container nav {
+    border-top: solid #ccc; /* Add a horizontal bar */
+}
+
+.container nav ul {
+    display: flex; /* Align the navbar items horizontally */
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.container nav li {
+    margin-right: 10px; /* Add some spacing between the navbar items */
+    display: inline;
+}
+
+.container header {
+    background-color: white;
+    padding: 10px;
+}
+
+nav li a {
+  text-decoration: none;
+  color: black;
+}

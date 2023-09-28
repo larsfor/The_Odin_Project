@@ -11,7 +11,8 @@ export default function Router() {
           errorElement: <ErrorPage />,
       },
       {
-          path: "/shop/:id",
+        //   path: "/shop/:id",
+          path: "/shop",
           element: <ShoppingPage />,
       }
     ])
