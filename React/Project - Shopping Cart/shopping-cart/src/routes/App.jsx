@@ -1,9 +1,10 @@
 import { Outlet, Link } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function App() {
     return (
       <div className="container">
-            <title>Simple Website</title>
+          <title>Simple Website</title>
           <nav>
               <ul>
                 <li><Link to="/">Home page</Link></li>

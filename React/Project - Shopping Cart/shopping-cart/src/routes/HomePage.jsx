@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
-import ProductCard from "./ProductCard";
+import { Col, Row, Card } from 'react-bootstrap';
+
 
 export default function HomePage() {
 
@@ -23,21 +24,31 @@ export default function HomePage() {
     if (error) return <p>A network error was encountered</p>;
     if (loading) return <p>Loading</p>;
 
+    console.log(products);
+
     return(
         <>
-        <div className='grid-container'>
-        { products.map(item => (
-          <div key={item.id}>
-            <ProductCard 
-              id={item.id}
-              title={item.title}
-              price={item.price}
-              desc={item.description}
-              category={item.category}
-            />
-          </div>
-        ))}
-        </div>
-        </>
+        <Row xs={2} md={3} className="g-4">
+          { products.map(item => (
+            <Col key={item.id}>
+              <Card>
+                <Card.Img variant="top" src={item.image} />
+                <Card.Header>
+                  <small className="text-muted">Price: <strong>${item.price}</strong></small>
+                </Card.Header>
+                <Card.Body>
+                  <Card.Title>{item.title}</Card.Title>
+                  <Card.Text> <strong>Category:</strong>  {item.category}</Card.Text>
+                  <Card.Text> <strong>Description</strong> {item.description}</Card.Text>
+                </Card.Body>
+                <Card.Footer>
+                  <small className="text-muted">Rating: {item.rating.rate} </small>
+                  <small className="text-muted">Votes: {item.rating.count} </small>
+                </Card.Footer>
+              </Card>
+              </Col>
+          ))}
+        </Row>
+      </>
     )
 }

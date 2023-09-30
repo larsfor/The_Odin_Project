@@ -59,6 +59,8 @@
 /* Styles for the navbar */
 .container nav {
     border-top: solid #ccc; /* Add a horizontal bar */
+    border-bottom: solid #ccc; /* Add a horizontal bar */
+    margin-bottom: 10px;
 }
 
 .container nav ul {
