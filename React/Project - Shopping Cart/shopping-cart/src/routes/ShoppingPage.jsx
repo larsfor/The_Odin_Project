@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 import { Col, Row, Card } from 'react-bootstrap';
+import AddToCart from "./AddToCart";
 
 
 export default function ShoppingPage() {
@@ -21,6 +22,10 @@ export default function ShoppingPage() {
         .finally(() => setLoading(false))
     }, [])
 
+    function handleAddToCart() {
+      console.log('test');
+    }
+
     if (error) return <p>A network error was encountered</p>;
     if (loading) return <p>Loading</p>;
 
@@ -32,7 +37,9 @@ export default function ShoppingPage() {
               <Card>
                 <Card.Img variant="top" src={item.image} />
                 <Card.Header>
-                  <small className="text-muted">Price: <strong>${item.price}</strong></small>
+                  <AddToCart 
+                    onClick={handleAddToCart}
+                  />
                 </Card.Header>
                 <Card.Body>
                   <Card.Title>{item.title}</Card.Title>
