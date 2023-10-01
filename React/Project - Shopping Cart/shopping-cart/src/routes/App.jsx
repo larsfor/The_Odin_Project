@@ -11,7 +11,6 @@ export default function App() {
                 <li><Link to="/">Home page</Link></li>
                 <li><Link to="shop">Shopping page</Link></li>
                 <li><Link to="cart"><i className="bi bi-cart"></i> Cart</Link></li>
-
               </ul>
           </nav>
           <Outlet />

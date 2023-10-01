@@ -1,29 +1,21 @@
-import { useEffect, useState } from "react";
 import { Col, Row, Card } from 'react-bootstrap';
 import AddToCart from "./AddToCart";
+import PropTypes from 'prop-types';
+import { v4 as uuidv4 } from 'uuid';
 
-
-export default function ShoppingPage() {
-
-    const [products, setProducts] = useState([])
-    const [error, setError] = useState(null)
-    const [loading, setLoading] = useState(true)
-
-    useEffect(() => {
-      fetch('https://fakestoreapi.com/products?limit=10', { mode: "cors" })
-        .then((response) => {
-          if (response.status >= 400) {
-            throw new Error('Server error');
-          }
-          return response.json();
-        })
-        .then((response) => setProducts(response))
-        .catch((error) => setError(error))
-        .finally(() => setLoading(false))
-    }, [])
-
-    function handleAddToCart() {
-      console.log('test');
+export default function ShoppingPage({ products, error, loading, cart, setCart, total, setTotal }) {
+  
+    function createCartObject(item, quantity) {
+      return {id: uuidv4(), title: item.title, price: item.price, quantity: quantity}
+    }
+    
+    function handleAddToCart(id, quantity) {
+      const itemObj = createCartObject(products[id-1], quantity);
+      setCart([
+        ...cart,
+        itemObj
+      ])
+      setTotal(total + products[id-1].price)
     }
 
     if (error) return <p>A network error was encountered</p>;
@@ -37,8 +29,11 @@ export default function ShoppingPage() {
               <Card>
                 <Card.Img variant="top" src={item.image} />
                 <Card.Header>
+                  <hr />
+                  <Card.Text> <strong>Price:</strong> ${item.price}</Card.Text>
                   <AddToCart 
-                    onClick={handleAddToCart}
+                    id={item.id}
+                    addToCart={handleAddToCart}
                   />
                 </Card.Header>
                 <Card.Body>
@@ -56,4 +51,14 @@ export default function ShoppingPage() {
         </Row>
       </>
     )
+}
+
+ShoppingPage.propTypes = {
+  products: PropTypes.array,
+  cart: PropTypes.array,
+  setCart: PropTypes.func,
+  total: PropTypes.number,
+  setTotal: PropTypes.func,
+  error: PropTypes.bool,
+  loading: PropTypes.bool,
 }
