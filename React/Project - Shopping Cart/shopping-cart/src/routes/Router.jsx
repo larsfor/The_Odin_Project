@@ -13,6 +13,7 @@ export default function Router() {
   const [loading, setLoading] = useState(true);
   const [cart, setCart] = useState([]);
   const [total, setTotal] = useState(0);
+  const [cartQuantity, setCartQuantity] = useState(0);
 
   useEffect(() => {
     fetch('https://fakestoreapi.com/products?limit=10', { mode: "cors" })
@@ -27,10 +28,13 @@ export default function Router() {
       .finally(() => setLoading(false))
   }, [])
 
-    const router = createBrowserRouter([
+     const router = createBrowserRouter([
       {
         path: "/",
-        element: <App />,
+        element: <App 
+        cartQuantity={cartQuantity}
+        cart={cart}
+        />,
         errorElement: <ErrorPage />,
         children: [
           {index: true, element: <HomePage />},
@@ -42,10 +46,14 @@ export default function Router() {
             setCart={setCart}
             total={total}
             setTotal={setTotal}
+            cartQuantity={cartQuantity}
+            setCartQuantity={setCartQuantity}
           />},
           {path: "/cart", element: <Cart
             cart={cart}
+            setCart={setCart}
             total={total}
+            setCartQuantity={setCartQuantity}
           />},
         ]
       },

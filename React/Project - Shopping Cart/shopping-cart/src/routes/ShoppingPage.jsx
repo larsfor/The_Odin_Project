@@ -3,7 +3,17 @@ import AddToCart from "./AddToCart";
 import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 
-export default function ShoppingPage({ products, error, loading, cart, setCart, total, setTotal }) {
+export default function ShoppingPage({ 
+    products, 
+    error, 
+    loading, 
+    cart, 
+    setCart, 
+    total,
+    setTotal,
+    cartQuantity,
+    setCartQuantity
+  }) {
   
     function createCartObject(item, quantity) {
       return {id: uuidv4(), title: item.title, price: item.price, quantity: quantity}
@@ -15,7 +25,8 @@ export default function ShoppingPage({ products, error, loading, cart, setCart, 
         ...cart,
         itemObj
       ])
-      setTotal(total + products[id-1].price)
+      setTotal(total + products[id-1].price * quantity)
+      setCartQuantity(cartQuantity + quantity*1)
     }
 
     if (error) return <p>A network error was encountered</p>;
@@ -61,4 +72,6 @@ ShoppingPage.propTypes = {
   setTotal: PropTypes.func,
   error: PropTypes.bool,
   loading: PropTypes.bool,
+  cartQuantity: PropTypes.number,
+  setCartQuantity: PropTypes.func,
 }
