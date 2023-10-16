@@ -1,2 +1,0 @@
-# Project: Where's Waldo (A Photo Tagging App) 
-This is a project from the React Course from [The Odin Project](https://www.theodinproject.com), where we're tasked in making a photo tagging app, combining both React and Rails.
