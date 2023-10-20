@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <Container>
       <Row>
-          <Image src="https://images6.alphacoders.com/925/925904.jpg" rounded />
+          <Image src="https://images.firstpost.com/wp-content/uploads/2018/04/Wheres-waldo-wally-google-maps-380.png" rounded />
       </Row>
     </Container>
   );
