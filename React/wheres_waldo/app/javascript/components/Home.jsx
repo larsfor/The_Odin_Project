@@ -1,8 +1,6 @@
-import React, { useEffect } from "react";
-import Container from 'react-bootstrap/Container';
-import Image from 'react-bootstrap/Image';
-import Row from 'react-bootstrap/Row';
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Container, Image, Row, Button } from "react-bootstrap";
+import { Logger } from "sass";
 
 export default function Home() {
   const [position, setPosition] = useState({
@@ -26,10 +24,7 @@ export default function Home() {
       throw response
     })
     .then(data => {
-      setCharacters({
-        ...characters,
-        data
-      })
+      setCharacters(data)
     })
     .catch(error => {
       console.log("Error feching data: ", error);
@@ -45,12 +40,21 @@ export default function Home() {
     if (clicked) {
       box.style.display = 'none';
     } else if (!clicked) {
-      box.style.display = 'block';
+      box.style.display = 'grid';
     }
     setClicked(!clicked);
   }
 
+  function handleChoice(id, x, y) {
+    console.log(id, x, y);
+    const c = characters[id-1]
+    correctX = c.x > x-25 && c.x < x+25
+    correctY = c.y > y-25 && c.y < y+25
 
+    if ( correctX && correctY) {
+      alert(`Correct, you have found ${c.name}!`)
+    }
+  }
 
   return (
     <>
@@ -64,22 +68,36 @@ export default function Home() {
         
         onClick={handleClick}
         >
-
+        
         <div 
           id="targetBox"
           style={{
             display: 'none',
             position: 'absolute',
             transform: `translate(${boxPosition.x}px, ${boxPosition.y}px)`,
-            left: -20,
-            top: -20,
-            width: 40,
-            height: 40,
+            left: -25,
+            top: -25,
+            width: 50,
+            height: 50,
             borderStyle: 'dashed',
-            maskBorderWidth: "1px"
+            maskBorderWidth: "1px",
           }}
         >
-
+          <div 
+            id="charMenu"
+            style={{
+              paddingLeft: "3rem",
+            }}
+          > 
+          { characters.map(item => (
+            <div key={item.id}>
+              <Button 
+                variant="secondary"
+                onClick={(() => handleChoice(item.id, boxPosition.x, boxPosition.y))}
+              >{item.name}</Button>
+            </div>
+          )) }
+          </div>
         </div>
         <Row>
             <Image src="https://images.firstpost.com/wp-content/uploads/2018/04/Wheres-waldo-wally-google-maps-380.png" rounded />
