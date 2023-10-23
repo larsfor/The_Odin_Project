@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Container from 'react-bootstrap/Container';
 import Image from 'react-bootstrap/Image';
 import Row from 'react-bootstrap/Row';
@@ -14,6 +14,27 @@ export default function Home() {
     x: 0,
     y: 0
   });
+  const [characters, setCharacters] = useState([])
+
+  useEffect(() => {
+    fetch('/api/v1/characters')
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      }
+      console.log('error');
+      throw response
+    })
+    .then(data => {
+      setCharacters({
+        ...characters,
+        data
+      })
+    })
+    .catch(error => {
+      console.log("Error feching data: ", error);
+    })
+  }, []) 
 
   function handleClick() {
     setBoxPosition({
@@ -28,6 +49,7 @@ export default function Home() {
     }
     setClicked(!clicked);
   }
+
 
 
   return (

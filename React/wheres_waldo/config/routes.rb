@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
-      get 'characters/index'
-      get '/show/:id', to: 'characters#show'
+      get 'characters', to: 'characters#index'
+      # get '/show/:id', to: 'characters#show'
+      get 'characters/:id', to: 'characters#show'
     end
   end
   # get 'homepage/index'
