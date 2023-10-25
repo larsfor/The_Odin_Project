@@ -6,7 +6,7 @@ In this project by [The Odin Project](https://www.theodinproject.com), we're tas
 * Sending messages to another user
 * Customizing a user profile
 
-The CSS and layout is copied by this [ReactRouter tutoorial](https://reactrouter.com/en/main/start/tutorial#adding-a-router), which is made by [Jim Nielsen](https://blog.jim-nielsen.com/).
+The CSS and layout is copied by this [ReactRouter tutorial](https://reactrouter.com/en/main/start/tutorial#adding-a-router), which is made by [Jim Nielsen](https://blog.jim-nielsen.com/).
 
 This app uses Rails 7 and React w/ Vite.
 
