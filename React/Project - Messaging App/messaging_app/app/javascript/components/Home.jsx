@@ -1,23 +1,45 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
-export default () => (
-  <div className="vw-100 vh-100 primary-color d-flex align-items-center justify-content-center">
-    <div className="jumbotron jumbotron-fluid bg-transparent">
-      <div className="container secondary-color">
-        <h1 className="display-4">Food Recipes</h1>
-        <p className="lead">
-          A curated list of recipes for the best homemade meal and delicacies.
-        </p>
-        <hr className="my-4" />
-        <Link
-          to="/recipes"
-          className="btn btn-lg custom-button"
-          role="button"
-        >
-          View Recipes
-        </Link>
+export default function Root() {
+  return (
+    <>
+      <div id="sidebar">
+        <h1>React Router Contacts</h1>
+        <div>
+          <form id="search-form" role="search">
+            <input
+              id="q"
+              aria-label="Search contacts"
+              placeholder="Search"
+              type="search"
+              name="q"
+            />
+            <div
+              id="search-spinner"
+              aria-hidden
+              hidden={true}
+            />
+            <div
+              className="sr-only"
+              aria-live="polite"
+            ></div>
+          </form>
+          <form method="post">
+            <button type="submit">New</button>
+          </form>
+        </div>
+        <nav>
+          <ul>
+            <li>
+              <a href={`/contacts/1`}>Your Name</a>
+            </li>
+            <li>
+              <a href={`/contacts/2`}>Your Friend</a>
+            </li>
+          </ul>
+        </nav>
       </div>
-    </div>
-  </div>
-);
+      <div id="detail"></div>
+    </>
+  );
+}

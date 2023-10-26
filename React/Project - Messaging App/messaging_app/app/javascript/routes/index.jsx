@@ -1,6 +1,7 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "../components/Home";
+import ErrorPage from "../components/ErrorPage";
 
 
 const Router = () => {
@@ -8,12 +9,8 @@ const Router = () => {
     {
       path: "/",
       element: <Home />,
-      // errorElement: <ErrorPage />,
+      errorElement: <ErrorPage />,
     },
-    // {
-    //   path: "profile/:name",
-    //   element: <Profile />,
-    // },
   ]);
 
   return <RouterProvider router={router} />;
