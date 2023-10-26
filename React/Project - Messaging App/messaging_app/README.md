@@ -8,6 +8,7 @@ In this project by [The Odin Project](https://www.theodinproject.com), we're tas
 
 The CSS and layout is copied by this [ReactRouter tutorial](https://reactrouter.com/en/main/start/tutorial#adding-a-router), which is made by [Jim Nielsen](https://blog.jim-nielsen.com/).
 
-This app uses Rails 7 and React w/ Vite.
+The initial setup was heavily influenced by this [Digital Ocean tutorial](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-ruby-on-rails-v7-project-with-a-react-frontend-on-ubuntu-20-04).
 
-Because the app is using React as frontend, the Rails is setup as an api.
+This app uses Rails 7 and React.
+Authorization is done through Devise.
