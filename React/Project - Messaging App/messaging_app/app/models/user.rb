@@ -4,6 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_many :sent_messages, class_name: 'Message', foreign_key: 'sender_id'
-  has_many :received_messages, class_name: 'Message', foreign_key: 'receiver_id'
+  has_many :conversation_accepters, foreign_key: :conversation_accepter_id
+  has_many :accepted_conversations, through: :conversation_accepters
+
+  has_many :started_conversations, foreign_key: :starter_id, class_name: 'Conversation'
 end

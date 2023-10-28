@@ -3,29 +3,155 @@ To set up the associations to enable sending messages between two users in a con
 Create a User model and a Message model using the rails generate model command.
 In the User model, add the following line: has_many :messages.
 In the Message model, add the following lines:
-Ruby
-Kode generert av kunstig intelligens. Se gjennom og bruk med forsiktighet. Mer informasjon om vanlige spørsmål.
-
 belongs_to :sender, class_name: 'User'
 belongs_to :recipient, class_name: 'User'
 Run the migration using rails db:migrate.
 In your controller, you can create a new message by calling Message.create(sender: current_user, recipient: other_user, body: message_body), where current_user is the user who is sending the message, other_user is the user who is receiving the message, and message_body is the content of the message.
+
 To enable messages to be sent in a conversation between two users, you can add a Conversation model and modify your existing models as follows:
 
 Create a Conversation model using the rails generate model command.
 In the Conversation model, add the following lines:
-Ruby
-Kode generert av kunstig intelligens. Se gjennom og bruk med forsiktighet. Mer informasjon om vanlige spørsmål.
-
 has_many :messages
 has_many :users, through: :messages
 In your controller, you can create a new conversation by calling Conversation.create(users: [current_user, other_user]), where current_user is one of the users in the conversation and other_user is the other user.
-To retrieve all messages in a conversation between two users, you can call:
-Ruby
-Kode generert av kunstig intelligens. Se gjennom og bruk med forsiktighet. Mer informasjon om vanlige spørsmål.
 
+To retrieve all messages in a conversation between two users, you can call:
 conversation = Conversation.find_by(users: [current_user, other_user])
 messages = conversation.messages
 This will allow you to create a messaging app that enables users to send messages to each other in a conversation.
 
 I hope this helps! Let me know if you have any other questions.
+
+
+
+-------------------------------------------------------------
+
+To set up the associations between the `User`, `Message`, and `Conversation` models, you can use the following code:
+
+```ruby
+class User < ApplicationRecord
+  has_many :conversations, dependent: :destroy
+  has_many :messages, through: :conversations
+end
+
+class Conversation < ApplicationRecord
+  has_many :messages, dependent: :destroy
+  has_many :users, through: :conversation_users
+end
+
+class ConversationUser < ApplicationRecord
+  belongs_to :user
+  belongs_to :conversation
+end
+
+class Message < ApplicationRecord
+  belongs_to :conversation
+end
+```
+
+Here, we are using a `has_many` association to link the `User` model to the `Conversation` model. We are also using a `has_many :through` association to link the `User` model to the `Message` model through the `Conversation` model. Finally, we are using a `belongs_to` association to link the `Message` model to the `Conversation` model.
+
+The `ConversationUser` model is used as a join table to link users to conversations. This allows us to have many-to-many relationships between users and conversations.
+
+I hope this helps! Let me know if you have any other questions.
+
+Kilde: Samtale med Bing, 28.10.2023
+(1) Active Record Associations — Ruby on Rails Guides. https://guides.rubyonrails.org/association_basics.html.
+(2) How To...Rails: Complex Associations, Nested Forms, and Form Helpers. https://dev.to/jessesbyers/how-to-rails-complex-associations-nested-forms-and-form-helpers-5g5k.
+(3) ruby on rails - How to Model a multi-participant conversation system .... https://stackoverflow.com/questions/25435573/how-to-model-a-multi-participant-conversation-system.
+(4) Everything There Is to Know About Associations in Rails. https://dev.to/neshaz/everything-there-is-to-know-about-associations-in-rails-52ii.
+
+
+
+To create a conversation, you can use the following code:
+
+```ruby
+user1 = User.find(1)
+user2 = User.find(2)
+conversation = Conversation.create
+ConversationUser.create(user: user1, conversation: conversation)
+ConversationUser.create(user: user2, conversation: conversation)
+```
+
+Here, we are creating two users (`user1` and `user2`) and a new conversation (`conversation`). We then create two `ConversationUser` records to link the users to the conversation.
+
+This code assumes that you have already created two users with IDs 1 and 2. If you have not yet created these users, you will need to create them first.
+
+I hope this helps! Let me know if you have any other questions.
+
+Kilde: Samtale med Bing, 28.10.2023
+(1) Create chat application using Ruby on Rails - Medium. https://medium.com/@abhishek.kanojia/create-chat-application-using-ruby-on-rails-c8ab3b83f9e3.
+(2) . https://bing.com/search?q=Ruby+on+Rails+7+create+conversation.
+(3) Tutorial: Create a simple messaging system on Rails - Medium. https://medium.com/@danamulder/tutorial-create-a-simple-messaging-system-on-rails-d9b94b0fbca1.
+(4) How to Build Chat into Ruby on Rails Applications - Twilio. https://www.twilio.com/blog/build-chat-ruby-on-rails-applications.
+(5) ruby on rails - Mailboxer: creating link to new conversation on a .... https://stackoverflow.com/questions/44411464/mailboxer-creating-link-to-new-conversation-on-a-product-page.
+(6) undefined. https://guides.rubyonrails.org/getting_started.html.
+(7) undefined. https://rubyonrails.org/2021/12/15/Rails-7-fulfilling-a-vision.
+(8) undefined. https://github.com/danarmulder/simple_rails_messaging_tutorial.
+(9) Rails Chat Application – part 1 [tutorial] - Nopio. https://www.nopio.com/blog/rails-real-time-chat-application-part-1/.
+
+
+
+
+
+
+
+To show all messages between two users in a conversation, you can use the following code:
+
+```ruby
+user1 = User.find(1)
+user2 = User.find(2)
+conversation = Conversation.find(1)
+messages = conversation.messages.where(user_id: [user1.id, user2.id])
+```
+
+Here, we are finding the two users (`user1` and `user2`) and the conversation (`conversation`) that they are a part of. We then find all messages in the conversation that were sent by either user1 or user2.
+
+This code assumes that you have already created two users with IDs 1 and 2, and a conversation with ID 1. If you have not yet created these records, you will need to create them first.
+
+I hope this helps! Let me know if you have any other questions.
+
+Kilde: Samtale med Bing, 28.10.2023
+(1) ruby on rails - How to show all messages between current user and .... https://stackoverflow.com/questions/33447144/how-to-show-all-messages-between-current-user-and-another-user.
+(2) . https://bing.com/search?q=Ruby+on+Rails+7+show+messages+between+users+in+conversation.
+(3) Create chat application using Ruby on Rails - Medium. https://medium.com/@abhishek.kanojia/create-chat-application-using-ruby-on-rails-c8ab3b83f9e3.
+(4) undefined. https://www.honeybadger.io/blog/chat-app-rails-actioncable-turbo/.
+(5) undefined. https://www.twilio.com/blog/build-chat-ruby-on-rails-applications.
+(6) ruby - How do I make messages only read by two users (private messages .... https://stackoverflow.com/questions/63654674/how-do-i-make-messages-only-read-by-two-users-private-messages-in-rails.
+(7) . https://bing.com/search?q=Ruby+on+Rails+7+show+messages+between+users+in+conversation+example.
+(8) How to Use Flash Messages in Rails - RubyGuides. https://www.rubyguides.com/2019/11/rails-flash-messages/.
+
+
+The error message you are seeing indicates that you are trying to write an attribute that does not exist in the `ConversationUser` model. This could be caused by a few different issues.
+
+One possible cause is that you have not defined the `user` or `conversation` attributes in the `ConversationUser` model. To fix this, you can add the following lines to your `ConversationUser` model:
+
+```ruby
+class ConversationUser < ApplicationRecord
+  belongs_to :user
+  belongs_to :conversation
+
+  attr_accessor :user_id, :conversation_id
+end
+```
+
+Here, we are defining the `user_id` and `conversation_id` attributes as virtual attributes using the `attr_accessor` method. This will allow you to set these attributes when creating a new `ConversationUser` record.
+
+Another possible cause of this error is that you are trying to write an attribute that is not permitted in your controller. To fix this, you can add the following line to your controller:
+
+```ruby
+params.require(:conversation_user).permit(:user_id, :conversation_id)
+```
+
+Here, we are permitting the `user_id` and `conversation_id` attributes in the `ConversationUser` model.
+
+I hope this helps! Let me know if you have any other questions.
+
+Kilde: Samtale med Bing, 28.10.2023
+(1) ruby - Rails 7 signup form doesn't show error messages - Stack Overflow. https://stackoverflow.com/questions/71751952/rails-7-signup-form-doesnt-show-error-messages.
+(2) Rails Generate model error in Ruby on Rails - Stack Overflow. https://stackoverflow.com/questions/47083292/rails-generate-model-error-in-ruby-on-rails.
+(3) ruby on rails - How to add custom errors to the User errors collection .... https://stackoverflow.com/questions/5320934/how-to-add-custom-errors-to-the-user-errors-collection.
+(4) Ruby on rails 7 User establishing error occure - Stack Overflow. https://stackoverflow.com/questions/77316083/ruby-on-rails-7-user-establishing-error-occure.
+(5) Creating and Displaying Custom Error Pages in Rails - Medium. https://medium.com/catspedia/creating-and-displaying-custom-error-pages-in-rails-56a13af319a8.
+(6) undefined. https://gorails.com/episodes/rails-for-beginners-part-11-creating-the-user-model.
