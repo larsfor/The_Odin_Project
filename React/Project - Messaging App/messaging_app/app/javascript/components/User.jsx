@@ -6,7 +6,7 @@ const User = () => {
     const [users, setUsers] = useState([])
 
     useEffect(() => {
-        const url = "api/v1/users/index";
+        const url = "/api/v1/users/index";
         fetch(url)
         .then((res) => {
             if (res.ok) {
