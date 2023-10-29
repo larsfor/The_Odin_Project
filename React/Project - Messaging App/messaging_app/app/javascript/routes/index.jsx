@@ -1,9 +1,8 @@
-import React from "react";
+import React, { createContext } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "../components/Home";
 import ErrorPage from "../components/ErrorPage";
 import Conversation from "../components/Conversation";
-import Conversations from "../components/Conversations";
 
 
 const Router = () => {
@@ -21,7 +20,9 @@ const Router = () => {
     },
   ]);
 
-  return <RouterProvider router={router} />;
+  return(
+      <RouterProvider router={router} />
+  ) 
 };
 
 export default Router;

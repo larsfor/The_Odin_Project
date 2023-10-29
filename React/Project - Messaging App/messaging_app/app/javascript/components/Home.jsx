@@ -1,14 +1,19 @@
-import React from "react";
-import { Outlet } from "react-router-dom";
+import React, { createContext } from "react";
 import Conversations from "./Conversations";
-import { Form } from "react-router-dom";
+import { Outlet, Form } from "react-router-dom";
 
-export default function Root() {
+export const ShopContext = createContext({
+  conversations: [],
+  messages: [],
+});
+
+export default function Home() {
+  const conversations = 1;
+  const messages = 2;
+
   return (
-    <>
     <div className="container">
       <header>
-
       </header>
 
       <nav>
@@ -18,13 +23,15 @@ export default function Root() {
         <hr />
         <ul>
           <li>
-            <Conversations />
+             <Conversations />
           </li>
         </ul>
       </nav>
 
       <main>
-        <Outlet />
+        <ShopContext.Provider value={{ conversations, messages }}>
+          <Outlet />
+        </ShopContext.Provider>
       </main>
 
       <aside>
@@ -33,6 +40,5 @@ export default function Root() {
       <footer>
       </footer>
     </div>
-    </>
   );
 }

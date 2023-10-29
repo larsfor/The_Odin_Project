@@ -8,4 +8,4 @@ document.addEventListener("turbo:load", () => {
       <Router />
     </React.StrictMode>
   );
-});
+})

@@ -1,15 +1,20 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
-        get 'users/index'
-        post 'users/create'
-        get 'users/show/:id', to: 'users#show'
-        delete 'users/destroy/:id', to: 'users#destroy'
+      get 'users/index'
+      post 'users/create'
+      get 'users/show/:id', to: 'users#show'
+      delete 'users/destroy/:id', to: 'users#destroy'
 
-        get 'conversations/index'
-        post 'conversations/create'
-        get 'conversations/show/:id', to: 'conversations#show'
-        delete 'conversations/destroy/:id', to: 'conversations#destroy'
+      get 'conversations/index'
+      post 'conversations/create'
+      get 'conversations/show/:id', to: 'conversations#show'
+      delete 'conversations/destroy/:id', to: 'conversations#destroy'
+
+      get 'messages/index'
+      post 'messages/create'
+      get 'messages/show/:id', to: 'messages#show'
+      delete 'messages/destroy', to: 'messages#destroy'
     end
   end
   devise_for :users
