@@ -1,44 +1,39 @@
-import React, { createContext } from "react";
-import Conversations from "./Conversations";
-import { Outlet, Form } from "react-router-dom";
-
-export const ShopContext = createContext({
-  conversations: [],
-  messages: [],
-});
+import React from "react";
+import { Outlet, Form, useLoaderData, Link } from "react-router-dom";
 
 export default function Home() {
-  const conversations = 1;
-  const messages = 2;
+  const { conversations } = useLoaderData();
 
   return (
     <div className="container">
-      <header>
-      </header>
+        <header>
+        </header>
 
-      <nav>
-        <Form id="newMessage">
-          <button type="submit">New</button>
-        </Form>
-        <hr />
-        <ul>
-          <li>
-             <Conversations />
-          </li>
-        </ul>
-      </nav>
+        <nav>
+          <Form id="newMessage">
+            <button type="submit">New</button>
+          </Form>
+          <hr />
+          <ul>
+            <li>
+              { conversations.map((conversation) => (
+                <Link key={conversation.id} to={`/conversations/${conversation.id}`}>
+                  Conversation
+                </Link>
+              ))}
+            </li>
+          </ul>
+        </nav>
 
-      <main>
-        <ShopContext.Provider value={{ conversations, messages }}>
+        <main>
           <Outlet />
-        </ShopContext.Provider>
-      </main>
+        </main>
 
-      <aside>
-      </aside>
+        <aside>
+        </aside>
 
-      <footer>
-      </footer>
-    </div>
+        <footer>
+        </footer>
+      </div>
   );
 }
