@@ -162,7 +162,7 @@ a:hover, ul:hover {
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
-.messageBox > textarea:nth-child(1) {
+.messageBox > textarea {
   width: 100%;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;

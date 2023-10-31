@@ -9,7 +9,8 @@ class Api::V1::MessagesController < ApplicationController
 
   def create
     message = Message.create!(message_params)
-    if user
+    message.sender_id = current_user.id
+    if message.save
       render json: message
     else
       render json: message.errors
@@ -32,7 +33,7 @@ class Api::V1::MessagesController < ApplicationController
   private
 
   def message_params
-    params.permit(:body, :sender_id, :conversation_id)
+    params.permit(:body, :conversation_id)
   end
 
   def set_message
