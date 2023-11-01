@@ -18,14 +18,15 @@ export default function Conversation() {
 
   function handleSubmit(e) {
     e.preventDefault();
+    // console.log(message);
     if ( message.length < 1 ) {
       console.log("Can't have empty messages.");
       return;
     }
-    createMessage(message, conversation.id)
-    .then((data) => console.log('data', data))
-    .catch((error) => console.log('error', error))
+    createMessage(message, conversation.id);
     setMessage('');
+
+    getMessages(conversation.id, setMessages)
   }
 
   function Messages() {
@@ -37,9 +38,9 @@ export default function Conversation() {
           <div>
             { messages.map((message) => {
               if (message.sender_id === conversation.starter_id) {
-                return <div key={message.id}>Starter</div>
+                return <div key={message.id}>{message.body}</div>
               } else {
-                return <div key={message.id}>Participater</div>
+                return <div key={message.id}>partic</div>
               }
             }) }
           </div>
