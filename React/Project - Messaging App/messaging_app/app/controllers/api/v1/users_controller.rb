@@ -24,6 +24,11 @@ class Api::V1::UsersController < ApplicationController
     render json: { message: 'User deleted!' }
   end
 
+  def get_uid
+    uid =  current_user.id
+    render json: uid
+  end
+
   private
 
   def user_params

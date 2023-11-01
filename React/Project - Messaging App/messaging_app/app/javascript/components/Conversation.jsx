@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Form, useLoaderData } from "react-router-dom";
-import { getConversation, getMessages, createMessage } from "../components/API";
+import { getConversation, getMessages, createMessage, getUid } from "../components/API";
+import RightMessage from "./RightMessage";
+import LeftMessage from "./LeftMessage";
 
 export async function loader({ params }) {
   const conversation = await getConversation(params.conversationId);
@@ -9,16 +11,17 @@ export async function loader({ params }) {
 
 export default function Conversation() {
   const { conversation } = useLoaderData();
-  const [messages, setMessages] = useState([])
+  const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
+  const [uid, setUid] = useState(null);
 
   useEffect(() => {
     getMessages(conversation.id, setMessages)
-  }, [])
+    getUid(setUid);
+  }, []);
 
   function handleSubmit(e) {
     e.preventDefault();
-    // console.log(message);
     if ( message.length < 1 ) {
       console.log("Can't have empty messages.");
       return;
@@ -26,31 +29,45 @@ export default function Conversation() {
     createMessage(message, conversation.id);
     setMessage('');
 
-    getMessages(conversation.id, setMessages)
+    getMessages(conversation.id, setMessages);
+  }
+
+  function ScrollToBottom() {
+    const elementRef = useRef();
+    useEffect(() => elementRef.current.scrollIntoView());
+    return <div ref={elementRef} />
   }
 
   function Messages() {
     return(
-      <>
+      <div>
         { !messages ? (
           <div>Loading...</div>
         ) : messages.length > 0 ? (
           <div>
             { messages.map((message) => {
-              if (message.sender_id === conversation.starter_id) {
-                return <div key={message.id}>{message.body}</div>
+              if (message.sender_id === uid) {
+                return (
+                  <div key={message.id} className="rightContainer">
+                    <RightMessage  message={message} />
+                  </div>
+                )
               } else {
-                return <div key={message.id}>partic</div>
+                return(
+                  <div key={message.id} className="leftContainer">
+                  <LeftMessage message={message} />
+                </div>
+                )
               }
             }) }
           </div>
         ) : (
           <div>There are no messages at the moment!</div>
         )}        
-      </>
+      <ScrollToBottom />
+      </div>
     )
-  }
-
+  };
 
   return(
     <div className="messageContainer">

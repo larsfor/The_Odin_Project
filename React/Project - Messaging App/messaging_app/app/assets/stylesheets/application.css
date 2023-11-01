@@ -151,15 +151,52 @@ a:hover, ul:hover {
 }
 
 .messageWindow {
-  display: flex;
-  align-items: flex-end;
-
-  min-height: 65vh;
+  max-height: 65vh;
   background-color: #f7f7f7;
   padding:  1rem;
   margin-bottom: 1rem;
   border-radius: 5px;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  overflow-y: scroll;
+  position: relative;
+}
+
+.rightContainer {
+  display: flex;
+  justify-content: right;
+}
+
+.rightMessage {
+  border: black solid 1px;
+  border-radius: 10px;
+  margin-bottom: 5px;
+  padding: 5px;
+  box-shadow: rgba(46, 137, 240, 0.4) 5px 5px;
+}
+
+.rightSender {
+  font-size: x-small;
+  border-bottom: 1px dotted black;
+  text-align: center;
+}
+
+.leftContainer {
+  display: flex;
+  justify-content: left;
+}
+
+.leftMessage {
+  border: black solid 1px;
+  border-radius: 10px;
+  margin-bottom: 5px;
+  padding: 5px;
+  box-shadow: rgba(240, 46, 170, 0.4) 5px 5px;
+}
+
+.leftSender {
+  font-size: x-small;
+  border-bottom: 1px dotted black;
+  text-align: center;
 }
 
 .messageBox > textarea {
@@ -173,3 +210,4 @@ a:hover, ul:hover {
   margin-top: 1rem;
   text-align: end;
 }
+

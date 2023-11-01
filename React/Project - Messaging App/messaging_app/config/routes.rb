@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       post 'users/create'
       get 'users/show/:id', to: 'users#show'
       delete 'users/destroy/:id', to: 'users#destroy'
+      get 'users/uid', to: 'users#get_uid'
 
       get 'conversations/index'
       post 'conversations/create'

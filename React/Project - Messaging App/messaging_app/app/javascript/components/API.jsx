@@ -31,7 +31,7 @@ export async function getMessages(id, setMessages) {
 export async function createMessage(body, id) {
     try {
         const CSRF = document.querySelector('meta[name="csrf-token"]').content
-        console.log(CSRF);
+        // console.log(CSRF);
         const response = await fetch('/api/v1/messages/create/', {
             method: 'POST',
             headers: {
@@ -49,5 +49,15 @@ export async function createMessage(body, id) {
     } catch(error) {
         console.log(error);
         throw new Error(error)
+    }
+}
+
+export async function getUid(setUid) {
+    try {
+        const response = await fetch("/api/v1/users/uid", {mode: 'cors'});
+        const uid = await response.json();
+        setUid(uid);
+    } catch(error) {
+        console.log(error);
     }
 }
