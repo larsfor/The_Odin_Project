@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_29_202803) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_02_213224) do
   create_table "conversation_accepters", force: :cascade do |t|
     t.integer "accepted_conversation_id"
     t.integer "conversation_accepter_id"
@@ -30,6 +30,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_29_202803) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "sender_id"
+    t.string "username"
   end
 
   create_table "users", force: :cascade do |t|
@@ -40,6 +41,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_29_202803) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

@@ -10,6 +10,7 @@ class Api::V1::MessagesController < ApplicationController
   def create
     message = Message.create!(message_params)
     message.sender_id = current_user.id
+    message.username = current_user.name
     if message.save
       render json: message
     else

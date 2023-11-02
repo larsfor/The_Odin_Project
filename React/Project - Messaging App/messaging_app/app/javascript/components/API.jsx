@@ -52,11 +52,21 @@ export async function createMessage(body, id) {
     }
 }
 
-export async function getUid(setUid) {
+export async function getCuid(setUid) {
     try {
         const response = await fetch("/api/v1/users/uid", {mode: 'cors'});
         const uid = await response.json();
         setUid(uid);
+    } catch(error) {
+        console.log(error);
+    }
+}
+
+export async function getUsers(setUsers) {
+    try {
+        const response = await fetch("/api/v1/users/index", {mode: 'cors'});
+        const users = await response.json();
+        setUsers(users);
     } catch(error) {
         console.log(error);
     }

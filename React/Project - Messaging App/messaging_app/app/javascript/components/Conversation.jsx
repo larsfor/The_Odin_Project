@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Form, useLoaderData } from "react-router-dom";
-import { getConversation, getMessages, createMessage, getUid } from "../components/API";
+import { getConversation, getMessages, createMessage, getCuid, getUsers } from "../components/API";
 import RightMessage from "./RightMessage";
 import LeftMessage from "./LeftMessage";
 
@@ -13,12 +13,16 @@ export default function Conversation() {
   const { conversation } = useLoaderData();
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
-  const [uid, setUid] = useState(null);
+  const [cuid, setCuid] = useState(null);
+  const [users, setUsers] = useState();
 
   useEffect(() => {
     getMessages(conversation.id, setMessages)
-    getUid(setUid);
+    getCuid(setCuid);
+    getUsers(setUsers);
   }, []);
+
+  // console.log(users);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -46,16 +50,16 @@ export default function Conversation() {
         ) : messages.length > 0 ? (
           <div>
             { messages.map((message) => {
-              if (message.sender_id === uid) {
+              if (message.sender_id === cuid) {
                 return (
                   <div key={message.id} className="rightContainer">
-                    <RightMessage  message={message} />
+                    <RightMessage message={message} />
                   </div>
                 )
               } else {
                 return(
                   <div key={message.id} className="leftContainer">
-                  <LeftMessage message={message} />
+                  <LeftMessage message={message}/>
                 </div>
                 )
               }
@@ -72,9 +76,24 @@ export default function Conversation() {
   return(
     <div className="messageContainer">
       <Form onSubmit={handleSubmit}>
-          <h1>
-            Conversation with: 
-          </h1>
+          <h2>
+            Conversation with:
+            </h2>
+            <h3>
+          { !users ? (
+          <div>Loading...</div>
+        ) : users.length > 0 ? (
+          <div>
+            { users.map((user) => {
+                return (
+                  ""+user.name+" | "
+                )
+            }) }
+          </div>
+        ) : (
+          <div>There are no users at the moment!</div>
+        )}   
+            </h3>
         <hr />
         <div className="messageWindow">
           <Messages />

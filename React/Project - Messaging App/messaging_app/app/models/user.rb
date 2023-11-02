@@ -8,4 +8,6 @@ class User < ApplicationRecord
   has_many :accepted_conversations, through: :conversation_accepters
 
   has_many :started_conversations, foreign_key: :starter_id, class_name: 'Conversation'
+
+  # has_many :messages
 end
