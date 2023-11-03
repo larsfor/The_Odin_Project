@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Form, useLoaderData } from "react-router-dom";
-import { getConversation, getMessages, createMessage, getCuid, getUsers } from "../components/API";
+import { getConversation, getMessages, createMessage, getCuid } from "../components/API";
 import RightMessage from "./RightMessage";
 import LeftMessage from "./LeftMessage";
 
@@ -14,15 +14,11 @@ export default function Conversation() {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
   const [cuid, setCuid] = useState(null);
-  const [users, setUsers] = useState();
 
   useEffect(() => {
     getMessages(conversation.id, setMessages)
     getCuid(setCuid);
-    getUsers(setUsers);
   }, []);
-
-  // console.log(users);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -37,9 +33,12 @@ export default function Conversation() {
   }
 
   function ScrollToBottom() {
-    const elementRef = useRef();
-    useEffect(() => elementRef.current.scrollIntoView());
-    return <div ref={elementRef} />
+    const element = document.querySelector(".messageWindow");
+    if ( !element ) {
+      return
+    } else {
+      element.scrollTo(0, element.scrollHeight)
+    }
   }
 
   function Messages() {
@@ -47,8 +46,8 @@ export default function Conversation() {
       <div>
         { !messages ? (
           <div>Loading...</div>
-        ) : messages.length > 0 ? (
-          <div>
+          ) : messages.length > 0 ? (
+            <div>
             { messages.map((message) => {
               if (message.sender_id === cuid) {
                 return (
@@ -67,8 +66,8 @@ export default function Conversation() {
           </div>
         ) : (
           <div>There are no messages at the moment!</div>
-        )}        
-      <ScrollToBottom />
+          )}        
+        <ScrollToBottom />
       </div>
     )
   };
@@ -77,23 +76,8 @@ export default function Conversation() {
     <div className="messageContainer">
       <Form onSubmit={handleSubmit}>
           <h2>
-            Conversation with:
-            </h2>
-            <h3>
-          { !users ? (
-          <div>Loading...</div>
-        ) : users.length > 0 ? (
-          <div>
-            { users.map((user) => {
-                return (
-                  ""+user.name+" | "
-                )
-            }) }
-          </div>
-        ) : (
-          <div>There are no users at the moment!</div>
-        )}   
-            </h3>
+            Conversation { conversation.id }:
+          </h2>
         <hr />
         <div className="messageWindow">
           <Messages />

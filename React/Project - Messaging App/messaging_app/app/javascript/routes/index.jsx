@@ -3,7 +3,9 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "../components/Home";
 import ErrorPage from "../components/ErrorPage";
 import Conversation, { loader as conversationLoader } from "../components/Conversation";
+import User, { loader as userLoader } from "../components/Profile";
 import { getConversations } from "../components/API"
+import Profile from "../components/Profile";
 
 export async function conversationsLoader() {
   const conversations = await getConversations();
@@ -22,6 +24,11 @@ const Router = () => {
           path: "conversations/:conversationId",
           element: <Conversation />,
           loader: conversationLoader
+        },
+        {
+          path: "users/:userId",
+          element: <Profile />,
+          loader: userLoader
         },
       ],
     },

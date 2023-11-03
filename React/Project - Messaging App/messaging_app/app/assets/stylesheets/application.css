@@ -151,7 +151,7 @@ a:hover, ul:hover {
 }
 
 .messageWindow {
-  max-height: 65vh;
+  max-height: 70vh;
   background-color: #f7f7f7;
   padding:  1rem;
   margin-bottom: 1rem;
@@ -164,6 +164,7 @@ a:hover, ul:hover {
 .rightContainer {
   display: flex;
   justify-content: right;
+  padding-left: 5rem;
 }
 
 .rightMessage {
@@ -183,6 +184,8 @@ a:hover, ul:hover {
 .leftContainer {
   display: flex;
   justify-content: left;
+  padding-right: 5rem;
+
 }
 
 .leftMessage {

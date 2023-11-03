@@ -71,3 +71,14 @@ export async function getUsers(setUsers) {
         console.log(error);
     }
 }
+
+export async function getCU(id) {
+    console.log(id);
+    try {
+        const response = await fetch(`/api/v1/users/show/${id}`, {mode: 'cors'});
+        const cu = await response.json();
+        return cu;
+    } catch(error) {
+        console.log(error);
+    }
+}

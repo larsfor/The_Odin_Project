@@ -25,8 +25,8 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def get_uid
-    uid =  current_user.id
-    render json: uid
+    cuid =  current_user.id
+    render json: cuid
   end
 
   private

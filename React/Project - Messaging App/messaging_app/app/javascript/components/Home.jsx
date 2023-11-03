@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Outlet, Form, useLoaderData, Link } from "react-router-dom";
+import { getCuid } from "../components/API";
+
 
 export default function Home() {
   const { conversations } = useLoaderData();
+  const [cuid, setCuid] = useState(null);
+
+  useEffect(() => {
+    getCuid(setCuid);
+  })
 
   return (
     <div className="container">
@@ -18,7 +25,7 @@ export default function Home() {
             <li>
               { conversations.map((conversation) => (
                 <Link key={conversation.id} to={`/conversations/${conversation.id}`}>
-                  Conversation
+                  Conversation { conversation.id }
                 </Link>
               ))}
             </li>
@@ -30,6 +37,11 @@ export default function Home() {
         </main>
 
         <aside>
+          <Link to={`/users/${cuid}`}>
+              <button>
+                Profile
+              </button>
+            </Link>
         </aside>
 
         <footer>
